@@ -3,7 +3,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <f:view contentType="text/html">
         <h:head>
@@ -40,18 +40,23 @@
                     </p:menu>
                 </p:layoutUnit>
 
-                <p:layoutUnit position="center">
-                    Welcome to PrimeFaces
 
-                    <h:form>
+                <h:form>
+                    <p:layoutUnit position="center">
+                        Welcome to PrimeFaces
+                        <p:commandButton value="Trazar" id="withIcon" actionListener="#{markerSelectionView.trazarPoly}"/>
+                        
                         <p:growl id="growl" showDetail="true" />
-                        <p:gmap id="gmap"  center="32.624,-115.452" zoom="16" type="HYBRID"  model="#{markerSelectionView.simpleModel}" style="width:150%;height:500px">
-                            <p:ajax event="overlaySelect" listener="#{markerSelectionView.onMarkerSelect}" update="growl" />
+                        <p:gmap id="gmap"  center="32.624,-115.452" zoom="16" type="ROADMAP"  model="#{markerSelectionView.simpleModel}" style="width:150%;height:500px">
+                            <p:ajax event="overlaySelect" listener="#{markerSelectionView.onMarkerSelect}" update="growl"/>
                         </p:gmap> 
-                    </h:form>
 
-                </p:layoutUnit>
+
+                    </p:layoutUnit>
+                </h:form>
             </p:layout>
+            
+
 
         </h:body>
 

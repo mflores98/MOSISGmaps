@@ -19,16 +19,15 @@ and open the template in the editor.
     </h:head>
     <h:body>
 
-       
-        <p:dataTable value="#{etiquetasBean.listar()}">
-            <p:column headerText="LATITUD">
-                <h:outputText value="#{etiquetasBean.etiqueta.latitud}" />
-            </p:column>
+        <!--
+        etiquetasBean.listar()
+        -->
+        <h:form>          
+            <p:growl id="growl" life="3000" />
 
-            <p:column headerText="LONGITUD">
-                <h:outputText value="#{etiquetasBean.etiqueta.longitud}" />
-            </p:column>
-
-        </p:dataTable>
+            <p:gmap id="gmap" center="32.624,-115.452" zoom="16" type="HYBRID" style="width:100%;height:600px" model="#{polylinesView.polylineModel}">
+                <p:ajax event="overlaySelect" listener="#{polylinesView.onPolylineSelect}" update="growl" />
+            </p:gmap>                 
+        </h:form>
     </h:body>
 </html>

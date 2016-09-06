@@ -9,6 +9,7 @@ import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.Etiquetas;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -16,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.eclipse.jdt.internal.compiler.lookup.TypeConstants;
+import org.primefaces.component.gmap.GMap;
 import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.model.map.DefaultMapModel;
 import org.primefaces.model.map.LatLng;
@@ -32,17 +34,21 @@ import org.primefaces.model.map.Polyline;
 public class MarkerSelectionView implements Serializable {
 
     private MapModel simpleModel;
-    private MapModel polylineModel;
+//    private MapModel polylineModel;
 
-    public MapModel getPolylineModel() {
-        return polylineModel;
-    }
-
-    public void setPolylineModel(MapModel polylineModel) {
-        this.polylineModel = polylineModel;
-    }
+//    public MapModel getPolylineModel() {
+//        return polylineModel;
+//    }
+//
+//    public void setPolylineModel(MapModel polylineModel) {
+//        this.polylineModel = polylineModel;
+//    }
 
     private Marker marker;
+
+    public Marker getMarker() {
+        return marker;
+    }
 
     @PostConstruct
     public void init() {
@@ -66,32 +72,71 @@ public class MarkerSelectionView implements Serializable {
     public MapModel getSimpleModel() {
         return simpleModel;
     }
+    private LinkedList linkedList;
 
-    public void onMarkerSelect(OverlaySelectEvent event) {
+    public void trazarPoly() {
         try {
+            simpleModel = new DefaultMapModel();
 
-            marker = (Marker) event.getOverlay();
+            List<Etiquetas> datos = ServiceFacadeLocator.getInstanceEtiquetas().getAllEtiquetas();
 
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Selected", marker.getTitle()));
-            System.out.println("seleccionado: " + marker.getLatlng());
+            List<LatLng> puntos = new ArrayList<>();
+            for (Etiquetas dato : datos) {
+                LatLng latLng = new LatLng(dato.getLatitud(), dato.getLongitud());
+                puntos.add(latLng);
+            }
 
-            polylineModel = new DefaultMapModel();
+            //Polyline
             Polyline polyline = new Polyline();
-            LatLng latLng = new LatLng(marker.getLatlng().getLat(), marker.getLatlng().getLng());
-            polyline.getPaths().add(latLng);
+
+            polyline.getPaths().addAll(puntos);
+
             polyline.setStrokeWeight(10);
             polyline.setStrokeColor("#FF9900");
             polyline.setStrokeOpacity(0.7);
 
-            polylineModel.addOverlay(polyline);
+            simpleModel.addOverlay(polyline);
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+        }
+    }
 
+    public void onMarkerSelect(OverlaySelectEvent event) {
+        Etiquetas etiquetas = new Etiquetas();
+        LinkedList list = new LinkedList();
+
+        marker = (Marker) event.getOverlay();
+        try {
+            if (marker != null) {
+                linkedList = new LinkedList();
+                linkedList.add(marker.getLatlng());
+                list.add(linkedList);
+            }
+            System.out.println(list.poll());
+
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Selected: ", marker.getTitle()));
+///////////////////////////////////////////
+//            try {
+//                polylineModel = new DefaultMapModel();
+//                Polyline polyline = new Polyline();
+//                if (marker != null) {
+//                    LatLng latLng = new LatLng(marker.getLatlng().getLat(), marker.getLatlng().getLng());
+//                    polyline.getPaths().add(latLng);
+//                    polyline.setStrokeWeight(10);
+//                    polyline.setStrokeColor("#FF9900");
+//                    polyline.setStrokeOpacity(0.7);
+//                    polylineModel.addOverlay(polyline);
+//                    System.out.println("marker");
+//                }
+//            } catch (Exception e) {
+//                System.out.println("error");
+//            }
+
+///////////////////////////////////////////
         } catch (Exception e) {
             System.out.println("Error: " + e.getLocalizedMessage());
             e.getStackTrace();
         }
     }
 
-    public Marker getMarker() {
-        return marker;
-    }
 }
