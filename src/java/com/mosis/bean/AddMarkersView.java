@@ -83,8 +83,6 @@ public class AddMarkersView implements Serializable {
     }
 
     /**
-     * no esta funcionando
-     *
      * @param event
      */
     public void clicMarker(OverlaySelectEvent event) {
