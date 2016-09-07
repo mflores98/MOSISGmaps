@@ -40,22 +40,21 @@
                     </p:menu>
                 </p:layoutUnit>
 
-
                 <h:form>
+                    <p:growl id="growl" showDetail="true" />
+
                     <p:layoutUnit position="center">
                         Welcome to PrimeFaces
-                        <p:commandButton value="Trazar" id="withIcon" actionListener="#{markerSelectionView.trazarPoly}"/>
-                        
-                        <p:growl id="growl" showDetail="true" />
-                        <p:gmap id="gmap"  center="32.624,-115.452" zoom="16" type="ROADMAP"  model="#{markerSelectionView.simpleModel}" style="width:150%;height:500px">
-                            <p:ajax event="overlaySelect" listener="#{markerSelectionView.onMarkerSelect}" update="growl"/>
+                       <p:gmap id="map"  center="32.624,-115.452" zoom="16" type="ROADMAP"  model="#{markerSelectionView.simpleModel}" style="width:150%;height:500px">
+                            <p:ajax event="overlaySelect" listener="#{markerSelectionView.onClicMarker}" update="growl"/>         
                         </p:gmap> 
+
 
 
                     </p:layoutUnit>
                 </h:form>
             </p:layout>
-            
+
 
 
         </h:body>

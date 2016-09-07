@@ -44,8 +44,9 @@ public class PolylinesView implements Serializable {
             Polyline polyline = new Polyline();
             
             polyline.getPaths().addAll(puntos);
-            
-            polyline.setStrokeWeight(10);
+//            polyline.getPaths().add(new LatLng(32.6352261, -115.4119502));
+//            polyline.getPaths().add(new LatLng(32.6352261, -115.411));
+            polyline.setStrokeWeight(15);
             polyline.setStrokeColor("#FF9900");
             polyline.setStrokeOpacity(0.7);
 
