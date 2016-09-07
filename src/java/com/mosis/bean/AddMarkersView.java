@@ -5,7 +5,12 @@
  */
 package com.mosis.bean;
 
+import com.mosis.business.integration.ServiceFacadeLocator;
+import com.mosis.entity.Etiquetas;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -14,15 +19,20 @@ import org.primefaces.model.map.LatLng;
 import org.primefaces.model.map.MapModel;
 import org.primefaces.model.map.Marker;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ViewScoped;
+import org.primefaces.event.map.OverlaySelectEvent;
+import org.primefaces.model.map.Polyline;
 
 /**
  *
  * @author Owner
  */
 @ManagedBean
+@ViewScoped
 public class AddMarkersView implements Serializable {
 
     private MapModel emptyModel;
+    private Marker marker;
 
     private String title;
 
@@ -33,6 +43,15 @@ public class AddMarkersView implements Serializable {
     @PostConstruct
     public void init() {
         emptyModel = new DefaultMapModel();
+        System.out.println("Entra denuevo");
+        List<Etiquetas> datos = ServiceFacadeLocator.getInstanceEtiquetas().getAllEtiquetas();
+        List<LatLng> puntos = new ArrayList<>();
+        for (Etiquetas punto : datos) {
+            LatLng latLng = new LatLng(punto.getLatitud(), punto.getLongitud());
+            puntos.add(latLng);
+            emptyModel.addOverlay(new Marker(latLng, punto.getNombre(), punto.getValorTag()));
+        }
+
     }
 
     public MapModel getEmptyModel() {
@@ -63,11 +82,37 @@ public class AddMarkersView implements Serializable {
         this.lng = lng;
     }
 
+    /**
+     * no esta funcionando
+     *
+     * @param event
+     */
+    public void clicMarker(OverlaySelectEvent event) {
+        marker = (Marker) event.getOverlay();
+        System.out.println("clic: " + marker.getLatlng());
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Clic en Marker", "Nombre:" + marker.getTitle()));
+    }
+
     public void addMarker() {
         Marker marker = new Marker(new LatLng(lat, lng), title);
         emptyModel.addOverlay(marker);
-        
-
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
+
+        Polyline polyline = new Polyline();
+        polyline.getPaths().add(marker.getLatlng());
+        polyline.setStrokeWeight(15);
+        polyline.setStrokeColor("#FF9900");
+        polyline.setStrokeOpacity(0.7);
+
+        emptyModel.addOverlay(polyline);
+
+    }
+
+    public Marker getMarker() {
+        return marker;
+    }
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
     }
 }

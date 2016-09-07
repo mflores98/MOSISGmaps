@@ -7,6 +7,7 @@ package com.mosis.bean;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.Etiquetas;
+import com.mosis.entity.Rutas;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,12 +56,20 @@ public class MarkerSelectionView implements Serializable {
             simpleModel.addOverlay(new Marker(latLng, punto.getNombre(), punto.getValorTag()));
         }
 
+//        Rutas ruta = ServiceFacadeLocator.getInstanceRuta().getRuta(6);
+        
+        
+
         Polyline polyline = new Polyline();
         polyline.getPaths().addAll(puntos);
+//        polyline.getPaths().add(new LatLng(ruta.getFkIdEtiquetaA().getLatitud(), ruta.getFkIdEtiquetaA().getLongitud()));
+//        polyline.getPaths().add(new LatLng(ruta.getFkIdEtiquetaB().getLatitud(), ruta.getFkIdEtiquetaB().getLongitud()));
+//        
+        
         polyline.setStrokeColor("#ff0000");
         polyline.setStrokeOpacity(0.7);
+        
         simpleModel.addOverlay(polyline);
-
     }
 
     public MapModel getSimpleModel() {
