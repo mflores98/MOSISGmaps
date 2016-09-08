@@ -9,7 +9,6 @@ import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.Etiquetas;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -95,9 +94,16 @@ public class AddMarkersView implements Serializable {
         Marker marker = new Marker(new LatLng(lat, lng), title);
         emptyModel.addOverlay(marker);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Added", "Lat:" + lat + ", Lng:" + lng));
-
+        /*
+         clic: Lat:32.62453889999999, Lng:-115.45226230000003
+         clic: Lat:32.62, Lng:-115.452262
+         */
         Polyline polyline = new Polyline();
-        polyline.getPaths().add(marker.getLatlng());
+//        polyline.getPaths().add(marker.getLatlng());
+        polyline.getPaths().add(new LatLng(32.62453889999999, -115.45226230000003));
+        polyline.getPaths().add(new LatLng(32.62, -115.452262));
+
+        
         polyline.setStrokeWeight(15);
         polyline.setStrokeColor("#FF9900");
         polyline.setStrokeOpacity(0.7);

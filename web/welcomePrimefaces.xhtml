@@ -45,8 +45,7 @@
                     <p:layoutUnit position="center">
                         Welcome to PrimeFaces
                         <p:gmap id="map"  center="32.6353749,-115.4120134" zoom="18" type="ROADMAP"  model="#{markerSelectionView.simpleModel}" style="width:150%;height:680px">
-                            <p:ajax event="overlaySelect" listener="#{markerSelectionView.onClicMarker}" update="growl"/>    
-                            
+                            <p:ajax event="overlaySelect" listener="#{markerSelectionView.onClicMarker}" update="growl"/>   
                         </p:gmap> 
                     </p:layoutUnit>
                 </h:form>

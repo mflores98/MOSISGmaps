@@ -45,6 +45,20 @@ and open the template in the editor.
 
         <script type="text/javascript">
             var currentMarker = null;
+            var currentPolyline = null;
+
+            function handleMarkClick(event) {
+                if (currentPolyline === null) {
+                    document.getElementById('').value = event.latLng.lat();
+                    document.getElementById('').value = event.latLng.lng();
+                    currentPolyline = new google.maps.Polyline({
+                        position: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng())
+                    }
+                    );
+                    PF('map').addOverlay(currentPolyline);
+                    PF('dlg').show();
+                }
+            }
 
             function handlePointClick(event) {
                 if (currentMarker === null) {

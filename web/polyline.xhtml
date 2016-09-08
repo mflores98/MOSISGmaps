@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>PrimeFaces</title>
+            </f:facet>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApNU7BgvLAc9I_Rk6dDVHMezJSQz-P4hM"
+            type="text/javascript"></script>
+        </h:head>
+        <h:body>     
+            <h:form>
+                <p:growl id="growl" showDetail="true" />
+                <p:layoutUnit position="center">
+                    Welcome to PrimeFaces
+                    <p:gmap id="map"  center="32.6353749,-115.4120134" zoom="18" type="ROADMAP"  model="#{polylines.simpleModel}" style="width:150%;height:680px">
+                        <p:ajax event="overlaySelect" listener="#{polylines.clicMarker}" update="growl"/>    
+
+                    </p:gmap> 
+                </p:layoutUnit>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
