@@ -36,25 +36,41 @@ public class Polylines implements Serializable {
 
         try {
             simpleModel = new DefaultMapModel();
+            /*
+            
+             List<LatLng> puntosA = new ArrayList<>();
+             List<LatLng> puntosB = new ArrayList<>();
+             List<Rutas> rutas = ServiceFacadeLocator.getInstanceRuta().getListaRutas();
+             for (Rutas ruta : rutas) {
+             //punto a
+             LatLng latLngA = new LatLng(ruta.getFkIdEtiquetaA().getLatitud(), ruta.getFkIdEtiquetaA().getLongitud());
+             //punto b
+             LatLng latLngB = new LatLng(ruta.getFkIdEtiquetaB().getLatitud(), ruta.getFkIdEtiquetaB().getLongitud());
+             puntosA.add(latLngA);
+             puntosB.add(latLngB);
+             simpleModel.addOverlay(new Marker(latLngA, "A"));
+             simpleModel.addOverlay(new Marker(latLngB, "B"));
+             }
+             Polyline polyline = new Polyline();
+             polyline.getPaths().addAll(puntosA);
+             polyline.getPaths().addAll(puntosB);
+             polyline.setStrokeWeight(10);
 
-            List<LatLng> puntosA = new ArrayList<>();
-            List<LatLng> puntosB = new ArrayList<>();
-            List<Rutas> rutas = ServiceFacadeLocator.getInstanceRuta().getListaRutas();
+             polyline.setStrokeColor("#ff0000");
+             polyline.setStrokeOpacity(0.7);
+             simpleModel.addOverlay(polyline);
+             */
 
-            for (Rutas ruta : rutas) {
-                //punto a
-                LatLng latLngA = new LatLng(ruta.getFkIdEtiquetaA().getLatitud(), ruta.getFkIdEtiquetaA().getLongitud());
-                //punto b
-                LatLng latLngB = new LatLng(ruta.getFkIdEtiquetaB().getLatitud(), ruta.getFkIdEtiquetaB().getLongitud());
-                puntosA.add(latLngA);
-                puntosB.add(latLngB);
-                simpleModel.addOverlay(new Marker(latLngA, "A"));
-                simpleModel.addOverlay(new Marker(latLngB, "B"));
-            }
+            Rutas r = ServiceFacadeLocator.getInstanceRuta().getRuta(1);
+            simpleModel.addOverlay(new Marker(new LatLng(r.getFkIdEtiquetaA().getLatitud(), r.getFkIdEtiquetaA().getLongitud()), "A"));
+            simpleModel.addOverlay(new Marker(new LatLng(r.getFkIdEtiquetaB().getLatitud(), r.getFkIdEtiquetaB().getLongitud()), "B"));
 
             Polyline polyline = new Polyline();
-            polyline.getPaths().addAll(puntosA);
-            polyline.getPaths().addAll(puntosB);
+            polyline.getPaths().add(new LatLng(r.getFkIdEtiquetaA().getLatitud(), r.getFkIdEtiquetaA().getLongitud()));
+            polyline.getPaths().add(new LatLng(r.getFkIdEtiquetaB().getLatitud(), r.getFkIdEtiquetaB().getLongitud()));
+            polyline.setStrokeWeight(10);
+            polyline.setStrokeColor("#ff0000");
+            polyline.setStrokeOpacity(0.7);
             simpleModel.addOverlay(polyline);
 
         } catch (Exception e) {
@@ -69,20 +85,11 @@ public class Polylines implements Serializable {
     public void clicMarker(OverlaySelectEvent event) {
         marker = (Marker) event.getOverlay();
         System.out.println("" + marker.getLatlng());
-        
+
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,
                 "punto: lat: " + marker.getLatlng().getLat(), ", lng" + marker.getLatlng().getLng() + " " + marker.getTitle()));
     }
 
-//    public static void main(String[] args) {
-//        List<Rutas> rutas = ServiceFacadeLocator.getInstanceRuta().getListaRutas();
-//        for (Rutas ruta : rutas) {
-//            //punto a
-//            System.out.println("lat A: " + ruta.getFkIdEtiquetaA().getLatitud() + " A lng: " + ruta.getFkIdEtiquetaA().getLongitud());
-//            //punto b
-//            System.out.println("lat B: " + ruta.getFkIdEtiquetaB().getLatitud() + " B lng: " + ruta.getFkIdEtiquetaB().getLongitud());
-//        }
-//    }
     public Marker getMarker() {
         return marker;
     }
