@@ -18,41 +18,49 @@ and open the template in the editor.
         <div>TODO write content</div>
         <h:form>
             <h:panelGrid>
-                <p:outputLabel for="basic" value="Tipo de empleado:" />
-                <p:selectOneListbox id="basic">
-                    <f:selectItem itemLabel="Option 1" itemValue="1" />
-                    <f:selectItem itemLabel="Option 2" itemValue="2" />
-                    <f:selectItem itemLabel="Option 3" itemValue="3" />
-                </p:selectOneListbox>
-
-                <p:outputLabel for="basic2" value="Tipo de empleado:" />
-                <p:selectOneListbox id="basic2">
-                    <f:selectItem itemLabel="Option 1" itemValue="1" />
-                    <f:selectItem itemLabel="Option 2" itemValue="2" />
-                    <f:selectItem itemLabel="Option 3" itemValue="3" />
-                </p:selectOneListbox>
 
                 <p:outputLabel value="Numero "></p:outputLabel>
-                <p:inputText label="Ingresar numero"/>
-                <h:commandButton value="Aceptar"></h:commandButton>
+                <p:inputText label="Ingresar numero" value="#{empleadoUI.empleadoHelper.numero}"/>
+
+                <p:outputLabel value="Nombre "></p:outputLabel>
+                <p:inputText label="Ingresar Nombre" value="#{empleadoUI.empleadoHelper.nombre}"/>
+
+                <p:outputLabel value="apellido paterno"></p:outputLabel>
+                <p:inputText label="Ingresar Apellido Paterno" value="#{empleadoUI.empleadoHelper.ap}"/>
+
+                <p:outputLabel value="apellido materno "></p:outputLabel>
+                <p:inputText label="Ingresar Apellido materno" value="#{empleadoUI.empleadoHelper.am}"/>
+
+                <h:selectOneMenu id="txt3" value="#{empleadoUI.empleadoHelper.te}" required="true" label="Text 3">
+                    <f:selectItems value="#{empleadoUI.listTipoEmpleado}" var="entidad" itemValue="#{entidad.idTipoEmpleado}" itemLabel="#{entidad.tipoEmpleado}"/>
+                </h:selectOneMenu> 
+
+                <p:message for="txt3" />
+                <h:outputText value="#{empleadoUI.empleadoHelper.te}" />
+
+                <h:commandButton value="Aceptar" actionListener="#{empleadoUI.empleadoHelper.insertPersonaEmpleado()}"></h:commandButton>
             </h:panelGrid>
 
             <p:dataTable var="emp" value="#{empleadoUI.listEmpleados}">
+                
                 <p:column headerText="Id">
                     <h:outputText value="#{emp.idEmpleado}" />
                 </p:column>
-
                 <p:column headerText="Numero">
                     <h:outputText value="#{emp.numeroEmpleado}" />
                 </p:column>
-
-                <p:column headerText="TipoEmp">
+                <p:column headerText="TipoEmpleado">
                     <h:outputText value="#{emp.fkIdTipoEmpleado.tipoEmpleado}" />
                 </p:column>
-
                 <p:column headerText="Nombre">
                     <h:outputText value="#{emp.fkIdPersona.nombre}" />
                 </p:column>
+                <p:column headerText="Apellido">
+                    <h:outputText value="#{emp.fkIdPersona.apellidoPaterno}" />
+                </p:column>
+
+
+
             </p:dataTable>
         </h:form>
     </h:body>

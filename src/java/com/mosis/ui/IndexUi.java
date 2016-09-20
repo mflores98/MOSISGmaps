@@ -23,8 +23,8 @@ public class IndexUi implements Serializable {
 //    private MarkerSelectionView markerSelectionView;
 
     public IndexUi() {
-        ayudante = new EtiquetaHelper();
-//        markerSelectionView = new MarkerSelectionView();
+        //ayudante = new EtiquetaHelper();
+        // markerSelectionView = new MarkerSelectionView();
         ayudanteEmpleado = new EmpleadoHelper();
     }
 

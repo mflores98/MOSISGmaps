@@ -5,9 +5,10 @@
  */
 package com.mosis.ui;
 
+import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.Empleado;
+import com.mosis.entity.TipoEmpleado;
 import com.mosis.helper.EmpleadoHelper;
-import com.sun.media.sound.EmergencySoundbank;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -58,4 +59,9 @@ public class EmpleadoUI {
     public List<Empleado> getListEmpleados() {
         return this.empleadoHelper.getDelegateEmpleado().getListEmpleados();
     }
+
+    public List<TipoEmpleado> getListTipoEmpleado() {
+        return ServiceFacadeLocator.getInstanceTipoEmpleado().getListTipoEmpleado();
+    }
+
 }
