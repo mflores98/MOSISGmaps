@@ -15,7 +15,6 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <div>TODO write content</div>
         <h:form>
             <h:panelGrid>
 
@@ -40,9 +39,12 @@ and open the template in the editor.
 
                 <h:commandButton value="Aceptar" actionListener="#{empleadoUI.empleadoHelper.insertPersonaEmpleado()}"></h:commandButton>
             </h:panelGrid>
+            
+            
+            
 
             <p:dataTable var="emp" value="#{empleadoUI.listEmpleados}">
-                
+
                 <p:column headerText="Id">
                     <h:outputText value="#{emp.idEmpleado}" />
                 </p:column>
