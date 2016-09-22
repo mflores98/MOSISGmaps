@@ -19,10 +19,10 @@ and open the template in the editor.
         <h:form>
             <h:panelGrid>
                 <p:outputLabel value="Nombre de ronda"></p:outputLabel>
-                <p:inputText value=""/>
+                <p:inputText value="#{rondasUI.rondasHelper.nombre}"/>
 
                 <p:outputLabel value="Tiempo estimado:"></p:outputLabel>
-                <p:inputText value=""></p:inputText>
+                <p:inputText value="#{rondasUI.rondasHelper.tiempoEstimando}"></p:inputText>
 
 
                 <h:outputText value="status: " />
