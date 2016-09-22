@@ -36,9 +36,9 @@ and open the template in the editor.
                     <f:selectItems value="#{rondasUI.listCtoHorarios}" var="horario" itemValue="#{horario.idHorario}" itemLabel="#{horario.horaInicial}"/>
                 </h:selectOneMenu>
 
-                <h:commandButton value="Agregar" actionListener="#{rondasUI.rondasHelper.agregarRonda()}"></h:commandButton>
-             
-        
+                <h:commandButton value="submit" actionListener="#{rondasUI.rondasHelper.agregarRonda()}"></h:commandButton>
+  
+    </h:panelGrid>
 
 
             <p:dataTable var="ronda" value="#{rondasUI.listRondas}">
@@ -64,8 +64,6 @@ and open the template in the editor.
                 </p:column>
 
             </p:dataTable>
-
-    </h:panelGrid>
 
 
 

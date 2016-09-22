@@ -57,7 +57,8 @@ public class EmpleadoUI {
     }
 
     public List<Empleado> getListEmpleados() {
-        return this.empleadoHelper.getDelegateEmpleado().getListEmpleados();
+//        return this.empleadoHelper.getDelegateEmpleado().getListEmpleados();
+        return ServiceFacadeLocator.getInstanceEmpleado().getListEmpleados();
     }
 
     public List<TipoEmpleado> getListTipoEmpleado() {

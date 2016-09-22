@@ -29,22 +29,34 @@ public class RondasUI {
         rondasHelper=new RondasHelper();
     }
 
+    /**
+     * @return the rondas
+     */
     public Rondas getRondas() {
         return rondas;
     }
 
+    /**
+     * @param rondas the rondas to set
+     */
     public void setRondas(Rondas rondas) {
         this.rondas = rondas;
     }
 
+    /**
+     * @return the rondasHelper
+     */
     public RondasHelper getRondasHelper() {
         return rondasHelper;
     }
 
+    /**
+     * @param rondasHelper the rondasHelper to set
+     */
     public void setRondasHelper(RondasHelper rondasHelper) {
         this.rondasHelper = rondasHelper;
     }
-
+  
     public List<CtoServicio> getListCtoServicio() {
         return ServiceFacadeLocator.getInstanceCtoServicio().getListCtoServicios();
     }

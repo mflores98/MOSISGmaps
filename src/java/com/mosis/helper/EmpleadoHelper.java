@@ -6,7 +6,6 @@
 package com.mosis.helper;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
-import com.mosis.delegate.DelegateEmpleado;
 import com.mosis.entity.TipoEmpleado;
 import java.io.Serializable;
 
@@ -16,7 +15,7 @@ import java.io.Serializable;
  */
 public class EmpleadoHelper implements Serializable {
 
-    private DelegateEmpleado delegateEmpleado;
+    //private DelegateEmpleado delegateEmpleado;
 
     private String numero;
     private String nombre;
@@ -26,22 +25,22 @@ public class EmpleadoHelper implements Serializable {
     private int fkIdTipoEmpleado;
 
     public EmpleadoHelper() {
-        delegateEmpleado = new DelegateEmpleado();
+     //   delegateEmpleado = new DelegateEmpleado();
     }
 
     /**
      * @return the delegateEmpleado
      */
-    public DelegateEmpleado getDelegateEmpleado() {
-        return delegateEmpleado;
-    }
+//    public DelegateEmpleado getDelegateEmpleado() {
+//        return delegateEmpleado;
+//    }
 
     /**
      * @param delegateEmpleado the delegateEmpleado to set
      */
-    public void setDelegateEmpleado(DelegateEmpleado delegateEmpleado) {
-        this.delegateEmpleado = delegateEmpleado;
-    }
+//    public void setDelegateEmpleado(DelegateEmpleado delegateEmpleado) {
+//        this.delegateEmpleado = delegateEmpleado;
+//    }
 
     public void insertPersonaEmpleado() throws Exception {
         TipoEmpleado tr = ServiceFacadeLocator.getInstanceTipoEmpleado().getTipoEmpleadoID(fkIdTipoEmpleado);
