@@ -15,7 +15,6 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <div>TODO write content</div>
 
         <h:form>
             <h:panelGrid>
@@ -25,20 +24,23 @@ and open the template in the editor.
                 <p:outputLabel value="Tiempo estimado:"></p:outputLabel>
                 <p:inputText value=""></p:inputText>
 
-                <p:outputLabel value="status:"></p:outputLabel>       
 
-                <p:selectBooleanButton id="value1" value="#{rondasUI.rondasHelper.status}" onLabel="Yes" offLabel="No" style="width:60px" />
+                <h:outputText value="status: " />
+                <p:selectBooleanCheckbox value="#{rondasUI.rondasHelper.status}" />
 
-                <h:selectOneMenu id="txt3" value="#{rondasUI.rondasHelper.fkIdServicio}" required="true" label="cto">
-                    <f:selectItems value="#{rondasUI.listCtoServicio}" var="ctoServicio" itemValue="#{ctoServicio.idCtoServicio}" itemLabel="#{ctoServicio.servicio}"/>
+                <h:selectOneMenu id="fkIdServicio" value="#{rondasUI.rondasHelper.fkIdServicio}" required="true" label="cto">
+                    <f:selectItems value="#{rondasUI.listCtoServicio}" var="ctoservicio" itemValue="#{ctoServicio.idCtoServicio}" itemLabel="#{ctoservicio.servicio}"/>
                 </h:selectOneMenu>
 
-                <h:selectOneMenu id="text4" value="#{rondasUI.rondasHelper.idHoraio}" required="true" label="hr">
+                <h:selectOneMenu id="idHoraio" value="#{rondasUI.rondasHelper.idHoraio}" required="true" label="hr">
                     <f:selectItems value="#{rondasUI.listCtoHorarios}" var="horario" itemValue="#{horario.idHorario}" itemLabel="#{horario.horaInicial}"/>
                 </h:selectOneMenu>
 
-                <h:commandButton value="Agregar" actionListener="#{rondasUI.rondasHelper.agregarRonda()}"/>
-            </h:panelGrid>
+                <h:commandButton value="Agregar" actionListener="#{rondasUI.rondasHelper.agregarRonda()}"></h:commandButton>
+             
+        
+
+
             <p:dataTable var="ronda" value="#{rondasUI.listRondas}">
                 <p:column headerText="Id">
                     <h:outputText value="#{ronda.idRonda}" />
@@ -63,7 +65,7 @@ and open the template in the editor.
 
             </p:dataTable>
 
-
+    </h:panelGrid>
 
 
 

@@ -30,13 +30,11 @@ and open the template in the editor.
                 <p:outputLabel value="apellido materno "></p:outputLabel>
                 <p:inputText label="Ingresar Apellido materno" value="#{empleadoUI.empleadoHelper.am}"/>
 
-                <h:selectOneMenu id="txt3" value="#{empleadoUI.empleadoHelper.te}" required="true" label="Text 3">
+                <h:selectOneMenu id="dsadsa" value="#{empleadoUI.empleadoHelper.te}" required="true" label="Text 3">
                     <f:selectItems value="#{empleadoUI.listTipoEmpleado}" var="entidad" itemValue="#{entidad.idTipoEmpleado}" itemLabel="#{entidad.tipoEmpleado}"/>
                 </h:selectOneMenu> 
 
-                <p:message for="txt3" />
-                <h:outputText value="#{empleadoUI.empleadoHelper.te}" />
-
+    
                 <h:commandButton value="Aceptar" actionListener="#{empleadoUI.empleadoHelper.insertPersonaEmpleado()}"></h:commandButton>
             </h:panelGrid>
             
@@ -59,11 +57,7 @@ and open the template in the editor.
                 </p:column>
                 <p:column headerText="Apellido">
                     <h:outputText value="#{emp.fkIdPersona.apellidoPaterno}" />
-                </p:column>
-
-
-
-            </p:dataTable>
+                </p:column></p:dataTable>
         </h:form>
     </h:body>
 </html>

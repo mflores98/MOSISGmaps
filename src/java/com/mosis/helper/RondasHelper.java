@@ -6,10 +6,9 @@
 package com.mosis.helper;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
-import com.mosis.entity.CtoServicio;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -18,14 +17,75 @@ import java.util.List;
 public class RondasHelper implements Serializable {
 
     private String nombre;
-    private Date tiempoEstimando;
-    private Boolean Status;
+    private String tiempoEstimando;
+    private boolean Status;
     private int fkIdUsuario;
     private int fkIdServicio;
 
     private int idHoraio;
     private Date hora_inicial;
     private Date hora_final;
+
+    public void agregarRonda() {
+            System.out.println(nombre);
+            System.out.println(tiempoEstimando);
+            System.out.println(Status);
+            System.out.println(fkIdUsuario);
+            System.out.println(fkIdServicio);
+                        System.out.println("clic");
+
+        try {
+
+            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
+//        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM dd,  HH:mm:ss");
+            Date d = df.parse(tiempoEstimando);
+            ServiceFacadeLocator.getInstanceRonda().agregarRonda(nombre, d, Status, fkIdUsuario, fkIdServicio);
+            System.out.println("almacenado");
+        } catch (Exception e) {
+            System.out.println("Erroror");
+            System.out.println("Error: " + e);
+        }
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getTiempoEstimando() {
+        return tiempoEstimando;
+    }
+
+    public void setTiempoEstimando(String tiempoEstimando) {
+        this.tiempoEstimando = tiempoEstimando;
+    }
+
+    public boolean isStatus() {
+        return Status;
+    }
+
+    public void setStatus(boolean Status) {
+        this.Status = Status;
+    }
+
+    public int getFkIdUsuario() {
+        return fkIdUsuario;
+    }
+
+    public void setFkIdUsuario(int fkIdUsuario) {
+        this.fkIdUsuario = fkIdUsuario;
+    }
+
+    public int getFkIdServicio() {
+        return fkIdServicio;
+    }
+
+    public void setFkIdServicio(int fkIdServicio) {
+        this.fkIdServicio = fkIdServicio;
+    }
 
     public int getIdHoraio() {
         return idHoraio;
@@ -49,58 +109,6 @@ public class RondasHelper implements Serializable {
 
     public void setHora_final(Date hora_final) {
         this.hora_final = hora_final;
-    }
-
-    public RondasHelper() {
-
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public Date getTiempoEstimando() {
-        return tiempoEstimando;
-    }
-
-    public void setTiempoEstimando(Date tiempoEstimando) {
-        this.tiempoEstimando = tiempoEstimando;
-    }
-
-    public Boolean getStatus() {
-        return Status;
-    }
-
-    public void setStatus(Boolean Status) {
-        this.Status = Status;
-    }
-
-    public int getFkIdUsuario() {
-        return fkIdUsuario;
-    }
-
-    public void setFkIdUsuario(int fkIdUsuario) {
-        this.fkIdUsuario = fkIdUsuario;
-    }
-
-    public int getFkIdServicio() {
-        return fkIdServicio;
-    }
-
-    public void setFkIdServicio(int fkIdServicio) {
-        this.fkIdServicio = fkIdServicio;
-    }
-
-    public void agregarRonda() throws Exception {
-        try {
-            ServiceFacadeLocator.getInstanceRonda().agregarRonda(nombre, tiempoEstimando, Status, fkIdUsuario, fkIdServicio);
-        } catch (Exception e) {
-            System.out.println("Error: " + e);
-        }
     }
 
 }

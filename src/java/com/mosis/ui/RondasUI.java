@@ -24,6 +24,10 @@ public class RondasUI {
 
     private Rondas rondas;
     private RondasHelper rondasHelper;
+    
+    public RondasUI(){
+        rondasHelper=new RondasHelper();
+    }
 
     public Rondas getRondas() {
         return rondas;
