@@ -29,14 +29,13 @@ public class RondasHelper2 implements Serializable {
     }
 
     public void insertarRonda() throws Exception {
-        System.out.println("CLICICICC");
-//        try {
-//            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
-//            Date d = df.parse(tiempoEstimado);
-//            ServiceFacadeLocator.getInstanceRonda().agregarRonda(nombreRonda, d, status, fkIdHorario, fkIdServicio);
-//        } catch (ParseException ex) {
-//            Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
+            Date d = df.parse(tiempoEstimado);
+            ServiceFacadeLocator.getInstanceRonda().agregarRonda(nombreRonda, d, status, fkIdHorario, fkIdServicio);
+        } catch (ParseException ex) {
+            Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
