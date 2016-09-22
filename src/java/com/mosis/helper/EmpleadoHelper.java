@@ -25,22 +25,7 @@ public class EmpleadoHelper implements Serializable {
     private int fkIdTipoEmpleado;
 
     public EmpleadoHelper() {
-     //   delegateEmpleado = new DelegateEmpleado();
     }
-
-    /**
-     * @return the delegateEmpleado
-     */
-//    public DelegateEmpleado getDelegateEmpleado() {
-//        return delegateEmpleado;
-//    }
-
-    /**
-     * @param delegateEmpleado the delegateEmpleado to set
-     */
-//    public void setDelegateEmpleado(DelegateEmpleado delegateEmpleado) {
-//        this.delegateEmpleado = delegateEmpleado;
-//    }
 
     public void insertPersonaEmpleado() throws Exception {
         TipoEmpleado tr = ServiceFacadeLocator.getInstanceTipoEmpleado().getTipoEmpleadoID(fkIdTipoEmpleado);

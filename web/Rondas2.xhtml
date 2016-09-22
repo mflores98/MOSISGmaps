@@ -11,37 +11,35 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Rondas</title>
+        <title>Rondas2</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-
         <h:form>
+
             <h:panelGrid>
                 <p:outputLabel value="Nombre de ronda"></p:outputLabel>
-                <p:inputText value="#{rondasUI.rondasHelper.nombre}"/>
+                <p:inputText value="#{rondasUI2.rondasHelper2.nombreRonda}"></p:inputText>
 
-                <p:outputLabel value="Tiempo estimado:"></p:outputLabel>
-                <p:inputText value="#{rondasUI.rondasHelper.tiempoEstimando}"></p:inputText>
+                <p:outputLabel value="timpo estimado"></p:outputLabel>
+                <p:inputText value="#{rondasUI2.rondasHelper2.tiempoEstimado}"></p:inputText>
 
+                <p:outputLabel value="status"></p:outputLabel>
+                <p:selectBooleanCheckbox value="#{rondasUI2.rondasHelper2.status}"></p:selectBooleanCheckbox>
 
-                <h:outputText value="status: " />
-                <p:selectBooleanCheckbox value="#{rondasUI.rondasHelper.status}" />
-
-                <h:selectOneMenu id="fkIdServicio" value="#{rondasUI.rondasHelper.fkIdServicio}" required="true" label="cto">
-                    <f:selectItems value="#{rondasUI.listCtoServicio}" var="ctoservicio" itemValue="#{ctoServicio.idCtoServicio}" itemLabel="#{ctoservicio.servicio}"/>
+                <h:selectOneMenu id="idHoraio" value="#{rondasUI2.rondasHelper2.fkIdHorario}" required="true" label="hr">
+                    <f:selectItems value="#{rondasUI2.listCtoHorarios}" var="horario" itemValue="#{horario.idHorario}" itemLabel="#{horario.horaInicial}"/>
+                </h:selectOneMenu>
+                <h:selectOneMenu id="idServicio" value="#{rondasUI2.rondasHelper2.fkIdServicio}" required="true" label="hr1">
+                    <f:selectItems value="#{rondasUI2.listCtoServicio}" var="servicio" itemValue="#{servicio.idCtoServicio}" itemLabel="#{servicio.servicio}"/>
                 </h:selectOneMenu>
 
-                <h:selectOneMenu id="idHoraio" value="#{rondasUI.rondasHelper.idHoraio}" required="true" label="hr">
-                    <f:selectItems value="#{rondasUI.listCtoHorarios}" var="horario" itemValue="#{horario.idHorario}" itemLabel="#{horario.horaInicial}"/>
-                </h:selectOneMenu>
+                <h:commandButton value="Guardar" actionListener="#{rondasUI2.rondasHelper2.insertarRonda()}"></h:commandButton>
 
-                <h:commandButton value="submit" actionListener="#{rondasUI.rondasHelper.agregarRonda()}"></h:commandButton>
 
             </h:panelGrid>
 
-
-            <p:dataTable var="ronda" value="#{rondasUI.listRondas}">
+            <p:dataTable var="ronda" value="#{rondasUI2.listRondas}">
                 <p:column headerText="Id">
                     <h:outputText value="#{ronda.idRonda}" />
                 </p:column>
@@ -63,10 +61,8 @@ and open the template in the editor.
                     <h:outputText value="#{ronda.fkIdServicio.servicio}"/>
                 </p:column>
 
+
             </p:dataTable>
-
-
-
         </h:form>
 
     </h:body>
