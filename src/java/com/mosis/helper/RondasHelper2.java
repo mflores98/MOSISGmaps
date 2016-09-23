@@ -19,6 +19,7 @@ import java.util.logging.Logger;
  */
 public class RondasHelper2 implements Serializable {
 
+    private int idRonda;
     private String nombreRonda;
     private String tiempoEstimado;
     private boolean status;
@@ -36,7 +37,25 @@ public class RondasHelper2 implements Serializable {
         } catch (ParseException ex) {
             Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    public void editarRonda(int id) throws Exception {
+        try {
+            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
+            Date d = df.parse(tiempoEstimado);
+            ServiceFacadeLocator.getInstanceRonda().editarRonda(id, nombreRonda, d, status, fkIdHorario, fkIdServicio);
+        } catch (Exception ex) {
+            System.out.println("Editado");
+            Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void eliminarRonda(int id) {
+        try {
+            ServiceFacadeLocator.getInstanceRonda().eliminarRonda(id);
+        } catch (Exception ex) {
+            //Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public String getNombreRonda() {

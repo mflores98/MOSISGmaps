@@ -39,7 +39,7 @@ and open the template in the editor.
 
             </h:panelGrid>
 
-            <p:dataTable var="ronda" value="#{rondasUI2.listRondas}">
+            <p:dataTable id="data" var="ronda" value="#{rondasUI2.listRondas}">
                 <p:column headerText="Id">
                     <h:outputText value="#{ronda.idRonda}" />
                 </p:column>
@@ -59,6 +59,12 @@ and open the template in the editor.
                 </p:column>
                 <p:column headerText="Servicio">
                     <h:outputText value="#{ronda.fkIdServicio.servicio}"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Modificar" actionListener="#{rondasUI2.rondasHelper2.editarRonda(ronda.idRonda)}" update="data"></p:commandButton>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Eliminar" actionListener="#{rondasUI2.rondasHelper2.eliminarRonda(ronda.idRonda)}" update="data"/>           
                 </p:column>
 
 
