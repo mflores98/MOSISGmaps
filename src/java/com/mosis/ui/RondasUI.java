@@ -10,6 +10,7 @@ import com.mosis.entity.CtoServicio;
 import com.mosis.entity.Horarios;
 import com.mosis.entity.Rondas;
 import com.mosis.helper.RondasHelper;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -20,13 +21,13 @@ import javax.faces.bean.RequestScoped;
  */
 @ManagedBean
 @RequestScoped
-public class RondasUI {
+public class RondasUI implements Serializable{
 
     private Rondas rondas;
     private RondasHelper rondasHelper;
-    
-    public RondasUI(){
-        rondasHelper=new RondasHelper();
+
+    public RondasUI() {
+        rondasHelper = new RondasHelper();
     }
 
     /**
@@ -56,9 +57,9 @@ public class RondasUI {
     public void setRondasHelper(RondasHelper rondasHelper) {
         this.rondasHelper = rondasHelper;
     }
-  
+
     public List<CtoServicio> getListCtoServicio() {
-        return ServiceFacadeLocator.getInstanceCtoServicio().getListCtoServicios();
+        return ServiceFacadeLocator.getInstanceServicio().getListCtoServicios();
     }
 
     public List<Horarios> getListCtoHorarios() {

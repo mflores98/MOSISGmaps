@@ -46,7 +46,8 @@ public class RondasUI2 {
     }
 
     public List<CtoServicio> getListCtoServicio() {
-        return ServiceFacadeLocator.getInstanceCtoServicio().getListCtoServicios();
+//        return ServiceFacadeLocator.getInstanceCtoServicio().getListCtoServicios();
+        return ServiceFacadeLocator.getInstanceServicio().getListCtoServicios();
     }
 
     public List<Horarios> getListCtoHorarios() {

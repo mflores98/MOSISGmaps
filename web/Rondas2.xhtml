@@ -18,11 +18,13 @@ and open the template in the editor.
         <h:form>
 
             <h:panelGrid>
+                
                 <p:outputLabel value="Nombre de ronda"></p:outputLabel>
                 <p:inputText value="#{rondasUI2.rondasHelper2.nombreRonda}"></p:inputText>
 
-                <p:outputLabel value="timpo estimado"></p:outputLabel>
-                <p:inputText value="#{rondasUI2.rondasHelper2.tiempoEstimado}"></p:inputText>
+               
+                <p:outputLabel for="time" value="TiempoEstimado: " />
+                <p:calendar id="time" value="#{rondasUI2.rondasHelper2.tiempoEstimado}" pattern="HH:mm" timeOnly="true"  />
 
                 <p:outputLabel value="status"></p:outputLabel>
                 <p:selectBooleanCheckbox value="#{rondasUI2.rondasHelper2.status}"></p:selectBooleanCheckbox>

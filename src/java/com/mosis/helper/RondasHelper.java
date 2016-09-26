@@ -27,12 +27,6 @@ public class RondasHelper implements Serializable {
     private Date hora_final;
 
     public void agregarRonda() {
-        System.out.println(getNombre());
-        System.out.println(getTiempoEstimando());
-        System.out.println(isStatus());
-        System.out.println(getFkIdUsuario());
-        System.out.println(getFkIdServicio());
-        System.out.println("clic");
 
         try {
 

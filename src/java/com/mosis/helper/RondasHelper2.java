@@ -21,7 +21,7 @@ public class RondasHelper2 implements Serializable {
 
     private int idRonda;
     private String nombreRonda;
-    private String tiempoEstimado;
+    private Date tiempoEstimado;
     private boolean status;
     private int fkIdHorario;
     private int fkIdServicio;
@@ -31,9 +31,9 @@ public class RondasHelper2 implements Serializable {
 
     public void insertarRonda() throws Exception {
         try {
-            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
-            Date d = df.parse(tiempoEstimado);
-            ServiceFacadeLocator.getInstanceRonda().agregarRonda(nombreRonda, d, status, fkIdHorario, fkIdServicio);
+//            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
+//            Date d = df.parse(tiempoEstimado);
+            ServiceFacadeLocator.getInstanceRonda().agregarRonda(nombreRonda, tiempoEstimado, status, fkIdHorario, fkIdServicio);
         } catch (ParseException ex) {
             Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -41,9 +41,9 @@ public class RondasHelper2 implements Serializable {
 
     public void editarRonda(int id) throws Exception {
         try {
-            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
-            Date d = df.parse(tiempoEstimado);
-            ServiceFacadeLocator.getInstanceRonda().editarRonda(id, nombreRonda, d, status, fkIdHorario, fkIdServicio);
+//            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
+//            Date d = df.parse(tiempoEstimado);
+            ServiceFacadeLocator.getInstanceRonda().editarRonda(id, nombreRonda, tiempoEstimado, status, fkIdHorario, fkIdServicio);
         } catch (Exception ex) {
             System.out.println("Editado");
             Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
@@ -66,11 +66,11 @@ public class RondasHelper2 implements Serializable {
         this.nombreRonda = nombreRonda;
     }
 
-    public String getTiempoEstimado() {
+    public Date getTiempoEstimado() {
         return tiempoEstimado;
     }
 
-    public void setTiempoEstimado(String tiempoEstimado) {
+    public void setTiempoEstimado(Date tiempoEstimado) {
         this.tiempoEstimado = tiempoEstimado;
     }
 
