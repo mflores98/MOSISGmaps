@@ -6,6 +6,7 @@
 package com.mosis.helper;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
+import com.mosis.entity.CtoServicio;
 import com.mosis.entity.CtoZona;
 import java.io.Serializable;
 
@@ -15,19 +16,21 @@ import java.io.Serializable;
  */
 public class CatalogosHelper implements Serializable {
 
-    private int id;
+    private int idZ;//lo utilizo para selector de zonas
+    private CtoZona ctoZona;
+    private CtoServicio ctoServicio;
 
-    public int getId() {
-        return id;
+    public int getIdZ() {
+        return idZ;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.idZ = id;
     }
-    private CtoZona ctoZona;
 
     public CatalogosHelper() {
         ctoZona = new CtoZona();
+        ctoServicio=new CtoServicio();
     }
 
     public CtoZona getCtoZona() {
@@ -39,11 +42,21 @@ public class CatalogosHelper implements Serializable {
     }
 
     public void agredarZona() {
-        ServiceFacadeLocator.getInstanceZonas().agregarZona(new CtoZona(0, ctoZona.getZona()));
+        if (getCtoZona() != null) {
+            ServiceFacadeLocator.getInstanceZonas().agregarZona(new CtoZona(0, ctoZona.getZona()));
+            System.out.println("almacenado");
+        } else {
+            System.out.println("no lamacenadp");
+        }
     }
 
-    public void modificarZona(int id) throws Exception {
-        ServiceFacadeLocator.getInstanceZonas().modificarZona(id, ctoZona.getZona());
+    public CtoServicio getCtoServicio() {
+        return ctoServicio;
     }
 
+    public void setCtoServicio(CtoServicio ctoServicio) {
+        this.ctoServicio = ctoServicio;
+    }
+
+  
 }

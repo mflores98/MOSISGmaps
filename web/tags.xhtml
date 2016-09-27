@@ -11,33 +11,114 @@ and open the template in the editor.
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>Rondas2</title>
+        <title>TagsTareas</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApNU7BgvLAc9I_Rk6dDVHMezJSQz-P4hM"
+        type="text/javascript"></script>
     </h:head>
     <h:body>
-        <h:form>
+        <div class="Container100">
 
-            <p:column headerText="select">
-                <h:panelGrid>
-                    <p:selectOneMenu id="ser" value="#{tagsUI.idfs}" required="true" label="s">
-                        <f:selectItems value="#{tagsUI.listServicios}" var="servicio" itemValue="#{servicio.idCtoServicio}" itemLabel="#{servicio.servicio}"/>
-                    </p:selectOneMenu>
-                    
-                    
-                    
-                </h:panelGrid>
-            </p:column>
+            <f:facet name="header">
+                Aqui mapa
+            </f:facet>
+            <h:form id="mapForm">
+              
+
+                <p:gmap id="gmap" center="32.6351587,-115.4124767" zoom="80" type="terrain" binding="#{tagsUI.map}" style="width:100%;height:400px"
+                        model="#{tagsUI.simpleModel}" onPointClick="handlePointClick(event);" widgetVar="map" >
 
 
+                    <p:ajax event="overlaySelect" listener="#{tagsUI.onMarkerSelect}" />
+
+                    <p:gmapInfoWindow id="infoWindow">
+                        <p:outputPanel style="text-align: center; display: block; margin: auto">
+
+                            <h:outputText value="#{etiquetaUI.marker.shadow}" />
+
+                        </p:outputPanel>
+                    </p:gmapInfoWindow>
+
+                </p:gmap>
+            </h:form>
+            <h:form id="form">
 
 
 
 
 
+                <p:column headerText="select">
+                    <h:panelGrid>
+                        <p:selectOneMenu id="ser" value="#{tagsUI.idServicioSelected}" required="true" label="s">
+                            <f:selectItems value="#{tagsUI.listServicios}" var="servicio" itemValue="#{servicio.idCtoServicio}" itemLabel="#{servicio.servicio}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </p:column>
+                <p:commandButton value="Marcar tag en mapa" actionListener="#{tagsUI.marcarTagsEnMapa()}" update=":mapForm"></p:commandButton>
+                <p:commandButton  value="Traer etiquetas por servicio" update="datos"/>
+                <p:dataTable id="datos" value="#{tagsUI.listalistaEtiquetas}" var="eti"
 
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15" emptyMessage="No cars found with given criteria" reflow="true"
+                             selectionMode="single" selection="#{tagsUI.tagsHelper.etiqueta}" rowKey="#{eti.idEtiqueta}"
+                             >
+                    <f:facet name="header">
+                        Etiquetas filtradas por servicio
+                    </f:facet>
+                    <p:ajax event="rowSelect" process="@this" update=":tagForm" listener="#{tagsUI.selecciontag(behavior)}"/>
 
+                    <p:column headerText="latitud" sortBy="#{eti.latitud}" footerText="Id">
+                        <h:outputText value="#{eti.latitud}" />
+                    </p:column>
+                    <p:column headerText="longitud" sortBy="#{eti.longitud}" footerText="Year">
+                        <h:outputText value="#{eti.longitud}" />
+                    </p:column>
+                    <p:column headerText="nombre" sortBy="#{eti.nombre}" footerText="Brand">
+                        <h:outputText value="#{eti.nombre}" />
+                    </p:column>
+                    <p:column headerText="valorTad" sortBy="#{eti.valorTag}" footerText="Brand">
+                        <h:outputText value="#{eti.valorTag}" />
+                    </p:column>
+                    <p:column headerText="Servicio" sortBy="#{eti.fkServicio.servicio}">
+                        <h:outputText value="#{eti.fkServicio.servicio}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
 
-        </h:form>
+            <div class="ShadowBox TexAlCenter whiteback BlueBorderedBox">
+                <h1 class="BigTopic">Etiquetas</h1>
+                <span class="gray">Asignar Tareas a Etiquetas</span>
+            </div>
+            <div class="ShadowBox whiteback RedBorderedBox ui-fluid">
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
+                        <h:form id="tagForm">
+                            <p:messages id="msgs" />
+                            <h:panelGrid   columns="2">
+                                <h:outputText value="Pregunta" />
+                                <p:inputText  label="Pregunta" value="#{tagsUI.pregunta}"  required="true">
+                                    <f:validateLength minimum="2" />
+                                </p:inputText>
+                                <p:outputLabel value="Acciones: "/>
+
+                                <p:selectOneMenu id="cta" value="#{tagsUI.idAccionSelected}" label="ctoAcciones">
+                                    <f:selectItems value="#{tagsUI.listaAcciones}" var="cta" itemValue="#{cta.idAccion}" itemLabel="#{cta.accion}"></f:selectItems>
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Turnos "/>
+                                <p:selectOneMenu id="ctt" value="#{tagsUI.idTurnoSelected}" label="ctTurnos">
+                                    <f:selectItems value="#{tagsUI.listaTurnos}" var="turno" itemValue="#{turno.idTurno}" itemLabel="#{turno.turno}"></f:selectItems>
+                                </p:selectOneMenu>
+                                <p:commandButton id="c2" value="GuardarPreguntaTarea" actionListener="#{tagsUI.asignarTareaATag()}"/>
+
+                            </h:panelGrid>
+
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </h:body>
 </html>

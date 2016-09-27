@@ -6,12 +6,14 @@
 package com.mosis.ui;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
+import com.mosis.entity.CtoServicio;
 import com.mosis.entity.CtoZona;
 import com.mosis.helper.CatalogosHelper;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.behavior.Behavior;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 /**
@@ -56,11 +58,41 @@ public class CatalogosUI {
         return ServiceFacadeLocator.getInstanceZonas().getListZonas();
     }
 
+    public List<CtoServicio> getListaServicios() {
+        return ServiceFacadeLocator.getInstanceServicio().getListCtoServicios();
+    }
+
     public void stateChange(AjaxBehaviorEvent event) {
-        Behavior behavior = event.getBehavior();
-        if (behavior != null) {
-            catalogosHelper = new CatalogosHelper();
+        if (catalogosHelper.getCtoZona().getIdCtoZona() != null) {
+            System.out.println("Este es el ID: " + catalogosHelper.getCtoZona().getIdCtoZona());
+            System.out.println("esta seleccionado");
+            catalogosHelper.setCtoZona(catalogosHelper.getCtoZona());
+        } else if (catalogosHelper.getCtoServicio().getIdCtoServicio() != null) {
+            System.out.println("en servicio");
+            catalogosHelper.setCtoServicio(catalogosHelper.getCtoServicio());
         }
     }
 
+    public void editarZona() throws Exception {
+
+        if (catalogosHelper.getCtoZona().getIdCtoZona() != null) {
+            ServiceFacadeLocator.getInstanceZonas().modificarZona(catalogosHelper.getCtoZona().getIdCtoZona(), catalogosHelper.getCtoZona().getZona());
+            System.out.println("editado");
+        } else {
+            System.out.println("no hay seleccciioando");
+        }
+    }
+
+    public void editarServicio() {
+        if (catalogosHelper.getCtoServicio().getIdCtoServicio() != null) {
+            ServiceFacadeLocator.getInstanceServicio().editarServicio(
+                    catalogosHelper.getCtoServicio().getIdCtoServicio(),
+                    catalogosHelper.getCtoServicio().getClave(),
+                    catalogosHelper.getCtoServicio().getServicio(),
+                    catalogosHelper.getIdZ());
+
+        } else {
+            System.out.println("no esta seleccionado el servicio a editr");
+        }
+    }
 }
