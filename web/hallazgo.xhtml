@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+        <div class="Container100">
+            <f:facet name="header">
+                Aqui mapa
+            </f:facet>
+            <h:form>
+                <p:column headerText="selet">
+                    <h:panelGrid>
+                        <p:selectOneMenu id="ser" value="#{hallazgoUI.ctoServicioSelected}" required="true" label="s">
+                            <f:selectItems value="#{hallazgoUI.listaCtoServicios}" var="servicio" itemValue="#{servicio.idCtoServicio}" itemLabel="#{servicio.servicio}"/>
+                        </p:selectOneMenu>
+
+                    </h:panelGrid>
+                </p:column>
+                <p:commandButton  value="Traer hallazgo por servicio" update="datos"/>
+
+                <p:dataTable id="datos" value="#{hallazgoUI.listaHallazgoByIdServicio}" var="hallazgo"
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15" emptyMessage="No cars found with given criteria" reflow="true"
+                             selectionMode="single" selection="#{hallazgoUI.hallazgo}" rowKey="#{hallazgo.idHallazgo}"
+
+                             >
+                    <f:facet name="header">
+                        Hallazgos filtrados por servicio
+                    </f:facet>
+                    <p:column headerText="descripcion" sortBy="#{hallazgo.descripcion}" footerText="Id">
+                        <h:outputText value="#{hallazgo.descripcion}" />
+                    </p:column>
+                    <p:column headerText="empleado" sortBy="#{hallazgo.fkIdEmpleado.numeroEmpleado}" footerText="Id">
+                        <h:outputText value="#{hallazgo.fkIdEmpleado.numeroEmpleado}" />
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+
+
+
+
+        </div>
+    </body>
+</html>
