@@ -54,19 +54,28 @@ public class EtiquetaHelper implements Serializable {
         this.usuarioActual = usuarioActual;
     }
 
-    /**
-     * presentando error de resgistrar
-     */
     public void registrarEtiqueta() {
-        System.out.println("entro a registrar etiqueta");
-        System.out.println("curentEtiqueta: " + currentEtiqueta.getNombre());
-        System.out.println("servicio: " + servicioSelected.getServicio());
-        System.out.println("usuario: " + usuarioActual.getUserName());
-        System.out.println("idServicio: " + servicioSelected.getIdCtoServicio());
+        /*
+        //        System.out.println("entro a registrar etiqueta");
+//        System.out.println("curentEtiqueta: " + currentEtiqueta.getNombre());
+//        System.out.println("servicio: " + servicioSelected.getServicio());
+//        System.out.println("usuario: " + usuarioActual.getUserName());
+//        System.out.println("idServicio: " + servicioSelected.getIdCtoServicio());
+         */
         try {
-            ServiceFacadeLocator.getInstanceEtiquetas().registrarEtiqueta(currentEtiqueta, servicioSelected.getIdCtoServicio(), 9);
+            ServiceFacadeLocator.getInstanceEtiquetas().registrarEtiqueta(currentEtiqueta, servicioSelected.getIdCtoServicio(), 9);//usuario 9
         } catch (Exception ex) {
             Logger.getLogger(EtiquetaHelper.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void modificarEtiqueta() {
+        System.out.println("id etiquetaa editar: " + currentEtiqueta.getIdEtiqueta());
+        System.out.println("serviio: " + servicioSelected.getIdCtoServicio());
+        try {
+            ServiceFacadeLocator.getInstanceEtiquetas().actualizarEtiqueta(currentEtiqueta.getIdEtiqueta(), currentEtiqueta, servicioSelected.getIdCtoServicio(), 9);//usuario 9 
+        } catch (Exception e) {
+            System.out.println("Algo salio mal: " + e);
         }
     }
 

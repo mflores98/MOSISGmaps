@@ -61,8 +61,21 @@ public class EtiquetasUI {
     }
 
     public void saveAction(ActionEvent actionEvent) {
-        System.out.println("guardar aqui");
-        etiquetaHelper.registrarEtiqueta();
+        if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null && etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico() != null) {
+            System.out.println("guardar aqui");
+            etiquetaHelper.registrarEtiqueta();
+        } else {
+            System.out.println("Se requiere campos");
+        }
+    }
+
+    public void updateAction(ActionEvent actionEvent) {
+        System.out.println("metodo updateAction");
+        if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null && etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico() != null) {
+            etiquetaHelper.modificarEtiqueta();
+        } else {
+            System.out.println("No hay nada que editar");
+        }
 
     }
 

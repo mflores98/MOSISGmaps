@@ -54,7 +54,6 @@ and open the template in the editor.
                 <p:commandButton value="Marcar tag en mapa" actionListener="#{tagsUI.marcarTagsEnMapa()}" update=":mapForm"></p:commandButton>
                 <p:commandButton  value="Traer etiquetas por servicio" update="datos"/>
                 <p:dataTable id="datos" value="#{tagsUI.listalistaEtiquetas}" var="eti"
-
                              rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                              rowsPerPageTemplate="5,10,15" emptyMessage="No cars found with given criteria" reflow="true"
                              selectionMode="single" selection="#{tagsUI.tagsHelper.etiqueta}" rowKey="#{eti.idEtiqueta}"
