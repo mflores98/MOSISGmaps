@@ -21,14 +21,12 @@ public class UsuarioHelper implements Serializable {
 
     private Usuarios usuario;
     private Persona persona;
-    private Date fechaN;
 
     private int idTipoUsuarioSelected;
 
     public UsuarioHelper() {
         usuario = new Usuarios();
         persona = new Persona();
-        fechaN = new Date();
     }
 
     public Usuarios getUsuario() {
@@ -55,13 +53,6 @@ public class UsuarioHelper implements Serializable {
         this.idTipoUsuarioSelected = idTipoUsuarioSelected;
     }
 
-    public Date getFechaN() {
-        return fechaN;
-    }
-
-    public void setFechaN(Date fechaN) {
-        this.fechaN = fechaN;
-    }
     public void registrarUsaurio() throws Exception {
         System.out.println("Password: "+usuario.getPassword());
         ServiceFacadeLocator.getInstanceUsuario().registrarUsaurio(usuario, persona, idTipoUsuarioSelected);
