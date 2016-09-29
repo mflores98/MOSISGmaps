@@ -21,11 +21,11 @@ import javax.faces.bean.ViewScoped;
 public class HallazgoUI {
 
     private Hallazgo hallazgo;
-    private Integer ctoServicioSelected;
+    private int ctoServicioSelected;
 
     public HallazgoUI() {
         hallazgo = new Hallazgo();
-       
+
     }
 
     public Hallazgo getHallazgo() {
@@ -37,24 +37,22 @@ public class HallazgoUI {
     }
 
     public List<Hallazgo> getListaHallazgoByIdServicio() {
-        
+
         System.out.println("Cargando datos");
-        System.out.println("id :"+ctoServicioSelected);
-        return ServiceFacadeLocator.getInstanceHallazgo().hallazgosByEtiqueta(ctoServicioSelected);
-       
+        System.out.println("id :" + ctoServicioSelected);
+        return ServiceFacadeLocator.getInstanceHallazgo().hallazgosByServicio(ctoServicioSelected);
     }
 
     public List<CtoServicio> getListaCtoServicios() {
         return ServiceFacadeLocator.getInstanceServicio().getListCtoServicios();
     }
 
-    public Integer getCtoServicioSelected() {
+    public int getCtoServicioSelected() {
         return ctoServicioSelected;
     }
 
-    public void setCtoServicioSelected(Integer ctoServicioSelected) {
+    public void setCtoServicioSelected(int ctoServicioSelected) {
         this.ctoServicioSelected = ctoServicioSelected;
     }
 
-    
 }

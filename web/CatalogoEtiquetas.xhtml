@@ -42,12 +42,9 @@ and open the template in the editor.
                                     <p:outputLabel value="Altitud "></p:outputLabel>
                                     <p:inputText label="Altitud:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.altitud}"/> 
 
-                                    <p:outputLabel value="Servicio "></p:outputLabel>
-                                    <p:selectOneMenu id="service" value="#{etiquetasUI.etiquetaHelper.servicioSelected}" label="Text 3">
-                                        <f:selectItems value="#{etiquetasUI.listaServicio}" var="entidad" itemValue="#{entidad.idCtoServicio}" itemLabel="#{entidad.servicio}"/>
-                                    </p:selectOneMenu> 
+                                   
                                 </h:panelGrid>
-
+                                    
                                 <h:panelGrid id="buttonsCrud" columns="3">
 
                                     <p:commandButton value="Nuevo" ajax="true">
@@ -57,45 +54,54 @@ and open the template in the editor.
                                     <p:commandButton value="Actualizar" ajax="true">
                                         <f:ajax event="click" render="@form" listener="#{etiquetasUI.updateAction(actionEvent)}"/>
                                     </p:commandButton>  
-                                                 <p:commandButton  value="Cancelar">
+                                    <p:commandButton  value="Cancelar">
                                     </p:commandButton>                              
 
-                          
+                                
                                 </h:panelGrid>
+                            
+                                
 
-                                <p:dataTable var="eti" value="#{etiquetasUI.listEtiquetas}" selectionMode="single" selection="#{etiquetasUI.etiquetaHelper.currentEtiqueta}" rowKey="#{eti.idEtiqueta}"     
-                                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                             rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true">
-                                    <f:facet name="header">
-                                        Lista de Etiquetas 
-                                    </f:facet>
-                                    <p:ajax event="rowSelect" process="@this" update="@form" listener="#{etiquetasUI.stateChange(behavior)}"/>
+                                <p:dialog header="Values" modal="true" showEffect="bounce" widgetVar="dlg" resizable="false">
+                                    <p:panelGrid columns="2" id="display" columnClasses="label,value">
 
-                                    <p:column headerText="idEtiqueta">
-
-                                        <h:outputText value="#{eti.idEtiqueta}" />
-                                    </p:column>
-                                    <p:column headerText="Valor Tag">
-                                        <h:outputText value="#{eti.valorTag}" />
-                                    </p:column>
-                                    <p:column headerText="Nombre">
-                                        <h:outputText value="#{eti.nombre}" />
-                                    </p:column>
-                                    <p:column headerText="latitud">
-                                        <h:outputText value="#{eti.latitud}" />
-                                    </p:column>
-                                    <p:column headerText="Logitud">
-                                        <h:outputText value="#{eti.longitud}" />
-                                    </p:column>
+                                        <h:outputText value="Grouping:" />
+                                        <h:outputText value="#{entidad.servicio}" />
 
 
-                                </p:dataTable>
-
-
-
+                                    </p:panelGrid>
+                                </p:dialog>
                             </h:form>
                         </div>
                     </div>
+                    <h:form id="formTab">
+                        <p:dataTable id="tab" var="eti" value="#{etiquetasUI.listEtiquetas}" selectionMode="single" selection="#{etiquetasUI.etiquetaHelper.currentEtiqueta}" rowKey="#{eti.idEtiqueta}"     
+                                     rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true">
+                            <f:facet name="header">
+                                Lista de Etiquetas 
+                            </f:facet>
+                            <p:ajax event="rowSelect" process="@this" update="@form" listener="#{etiquetasUI.stateChange(behavior)}"/>
+
+                            <p:column headerText="idEtiqueta">
+
+                                <h:outputText value="#{eti.idEtiqueta}" />
+                            </p:column>
+                            <p:column headerText="Valor Tag">
+                                <h:outputText value="#{eti.valorTag}" />
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{eti.nombre}" />
+                            </p:column>
+                            <p:column headerText="latitud">
+                                <h:outputText value="#{eti.latitud}" />
+                            </p:column>
+                            <p:column headerText="Logitud">
+                                <h:outputText value="#{eti.longitud}" />
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+
                 </div>
             </div>
 

@@ -11,14 +11,13 @@ import com.mosis.entity.Etiquetas;
 import com.mosis.entity.Usuarios;
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EtiquetaHelper implements Serializable {
 
     private Etiquetas currentEtiqueta;
     private CtoServicio servicioSelected;
     private Usuarios usuarioActual;
+    private int servicioIDint;
 
     public EtiquetaHelper() {
         currentEtiqueta = new Etiquetas();
@@ -50,33 +49,47 @@ public class EtiquetaHelper implements Serializable {
         return usuarioActual;
     }
 
+    public List<CtoServicio> getLsitaSer() {
+        return ServiceFacadeLocator.getInstanceServicio().getListCtoServicios();
+    }
+
     public void setUsuarioActual(Usuarios usuarioActual) {
         this.usuarioActual = usuarioActual;
     }
 
     public void registrarEtiqueta() {
-        /*
-        //        System.out.println("entro a registrar etiqueta");
-//        System.out.println("curentEtiqueta: " + currentEtiqueta.getNombre());
-//        System.out.println("servicio: " + servicioSelected.getServicio());
-//        System.out.println("usuario: " + usuarioActual.getUserName());
-//        System.out.println("idServicio: " + servicioSelected.getIdCtoServicio());
-         */
-        try {
-            ServiceFacadeLocator.getInstanceEtiquetas().registrarEtiqueta(currentEtiqueta, servicioSelected.getIdCtoServicio(), 9);//usuario 9
-        } catch (Exception ex) {
-            Logger.getLogger(EtiquetaHelper.class.getName()).log(Level.SEVERE, null, ex);
+        if (getCurrentEtiqueta().getNombre() != null && !currentEtiqueta.getNombre().isEmpty()&&!currentEtiqueta.getValorTag().isEmpty()) {
+            try {
+                ServiceFacadeLocator.getInstanceEtiquetas().registrarEtiqueta(currentEtiqueta, servicioIDint, 9);//usuario 9
+            } catch (Exception ex) {
+                System.out.println("error: " + ex.getLocalizedMessage());
+            }
+        } else {
+            System.err.println("getCurrent Etiqeta es null");
         }
     }
 
     public void modificarEtiqueta() {
         System.out.println("id etiquetaa editar: " + currentEtiqueta.getIdEtiqueta());
         System.out.println("serviio: " + servicioSelected.getIdCtoServicio());
-        try {
-            ServiceFacadeLocator.getInstanceEtiquetas().actualizarEtiqueta(currentEtiqueta.getIdEtiqueta(), currentEtiqueta, servicioSelected.getIdCtoServicio(), 9);//usuario 9 
-        } catch (Exception e) {
-            System.out.println("Algo salio mal: " + e);
+        if (currentEtiqueta!= null) {
+            try {
+                ServiceFacadeLocator.getInstanceEtiquetas().actualizarEtiqueta(currentEtiqueta.getIdEtiqueta(), currentEtiqueta, servicioSelected.getIdCtoServicio(), 9);//usuario 9 
+            } catch (Exception e) {
+                System.out.println("Algo salio mal: " + e);
+            }
+        } else {
+            System.out.println("completar");
         }
+
+    }
+
+    public int getServicioIDint() {
+        return servicioIDint;
+    }
+
+    public void setServicioIDint(int servicioIDint) {
+        this.servicioIDint = servicioIDint;
     }
 
 }

@@ -9,11 +9,10 @@ import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.CtoServicio;
 import com.mosis.entity.CtoZona;
 import com.mosis.helper.CatalogosHelper;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.behavior.Behavior;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.AjaxBehaviorEvent;
 
 /**
@@ -22,7 +21,7 @@ import javax.faces.event.AjaxBehaviorEvent;
  */
 @ManagedBean
 @ViewScoped
-public class CatalogosUI {
+public class CatalogosUI implements Serializable{
 
     private CatalogosHelper catalogosHelper;
     private CtoZona ctoZona;

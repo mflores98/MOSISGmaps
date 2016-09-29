@@ -9,6 +9,7 @@ import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.CtoServicio;
 import com.mosis.entity.Etiquetas;
 import com.mosis.helper.EtiquetaHelper;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -21,12 +22,16 @@ import javax.faces.event.ActionEvent;
  */
 @ManagedBean
 @ViewScoped
-public class EtiquetasUI {
+public class EtiquetasUI implements Serializable {
 
     private EtiquetaHelper etiquetaHelper;
+    private Etiquetas etiqueta;
+    private CtoServicio servicio;
 
     public EtiquetasUI() {
         etiquetaHelper = new EtiquetaHelper();
+        etiqueta = new Etiquetas();
+        servicio = new CtoServicio();
     }
 
     public EtiquetaHelper getEtiquetaHelper() {
@@ -60,23 +65,47 @@ public class EtiquetasUI {
         }
     }
 
+    public void regist() {
+        System.out.println("servicio" + servicio.getServicio());
+        System.out.println("etiueq: " + etiqueta.getNombre());
+    }
+
     public void saveAction(ActionEvent actionEvent) {
-        if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null && etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico() != null) {
-            System.out.println("guardar aqui");
-            etiquetaHelper.registrarEtiqueta();
-        } else {
-            System.out.println("Se requiere campos");
-        }
+
+        System.out.println("fkServicio: " + etiquetaHelper.getCurrentEtiqueta().getFkServicio().getServicio());
+        System.out.println("Pass: " + etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico().getPassword());
+////        if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null) {
+////            System.out.println("guardar aqui");
+////            etiquetaHelper.registrarEtiqueta();
+////        } else {
+////            System.out.println("Se requiere campos");
+////        }
     }
 
     public void updateAction(ActionEvent actionEvent) {
         System.out.println("metodo updateAction");
-        if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null && etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico() != null) {
+        if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null && etiquetaHelper.getCurrentEtiqueta().getNombre() != null) {
             etiquetaHelper.modificarEtiqueta();
         } else {
             System.out.println("No hay nada que editar");
         }
 
+    }
+
+    public Etiquetas getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(Etiquetas etiqueta) {
+        this.etiqueta = etiqueta;
+    }
+
+    public CtoServicio getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(CtoServicio servicio) {
+        this.servicio = servicio;
     }
 
 }
