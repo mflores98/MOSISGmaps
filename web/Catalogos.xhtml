@@ -30,13 +30,13 @@ and open the template in the editor.
 
                             <h:form id="zonaForm">
                                 <h:panelGrid id="inputCatz" columns="2">
-                                    
+
                                     <p:outputLabel value="Nombre: "></p:outputLabel>
                                     <p:inputText label="Ingresar Nombre:" value="#{catalogosUI.catalogosHelper.ctoZona.zona}"/>                            
                                 </h:panelGrid>
-                                
+
                                 <h:panelGrid columns="3">
-                                    <p:commandButton value="Agregar" actionListener="#{catalogosUI.catalogosHelper.agredarZona()}" ajax="true" update="dataF:dca">
+                                    <p:commandButton value="Agregar" actionListener="#{catalogosUI.catalogosHelper.agredarZona()}" ajax="true" update=":dataF:dca">
                                     </p:commandButton>
                                     <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarZona()}" ajax="true" update="dataF:dca">
                                     </p:commandButton>
@@ -69,6 +69,8 @@ and open the template in the editor.
             </div>
         </div>
 
+
+
         <div class="Container100">
             <div class="ContainerIndent">
                 <div class="ShadowBox TexAlCenter whiteback BlueBorderedBox">
@@ -86,20 +88,21 @@ and open the template in the editor.
                                     <p:inputText label="Ingresar Clave" value="#{catalogosUI.catalogosHelper.ctoServicio.clave}"/>  
 
                                     <p:outputLabel value="Nombre: "></p:outputLabel>
-                                    <p:inputText label="Ingresar Nombre:" value="#{catalogosUI.catalogosHelper.ctoServicio.servicio}"/>    
-                                    <p:selectOneMenu  id="z" immediate="true" value="#{catalogosUI.catalogosHelper.idZ}"  >
-                                        <f:selectItems value="#{catalogosUI.listCtoZonas}" var="entidad" itemValue="#{entidad.idCtoZona}" itemLabel="#{entidad.zona}"/>
-                                    </p:selectOneMenu> 
+                                    <p:inputText label="Ingresar Nombre:" value="#{catalogosUI.catalogosHelper.ctoServicio.servicio}"/>
 
+
+                                    <p:selectOneMenu id="zona" value="#{catalogosUI.catalogosHelper.idZonaSelected}" label="Zona">
+                                        <f:selectItems value="#{catalogosUI.listCtoZonas}" var="zona" itemValue="#{zona.idCtoZona}" itemLabel="#{zona.zona}"/>
+                                    </p:selectOneMenu>
                                 </h:panelGrid>
 
 
                                 <h:panelGrid columns="3">
-                                    <p:commandButton value="Agregar" actionListener="#{catalogosUI.catalogosHelper.agredarZona()}" ajax="true" update="dataF:dca">
+                                    <p:commandButton value="Agregar" actionListener="#{catalogosUI.catalogosHelper.agregarServicio()}" ajax="true" update=":dataS:dcs">
                                     </p:commandButton>
-                                    <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarZona()}" ajax="true" update="dataF:dca">
+                                    <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarServicio()}" ajax="true" update=":dataS:dcs">
                                     </p:commandButton>
-                                    <p:commandButton value="Cancelar" actionListener="#{catalogosUI.catalogosUI.cancelar()}" ajax="true" update="@form">
+                                    <p:commandButton value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update="@form">
                                     </p:commandButton>
                                 </h:panelGrid>
                             </h:form>
@@ -108,7 +111,7 @@ and open the template in the editor.
                 </div>
 
                 <h:form id="dataS">
-                    <p:dataTable id="dca" var="cats" value="#{catalogosUI.listaServicios}" selectionMode="single" selection="#{catalogosUI.catalogosHelper.ctoServicio}" rowKey="#{cats.idCtoServicio}" 
+                    <p:dataTable id="dcs" var="cats" value="#{catalogosUI.listaServicios}" selectionMode="single" selection="#{catalogosUI.catalogosHelper.ctoServicio}" rowKey="#{cats.idCtoServicio}" 
                                  rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true">
                         <f:facet name="header">

@@ -9,6 +9,8 @@ import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.CtoServicio;
 import com.mosis.entity.CtoZona;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,21 +18,13 @@ import java.io.Serializable;
  */
 public class CatalogosHelper implements Serializable {
 
-    private int idZ;//lo utilizo para selector de zonas
     private CtoZona ctoZona;
     private CtoServicio ctoServicio;
-
-    public int getIdZ() {
-        return idZ;
-    }
-
-    public void setId(int id) {
-        this.idZ = id;
-    }
+    private int idZonaSelected;
 
     public CatalogosHelper() {
         ctoZona = new CtoZona();
-        ctoServicio=new CtoServicio();
+        ctoServicio = new CtoServicio();
     }
 
     public CtoZona getCtoZona() {
@@ -46,8 +40,30 @@ public class CatalogosHelper implements Serializable {
             ServiceFacadeLocator.getInstanceZonas().agregarZona(new CtoZona(0, ctoZona.getZona()));
             System.out.println("almacenado");
         } else {
-            System.out.println("no lamacenadp");
+            System.out.println("faltan campos.no lamacenadp");
         }
+    }
+
+    public void agregarServicio() {
+        try {
+            System.out.println("id zona: " + idZonaSelected);
+            System.out.println("clave: "+ctoServicio.getClave());
+            System.out.println("nombre servicio: "+ctoServicio.getServicio());
+            
+            if (!ctoServicio.getServicio().isEmpty() && !ctoServicio.getClave().isEmpty()) {
+                try {
+                    ServiceFacadeLocator.getInstanceServicio().registrarServicio(ctoServicio, idZonaSelected);
+                } catch (Exception ex) {
+                    System.err.println("error: " + ex.getLocalizedMessage());
+                    Logger.getLogger(CatalogosHelper.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                System.out.println("campos incompletos");
+            }
+        } catch (Exception e) {
+            System.out.println("Erroror");
+        }
+
     }
 
     public CtoServicio getCtoServicio() {
@@ -58,5 +74,12 @@ public class CatalogosHelper implements Serializable {
         this.ctoServicio = ctoServicio;
     }
 
-  
+    public int getIdZonaSelected() {
+        return idZonaSelected;
+    }
+
+    public void setIdZonaSelected(int idZonaSelected) {
+        this.idZonaSelected = idZonaSelected;
+    }
+
 }

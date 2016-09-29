@@ -25,6 +25,7 @@ public class CatalogosUI implements Serializable{
 
     private CatalogosHelper catalogosHelper;
     private CtoZona ctoZona;
+    
 
     public CtoZona getCtoZona() {
         return ctoZona;
@@ -76,9 +77,8 @@ public class CatalogosUI implements Serializable{
 
         if (catalogosHelper.getCtoZona().getIdCtoZona() != null) {
             ServiceFacadeLocator.getInstanceZonas().modificarZona(catalogosHelper.getCtoZona().getIdCtoZona(), catalogosHelper.getCtoZona().getZona());
-            System.out.println("editado");
         } else {
-            System.out.println("no hay seleccciioando");
+            System.out.println("no hay zona selecccioando para editar");
         }
     }
 
@@ -88,8 +88,7 @@ public class CatalogosUI implements Serializable{
                     catalogosHelper.getCtoServicio().getIdCtoServicio(),
                     catalogosHelper.getCtoServicio().getClave(),
                     catalogosHelper.getCtoServicio().getServicio(),
-                    catalogosHelper.getIdZ());
-
+                    catalogosHelper.getIdZonaSelected());
         } else {
             System.out.println("no esta seleccionado el servicio a editr");
         }
