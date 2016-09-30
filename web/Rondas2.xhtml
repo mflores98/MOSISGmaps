@@ -20,28 +20,30 @@ and open the template in the editor.
             <div class="ContainerIndent">
                 <div class="ShadowBox TexAlCenter whiteback BlueBorderedBox">
                     <h1 class="BigTopic">Rondas</h1>
-                    <span class="gray">Sección de adminstración de Empleados</span>
+                    <span class="gray">Sección de adminstración de Rondas</span>
                 </div>
                 <div class="ShadowBox whiteback RedBorderedBox ui-fluid">
                     <div class="Container100 Responsive100">
                         <div class="ContainerIndent">
                             <h:form id="rForm">
                                 <h:panelGrid>
-                                <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                                    <p:messages id="messages" showDetail="true" autoUpdate="true" />
 
                                     <p:outputLabel value="Nombre de ronda"></p:outputLabel>
                                     <p:inputText value="#{rondasUI2.rondasHelper2.rondas.rombre}"></p:inputText>
 
 
-                                    <p:outputLabel for="time" value="TiempoEstimado: " />
+                                    <p:outputLabel for="time" value="Tiempo Estimado: " />
                                     <p:calendar id="time" value="#{rondasUI2.rondasHelper2.rondas.tiempoEstimado}" pattern="HH:mm" timeOnly="true"  />
 
-                                    <p:outputLabel value="status"></p:outputLabel>
+                                    <p:outputLabel value="Status"></p:outputLabel>
                                     <p:selectBooleanCheckbox value="#{rondasUI2.rondasHelper2.rondas.status}"></p:selectBooleanCheckbox>
 
+                                    <p:outputLabel value="Horario"></p:outputLabel>
                                     <p:selectOneMenu id="idHoraio" value="#{rondasUI2.rondasHelper2.fkIdHorarioSelected}" required="true" label="hr">
                                         <f:selectItems value="#{rondasUI2.listCtoHorarios}" var="horario" itemValue="#{horario.idHorario}" itemLabel="#{horario.horaInicial}"/>
                                     </p:selectOneMenu>
+                                    <p:outputLabel value="Servicios"></p:outputLabel>
                                     <p:selectOneMenu id="idServicio" value="#{rondasUI2.rondasHelper2.fkIdServicioSelected}" required="true" label="hr1">
                                         <f:selectItems value="#{rondasUI2.listCtoServicio}" var="servicio" itemValue="#{servicio.idCtoServicio}" itemLabel="#{servicio.servicio}"/>
                                     </p:selectOneMenu>
@@ -50,13 +52,13 @@ and open the template in the editor.
                                         <p:commandButton value="Guardar" actionListener="#{rondasUI2.rondasHelper2.insertarRonda()}" update=":dataR"></p:commandButton>
                                         <p:commandButton value="Modificar" actionListener="#{rondasUI2.rondasHelper2.editarRonda()}" update=":dataR"></p:commandButton>
                                         <p:commandButton value="Eliminar" actionListener="#{rondasUI2.rondasHelper2.eliminarRonda()}" update=":dataR">
-                                          <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                         </p:commandButton>           
 
 
                                     </p:panelGrid>
                                 </h:panelGrid>
-                                
+
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
@@ -79,6 +81,9 @@ and open the template in the editor.
                          rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true"
                          >
+                <f:facet name="header">
+                    Listado de Rondas
+                </f:facet>
                 <p:ajax event="rowSelect" update=":rForm" process="@this" listener="#{rondasUI2.stateChange(behavior)}"/>
                 <p:column headerText="Id">
                     <h:outputText value="#{ronda.idRonda}" />
