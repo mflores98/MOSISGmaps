@@ -6,12 +6,12 @@
 package com.mosis.helper;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
+import com.mosis.entity.Rondas;
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -19,83 +19,66 @@ import java.util.logging.Logger;
  */
 public class RondasHelper2 implements Serializable {
 
-    private int idRonda;
-    private String nombreRonda;
-    private Date tiempoEstimado;
-    private boolean status;
-    private int fkIdHorario;
-    private int fkIdServicio;
+    private int fkIdHorarioSelected;
+    private int fkIdServicioSelected;
+    private Rondas rondas;
 
     public RondasHelper2() {
+        rondas = new Rondas();
     }
 
     public void insertarRonda() throws Exception {
-        try {
-//            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
-//            Date d = df.parse(tiempoEstimado);
-            ServiceFacadeLocator.getInstanceRonda().agregarRonda(nombreRonda, tiempoEstimado, status, fkIdHorario, fkIdServicio);
-        } catch (ParseException ex) {
-            Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+        ServiceFacadeLocator.getInstanceRonda().agregarRonda(
+                rondas.getRombre(), rondas.getTiempoEstimado(), rondas.getStatus(), fkIdHorarioSelected, fkIdServicioSelected);
     }
 
-    public void editarRonda(int id) throws Exception {
+    public void editarRonda() throws Exception {
+        System.out.println("rondaId: " + rondas.getIdRonda());
         try {
-//            SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");//MMM dd, yyyy HH:mm:ss a 16:00:00
-//            Date d = df.parse(tiempoEstimado);
-            ServiceFacadeLocator.getInstanceRonda().editarRonda(id, nombreRonda, tiempoEstimado, status, fkIdHorario, fkIdServicio);
-        } catch (Exception ex) {
+            ServiceFacadeLocator.getInstanceRonda().editarRonda(
+                    rondas.getIdRonda(), rondas.getRombre(), rondas.getTiempoEstimado(), rondas.getStatus(), fkIdHorarioSelected, fkIdServicioSelected);
             System.out.println("Editado");
+        } catch (Exception ex) {
             Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void eliminarRonda(int id) {
+    public void eliminarRonda() {
         try {
-            ServiceFacadeLocator.getInstanceRonda().eliminarRonda(id);
+            addMessage("Ronda Eliminada", "");
+            ServiceFacadeLocator.getInstanceRonda().eliminarRonda(rondas.getIdRonda());
         } catch (Exception ex) {
-            //Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public String getNombreRonda() {
-        return nombreRonda;
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public void setNombreRonda(String nombreRonda) {
-        this.nombreRonda = nombreRonda;
+    public int getFkIdHorarioSelected() {
+        return fkIdHorarioSelected;
     }
 
-    public Date getTiempoEstimado() {
-        return tiempoEstimado;
+    public void setFkIdHorarioSelected(int fkIdHorarioSelected) {
+        this.fkIdHorarioSelected = fkIdHorarioSelected;
     }
 
-    public void setTiempoEstimado(Date tiempoEstimado) {
-        this.tiempoEstimado = tiempoEstimado;
+    public int getFkIdServicioSelected() {
+        return fkIdServicioSelected;
     }
 
-    public boolean isStatus() {
-        return status;
+    public void setFkIdServicioSelected(int fkIdServicioSelected) {
+        this.fkIdServicioSelected = fkIdServicioSelected;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public Rondas getRondas() {
+        return rondas;
     }
 
-    public int getFkIdHorario() {
-        return fkIdHorario;
-    }
-
-    public void setFkIdHorario(int fkIdHorario) {
-        this.fkIdHorario = fkIdHorario;
-    }
-
-    public int getFkIdServicio() {
-        return fkIdServicio;
-    }
-
-    public void setFkIdServicio(int fkIdServicio) {
-        this.fkIdServicio = fkIdServicio;
+    public void setRondas(Rondas rondas) {
+        this.rondas = rondas;
     }
 
 }

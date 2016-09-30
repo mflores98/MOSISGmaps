@@ -15,33 +15,71 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <h:body>
-        <h:form>
 
-            <h:panelGrid>
-                
-                <p:outputLabel value="Nombre de ronda"></p:outputLabel>
-                <p:inputText value="#{rondasUI2.rondasHelper2.nombreRonda}"></p:inputText>
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="ShadowBox TexAlCenter whiteback BlueBorderedBox">
+                    <h1 class="BigTopic">Rondas</h1>
+                    <span class="gray">Sección de adminstración de Empleados</span>
+                </div>
+                <div class="ShadowBox whiteback RedBorderedBox ui-fluid">
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                            <h:form id="rForm">
+                                <h:panelGrid>
+                                <p:messages id="messages" showDetail="true" autoUpdate="true" />
 
-               
-                <p:outputLabel for="time" value="TiempoEstimado: " />
-                <p:calendar id="time" value="#{rondasUI2.rondasHelper2.tiempoEstimado}" pattern="HH:mm" timeOnly="true"  />
-
-                <p:outputLabel value="status"></p:outputLabel>
-                <p:selectBooleanCheckbox value="#{rondasUI2.rondasHelper2.status}"></p:selectBooleanCheckbox>
-
-                <h:selectOneMenu id="idHoraio" value="#{rondasUI2.rondasHelper2.fkIdHorario}" required="true" label="hr">
-                    <f:selectItems value="#{rondasUI2.listCtoHorarios}" var="horario" itemValue="#{horario.idHorario}" itemLabel="#{horario.horaInicial}"/>
-                </h:selectOneMenu>
-                <h:selectOneMenu id="idServicio" value="#{rondasUI2.rondasHelper2.fkIdServicio}" required="true" label="hr1">
-                    <f:selectItems value="#{rondasUI2.listCtoServicio}" var="servicio" itemValue="#{servicio.idCtoServicio}" itemLabel="#{servicio.servicio}"/>
-                </h:selectOneMenu>
-
-                <h:commandButton value="Guardar" actionListener="#{rondasUI2.rondasHelper2.insertarRonda()}"></h:commandButton>
+                                    <p:outputLabel value="Nombre de ronda"></p:outputLabel>
+                                    <p:inputText value="#{rondasUI2.rondasHelper2.rondas.rombre}"></p:inputText>
 
 
-            </h:panelGrid>
+                                    <p:outputLabel for="time" value="TiempoEstimado: " />
+                                    <p:calendar id="time" value="#{rondasUI2.rondasHelper2.rondas.tiempoEstimado}" pattern="HH:mm" timeOnly="true"  />
 
-            <p:dataTable id="data" var="ronda" value="#{rondasUI2.listRondas}">
+                                    <p:outputLabel value="status"></p:outputLabel>
+                                    <p:selectBooleanCheckbox value="#{rondasUI2.rondasHelper2.rondas.status}"></p:selectBooleanCheckbox>
+
+                                    <p:selectOneMenu id="idHoraio" value="#{rondasUI2.rondasHelper2.fkIdHorarioSelected}" required="true" label="hr">
+                                        <f:selectItems value="#{rondasUI2.listCtoHorarios}" var="horario" itemValue="#{horario.idHorario}" itemLabel="#{horario.horaInicial}"/>
+                                    </p:selectOneMenu>
+                                    <p:selectOneMenu id="idServicio" value="#{rondasUI2.rondasHelper2.fkIdServicioSelected}" required="true" label="hr1">
+                                        <f:selectItems value="#{rondasUI2.listCtoServicio}" var="servicio" itemValue="#{servicio.idCtoServicio}" itemLabel="#{servicio.servicio}"/>
+                                    </p:selectOneMenu>
+                                    <p:panelGrid columns="3">
+
+                                        <p:commandButton value="Guardar" actionListener="#{rondasUI2.rondasHelper2.insertarRonda()}" update=":dataR"></p:commandButton>
+                                        <p:commandButton value="Modificar" actionListener="#{rondasUI2.rondasHelper2.editarRonda()}" update=":dataR"></p:commandButton>
+                                        <p:commandButton value="Eliminar" actionListener="#{rondasUI2.rondasHelper2.eliminarRonda()}" update=":dataR">
+                                          <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                        </p:commandButton>           
+
+
+                                    </p:panelGrid>
+                                </h:panelGrid>
+                                
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <h:form id="dataR">
+
+            <p:dataTable id="data" var="ronda" value="#{rondasUI2.listRondas}" selectionMode="single" selection="#{rondasUI2.rondasHelper2.rondas}" rowKey="#{ronda.idRonda}" 
+                         rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true"
+                         >
+                <p:ajax event="rowSelect" update=":rForm" process="@this" listener="#{rondasUI2.stateChange(behavior)}"/>
                 <p:column headerText="Id">
                     <h:outputText value="#{ronda.idRonda}" />
                 </p:column>
@@ -62,14 +100,6 @@ and open the template in the editor.
                 <p:column headerText="Servicio">
                     <h:outputText value="#{ronda.fkIdServicio.servicio}"/>
                 </p:column>
-                <p:column>
-                    <p:commandButton value="Modificar" actionListener="#{rondasUI2.rondasHelper2.editarRonda(ronda.idRonda)}" update="data"></p:commandButton>
-                </p:column>
-                <p:column>
-                    <p:commandButton value="Eliminar" actionListener="#{rondasUI2.rondasHelper2.eliminarRonda(ronda.idRonda)}" update="data"/>           
-                </p:column>
-
-
             </p:dataTable>
         </h:form>
 
