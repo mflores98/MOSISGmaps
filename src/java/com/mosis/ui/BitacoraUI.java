@@ -10,7 +10,6 @@ import com.mosis.entity.BitacoraRonda;
 import com.mosis.entity.CtoServicio;
 import com.mosis.helper.BitacoraHelper;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -24,7 +23,6 @@ import javax.faces.bean.ViewScoped;
 public class BitacoraUI implements Serializable {
 
     private BitacoraHelper bitacoraHelper;
-    private int idServicioSelected;
 
    
 
@@ -36,8 +34,8 @@ public class BitacoraUI implements Serializable {
     }
 
     public List<BitacoraRonda> lts() {
-        System.out.println("ServicioSelecte: "+idServicioSelected);
-        return ServiceFacadeLocator.getInstanceBitacora().getListaBitacoraRondasByIdServicio(idServicioSelected);
+        System.out.println("ServicioSelecte: "+bitacoraHelper.getIdServicioSelected());
+        return ServiceFacadeLocator.getInstanceBitacora().getListaBitacoraRondasByIdServicio(bitacoraHelper.getIdServicioSelected());
     }
 
 //    public void v() {
@@ -57,12 +55,5 @@ public class BitacoraUI implements Serializable {
         this.bitacoraHelper = bitacoraHelper;
     }
 
-    public int getIdServicioSelected() {
-        return idServicioSelected;
-    }
-
-    public void setIdServicioSelected(int idServicioSelected) {
-        this.idServicioSelected = idServicioSelected;
-    }
 
 }

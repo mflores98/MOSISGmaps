@@ -15,6 +15,8 @@ import java.io.Serializable;
 public class BitacoraHelper implements Serializable {
 
     private BitacoraRonda bitacoraRonda;
+    private int idServicioSelected;
+    
 
     public BitacoraHelper() {
         bitacoraRonda = new BitacoraRonda();
@@ -26,6 +28,14 @@ public class BitacoraHelper implements Serializable {
 
     public void setBitacoraRonda(BitacoraRonda bitacoraRonda) {
         this.bitacoraRonda = bitacoraRonda;
+    }
+
+    public int getIdServicioSelected() {
+        return idServicioSelected;
+    }
+
+    public void setIdServicioSelected(int idServicioSelected) {
+        this.idServicioSelected = idServicioSelected;
     }
     
 

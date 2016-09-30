@@ -29,7 +29,7 @@ and open the template in the editor.
                             <p:column headerText="Servcio">
                                 <h:panelGrid columns="6">
                                     <p:outputLabel for="ser" value="Servicio: " />
-                                    <p:selectOneMenu id="ser" value="#{bitacoraUI.idServicioSelected}" label="s">
+                                    <p:selectOneMenu id="ser" value="#{bitacoraUI.bitacoraHelper.idServicioSelected}" label="s">
                                         <f:selectItems value="#{bitacoraUI.listServicios}" var="servicio" itemValue="#{servicio.idCtoServicio}" itemLabel="#{servicio.servicio}"/>
                                     </p:selectOneMenu>
                                     <p:commandButton value="Ver Bitacora" update=":formBita"></p:commandButton>
