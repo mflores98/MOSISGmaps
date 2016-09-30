@@ -11,11 +11,6 @@ import com.mosis.entity.Usuarios;
 import com.mosis.excepciones.MyException;
 import com.mosis.excepciones.MyException2;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 /**
  *

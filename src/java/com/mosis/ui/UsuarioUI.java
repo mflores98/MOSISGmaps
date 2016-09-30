@@ -10,10 +10,8 @@ import com.mosis.entity.TipoUsuario;
 import com.mosis.excepciones.MyException;
 import com.mosis.excepciones.MyException2;
 import com.mosis.helper.UsuarioHelper;
-import java.util.Date;
+import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -25,7 +23,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @ViewScoped
-public class UsuarioUI {
+public class UsuarioUI implements Serializable{
 
     private UsuarioHelper usuarioHelper;
 

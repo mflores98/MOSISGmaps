@@ -14,7 +14,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -52,8 +51,8 @@ public class EtiquetasUI implements Serializable {
 
     public void stateChange(AjaxBehavior behavior) {
         System.err.println("Entre a metodo");
-        System.out.println("fkServicio: " + etiquetaHelper.getCurrentEtiqueta().getFkServicio().getServicio());
-        System.out.println("Pass: " + etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico().getPassword());
+//        System.out.println("fkServicio: " + etiquetaHelper.getCurrentEtiqueta().getFkServicio().getServicio());
+//        System.out.println("Pass: " + etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico().getPassword());
 
         if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null && etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico() != null) {
             System.out.println("obteniendo servicio de etiqueta");
@@ -63,33 +62,6 @@ public class EtiquetasUI implements Serializable {
             //y usuario
             etiquetaHelper.setUsuarioActual(etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico());
         }
-    }
-
-    public void regist() {
-        System.out.println("servicio" + servicio.getServicio());
-        System.out.println("etiueq: " + etiqueta.getNombre());
-    }
-
-    public void saveAction(ActionEvent actionEvent) {
-
-        System.out.println("fkServicio: " + etiquetaHelper.getCurrentEtiqueta().getFkServicio().getServicio());
-        System.out.println("Pass: " + etiquetaHelper.getCurrentEtiqueta().getFkIdUsuarioModifico().getPassword());
-////        if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null) {
-////            System.out.println("guardar aqui");
-////            etiquetaHelper.registrarEtiqueta();
-////        } else {
-////            System.out.println("Se requiere campos");
-////        }
-    }
-
-    public void updateAction(ActionEvent actionEvent) {
-        System.out.println("metodo updateAction");
-        if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null && etiquetaHelper.getCurrentEtiqueta().getNombre() != null) {
-            etiquetaHelper.modificarEtiqueta();
-        } else {
-            System.out.println("No hay nada que editar");
-        }
-
     }
 
     public Etiquetas getEtiqueta() {
