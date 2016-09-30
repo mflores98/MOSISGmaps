@@ -8,8 +8,12 @@ package com.mosis.helper;
 import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.Persona;
 import com.mosis.entity.Usuarios;
+import com.mosis.excepciones.MyException;
+import com.mosis.excepciones.MyException2;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -53,9 +57,10 @@ public class UsuarioHelper implements Serializable {
         this.idTipoUsuarioSelected = idTipoUsuarioSelected;
     }
 
-    public void registrarUsaurio() throws Exception {
-        System.out.println("Password: "+usuario.getPassword());
-        ServiceFacadeLocator.getInstanceUsuario().registrarUsaurio(usuario, persona, idTipoUsuarioSelected);
+    public void registrarUsaurio() throws MyException, MyException2 {
+        System.out.println("Password: " + usuario.getPassword());
+            ServiceFacadeLocator.getInstanceUsuario().registrarUsaurio(usuario, persona, idTipoUsuarioSelected);
+     
     }
-  
+
 }

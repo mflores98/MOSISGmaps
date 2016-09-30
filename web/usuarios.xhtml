@@ -45,7 +45,7 @@ and open the template in the editor.
                                     <p:outputLabel value="Usuario: "></p:outputLabel>
                                     <p:inputText label="Usuario" value="#{usuarioUI.usuarioHelper.usuario.userName}"/>  
 
-                           
+
                                 </p:panelGrid>
                                 <p:column headerText="selet">
                                     <h:panelGrid>
@@ -88,13 +88,5 @@ and open the template in the editor.
             </div>
 
         </div>
-    <p:dialog modal="true" resizable="false" header="Values" widgetVar="dlg" showEffect="fold">
-        <p:panelGrid id="display" columns="2" columnClasses="label,value">
-            <h:outputText value="Fecha:" />
-            <h:outputText value="#{usuarioUI.usuarioHelper.fechaN}">
-                <f:convertDateTime pattern="MM/dd/yyyy" />
-            </h:outputText>
-        </p:panelGrid>
-    </p:dialog>
-</body>
+    </body>
 </html>

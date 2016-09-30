@@ -7,9 +7,13 @@ package com.mosis.ui;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.TipoUsuario;
+import com.mosis.excepciones.MyException;
+import com.mosis.excepciones.MyException2;
 import com.mosis.helper.UsuarioHelper;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -40,9 +44,14 @@ public class UsuarioUI {
         this.usuarioHelper = usuarioHelper;
     }
 
-    public void destroyWorld() throws Exception {
-        addMessage("Se registro", getUsuarioHelper().getUsuario().getUserName());
-        usuarioHelper.registrarUsaurio();
+    public void destroyWorld()  {
+        try {
+            addMessage("Se registro", getUsuarioHelper().getUsuario().getUserName());
+            usuarioHelper.registrarUsaurio();
+        } catch (MyException | MyException2 ex) {
+            addMessage("Advertencia", getUsuarioHelper().getUsuario().getUserName()+" ya se encuentra registrado");
+
+        }
     }
     public List<TipoUsuario> getLista(){
        return ServiceFacadeLocator.getInstanceUsuario().getListTipoUsuario();
