@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <div class="ShadowBox TexAlCenter whiteback BlueBorderedBox">
+                    <h1 class="BigTopic">Catalogo Horario</h1>
+                    <span class="gray">Sección de adminstración de Horarios</span>
+                </div>
+                <div class="ShadowBox whiteback RedBorderedBox ui-fluid">
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                            <h:form id="hform">
+                                <p:messages id="messages" showDetail="true" autoUpdate="true" />
+
+                                <h:panelGrid id="inputCath" columns="2">
+
+                                    <p:outputLabel for="time" value="Horario Inicial:" />
+                                    <p:calendar id="time" value="#{catalogoHorarioUI.catalogoHorarioHelper.horario.horaInicial}" pattern="HH:mm" timeOnly="true"  />
+
+
+                                    <p:outputLabel for="time2" value="Horario Final:" />
+                                    <p:calendar id="time2" value="#{catalogoHorarioUI.catalogoHorarioHelper.horario.horaFinal}" pattern="HH:mm" timeOnly="true"  />
+
+
+                                </h:panelGrid>
+                                <h:panelGrid columns="3">
+
+                                    <p:commandButton value="Agregar" actionListener="#{catalogoHorarioUI.guardar()}" ajax="true" update=":datah:dch">
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                    <p:commandButton value="Actualizar" actionListener="#{catalogoHorarioUI.editar()}" ajax="true" update=":datah:dch">
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+
+                                    </p:commandButton>
+                                    <p:commandButton value="Cancelar" actionListener="#{catalogoHorarioUI.cancelar()}" ajax="true" update="@form">
+                                    </p:commandButton>
+                                </h:panelGrid>
+
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </h:form>
+
+                        </div> 
+                    </div>
+                </div>
+                <h:form id="datah">
+                    <p:dataTable id="dch" var="cath" value="#{catalogoHorarioUI.listaHorarios}" selectionMode="single" 
+                                 selection="#{catalogoHorarioUI.catalogoHorarioHelper.horario}" rowKey="#{cath.idHorario}" 
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true">
+                        <p:ajax event="rowSelect" update=":hform" process="@this" listener="#{catalogoHorarioUI.stateChange(behavior)}"/>
+
+                        <f:facet name="header">
+                            Listado de Horarios
+                        </f:facet>
+
+                        <p:column headerText="Id" sortBy="#{cath.idHorario}">
+                            <h:outputText value="#{cath.idHorario}" />
+                        </p:column>
+                        <p:column headerText="Hora inicial" sortBy="#{cath.horaInicial}">
+                            <h:outputText value="#{cath.horaInicial}" />
+
+                        </p:column>
+                        <p:column headerText="Hora Final" sortBy="#{cath.horaFinal}">
+                            <h:outputText value="#{cath.horaFinal}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+
+            </div>
+        </div>
+    </h:body>
+</html>
