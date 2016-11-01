@@ -11,6 +11,8 @@ import com.mosis.entity.CtoZona;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -36,20 +38,26 @@ public class CatalogosHelper implements Serializable {
     }
 
     public void agredarZona() {
-        if (getCtoZona() != null) {
-            ServiceFacadeLocator.getInstanceZonas().agregarZona(new CtoZona(0, ctoZona.getZona()));
-            System.out.println("almacenado");
-        } else {
-            System.out.println("faltan campos.no lamacenadp");
-        }
+//        System.out.println("catt");
+//        if (getCtoZona() != null) {
+//            addMessage("Se registro", "");
+        ServiceFacadeLocator.getInstanceZonas().agregarZona(new CtoZona(0, ctoZona.getZona()));
+//            System.out.println("almacenado");
+//        } else {
+//            System.out.println("faltan campos.no lamacenadp");
+//        }
     }
 
+//    public void addMessage(String summary, String detail) {
+//        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+//        FacesContext.getCurrentInstance().addMessage(null, message);
+//    }
     public void agregarServicio() {
         try {
             System.out.println("id zona: " + idZonaSelected);
-            System.out.println("clave: "+ctoServicio.getClave());
-            System.out.println("nombre servicio: "+ctoServicio.getServicio());
-            
+            System.out.println("clave: " + ctoServicio.getClave());
+            System.out.println("nombre servicio: " + ctoServicio.getServicio());
+
             if (!ctoServicio.getServicio().isEmpty() && !ctoServicio.getClave().isEmpty()) {
                 try {
                     ServiceFacadeLocator.getInstanceServicio().registrarServicio(ctoServicio, idZonaSelected);
@@ -63,7 +71,6 @@ public class CatalogosHelper implements Serializable {
         } catch (Exception e) {
             System.out.println("Erroror");
         }
-
     }
 
     public CtoServicio getCtoServicio() {

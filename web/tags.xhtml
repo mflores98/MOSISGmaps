@@ -24,7 +24,7 @@ and open the template in the editor.
                 Aqui mapa
             </f:facet>
             <h:form id="mapForm">
-              
+
 
                 <p:gmap id="gmap" center="32.6351587,-115.4124767" zoom="80" type="terrain" binding="#{tagsUI.map}" style="width:100%;height:400px"
                         model="#{tagsUI.simpleModel}" onPointClick="handlePointClick(event);" widgetVar="map" >
@@ -43,7 +43,6 @@ and open the template in the editor.
                 </p:gmap>
             </h:form>
             <h:form id="form">
-
                 <p:column headerText="select">
                     <h:panelGrid>
                         <p:selectOneMenu id="ser" value="#{tagsUI.idServicioSelected}" required="true" label="s">
@@ -79,6 +78,15 @@ and open the template in the editor.
                         <h:outputText value="#{eti.fkServicio.servicio}"/>
                     </p:column>
                 </p:dataTable>
+            </h:form>
+
+            <h:form id="form2">
+                <f:facet name="header">TagTareas</f:facet>
+
+                <p:dataTable id="datos2"></p:dataTable>
+
+
+
             </h:form>
 
             <div class="ShadowBox TexAlCenter whiteback BlueBorderedBox">

@@ -7,6 +7,7 @@ package com.mosis.ui;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.TipoUsuario;
+import com.mosis.entity.Usuarios;
 import com.mosis.excepciones.MyException;
 import com.mosis.excepciones.MyException2;
 import com.mosis.helper.UsuarioHelper;
@@ -23,8 +24,8 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @ViewScoped
-public class UsuarioUI implements Serializable{
-
+public class UsuarioUI implements Serializable {
+    
     private UsuarioHelper usuarioHelper;
 
     /**
@@ -33,33 +34,32 @@ public class UsuarioUI implements Serializable{
     public UsuarioUI() {
         usuarioHelper = new UsuarioHelper();
     }
-
+    
     public UsuarioHelper getUsuarioHelper() {
         return usuarioHelper;
     }
-
+    
     public void setUsuarioHelper(UsuarioHelper usuarioHelper) {
         this.usuarioHelper = usuarioHelper;
     }
-
+    
     public void destroyWorld()  {
         try {
             addMessage("Se registro", getUsuarioHelper().getUsuario().getUserName());
             usuarioHelper.registrarUsaurio();
         } catch (MyException | MyException2 ex) {
             addMessage("Advertencia", getUsuarioHelper().getUsuario().getUserName()+" ya se encuentra registrado");
-
+            
         }
     }
     public List<TipoUsuario> getLista(){
-       return ServiceFacadeLocator.getInstanceUsuario().getListTipoUsuario();
+        return ServiceFacadeLocator.getInstanceUsuario().getListTipoUsuario();
     }
-    
     
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
-
- 
+    
+    
 }

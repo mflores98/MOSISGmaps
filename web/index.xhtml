@@ -1,43 +1,52 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-        <br />
-        <!--muestra markas en -->
-        <h:link outcome="welcomePrimefaces" value="Muestra todos los markers y polylines" />
-        <br />
-        <h:link outcome="etiquetas" value="Muestra solo los polylines de todas etiquetas" />
-        <br/>
-        <h:link outcome="mapaRuta" value="Muestra todos las etiquetas en markers, y permite agregar markers manualmente"></h:link>
-        <br/>
-        <h:link outcome="polyline" value="Mostrar Rutas"></h:link>
-        <br/>
-        <h:link outcome="agregarEmpleado" value="ir a agregar empleado"></h:link>
-        <br/>
-        <h:link outcome="Rondas2" value="ir a agregar ronda2"></h:link>
-        <br/>
-        <h:link outcome="Catalogos" value="ir a catalogos "></h:link> 
-        <br/>
-        <h:link outcome="tags" value="ir a tags "></h:link>
-        <br/>
-        <h:link outcome="hallazgo" value="ir a hallazgos "></h:link>
-        <br/>
-        <h:link outcome="catalogosEtiquetas2" value="ir a etiquetas bien"></h:link>
-        <br/>
-        <h:link outcome="bitacoraRonda" value="ir a bitacoraRonda"></h:link>
-        <br/>
-        <h:link outcome="usuarios" value="ir a usuarios"></h:link>
-        <br/>
-        <h:link outcome="catalogoHorarios" value="ir a horarios"></h:link>
-        <br/>
-        <h:link outcome="catalogoCtoTelefono" value="ir a contactos"></h:link>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templeate/Layout.xhtml">
+    <ui:define name="titulo">
+        Facelet Title
+    </ui:define>
+    <ui:define name="cuerpo">
+
+        <p:panelGrid columns="1">
+            <!--muestra markas en -->
+            <h:link outcome="welcomePrimefaces" value="Muestra todos los markers y polylines" />
+            <br />
+            <h:link outcome="etiquetas" value="Muestra solo los polylines de todas etiquetas" />
+            <br/>
+            <h:link outcome="mapaRuta" value="Muestra todos las etiquetas en markers, y permite agregar markers manualmente"></h:link>
+            <br/>
+            <h:link outcome="polyline" value="Mostrar Rutas"></h:link>
+            <br/>
+            <h:link outcome="agregarEmpleado" value="ir a agregar empleado"></h:link>
+            <br/>
+            <h:link outcome="Rondas2" value="ir a agregar ronda2"></h:link>
+            <br/>
+            <h:link outcome="Catalogos" value="ir a catalogos "></h:link> 
+            <br/>
+            <h:link outcome="tags" value="ir a tags "></h:link>
+            <br/>
+            <h:link outcome="hallazgo" value="ir a hallazgos "></h:link>
+            <br/>
+            <h:link outcome="catalogosEtiquetas2" value="ir a etiquetas bien"></h:link>
+            <br/>
+            <h:link outcome="bitacoraRonda" value="ir a bitacoraRonda"></h:link>
+            <br/>
+            <h:link outcome="usuarios" value="ir a usuarios"></h:link>
+            <br/>
+            <h:link outcome="catalogoHorarios" value="ir a horarios"></h:link>
+            <br/>
+            <h:link outcome="catalogoCtoTelefono" value="ir a contactos"></h:link>
+            <br/>
+            <h:link outcome="bitacoraRondaConejillo" value="Bitacora Ronda Conejillo temp"></h:link>
+        
+        </p:panelGrid>
 
 
-    </h:body>
-</html>
 
+    </ui:define>>
+
+</ui:composition>

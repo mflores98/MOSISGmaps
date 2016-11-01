@@ -165,7 +165,7 @@ public class TagsUI implements Serializable {
             System.out.println("turno: " + idTurnoSelected);
             System.out.println("pregutna: " + pregunta);
             try {
-//            ServiceFacadeLocator.getInstanceFlujos().registrarTareaATag(tagsHelper.getEtiqueta().getIdEtiqueta(), idAccionSelected, idTurnoSelected, pregunta);
+            ServiceFacadeLocator.getInstanceFlujos().registrarTareaATag(tagsHelper.getEtiqueta().getIdEtiqueta(), idAccionSelected, idTurnoSelected, pregunta);
                 System.out.println("aqqui metodo para almacenar");
             } catch (Exception ex) {
                 System.out.println("idAccion,idturno no valido ");

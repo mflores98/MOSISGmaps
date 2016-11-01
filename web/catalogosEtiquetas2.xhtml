@@ -46,7 +46,10 @@ and open the template in the editor.
                                     <p:inputText label="Altitud:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.altitud}"/> 
 
 
-                                    <p:selectOneMenu id="service" value="#{etiquetasUI.etiquetaHelper.servicioIDint}" label="Servicios">
+                                    <p:selectOneMenu id="service" value="#{etiquetasUI.etiquetaHelper.servicioIDint}" label="Servicios"
+                                                     filter="true" filterMatchMode="contains"
+                                                     >
+                                        
                                         <f:selectItems value="#{etiquetasUI.listaServicio}" var="serv" itemValue="#{serv.idCtoServicio}" itemLabel="#{serv.servicio}"/>
                                     </p:selectOneMenu>
 

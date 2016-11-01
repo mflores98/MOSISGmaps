@@ -34,7 +34,7 @@ public class BitacoraUI implements Serializable {
     }
 
     public List<BitacoraRonda> lts() {
-        System.out.println("ServicioSelecte: "+bitacoraHelper.getIdServicioSelected());
+//        System.out.println("ServicioSelecte: "+bitacoraHelper.getIdServicioSelected());
         return ServiceFacadeLocator.getInstanceBitacora().getListaBitacoraRondasByIdServicio(bitacoraHelper.getIdServicioSelected());
     }
 

@@ -82,7 +82,6 @@ public class ContactosUI implements Serializable {
 
     public void eliminar() {
         try {
-          
             contactosHelper.eliminar();
         } catch (Exception ex) {
             Logger.getLogger(ContactosUI.class.getName()).log(Level.SEVERE, null, ex);

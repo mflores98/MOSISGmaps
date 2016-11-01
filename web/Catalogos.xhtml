@@ -5,17 +5,20 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/templeate/Layout.xhtml">
+
 
     <h:head>
         <title>Catalogos</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    <body>
+    <ui:define name="cuerpo">
+
 
         <div class="Container100">
             <div class="ContainerIndent">
@@ -34,12 +37,14 @@ and open the template in the editor.
                                     <p:outputLabel value="Nombre: "></p:outputLabel>
                                     <p:inputText label="Ingresar Nombre:" value="#{catalogosUI.catalogosHelper.ctoZona.zona}"/>                            
                                 </h:panelGrid>
-
                                 <h:panelGrid columns="3">
-                                    <p:commandButton value="Agregar" actionListener="#{catalogosUI.catalogosHelper.agredarZona()}" ajax="true" update=":dataF:dca">
+                                    <p:commandButton value="Registrar" actionListener="#{catalogosUI.registrarZonaConfirm()}" ajax="true" update=":dataF:dca" >
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
-                                    <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarZona()}" ajax="true" update="dataF:dca">
+                                    <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarZona()}" ajax="true" update=":dataF:dca" >
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
+
                                     <p:commandButton value="Cancelar" actionListener="#{catalogosUI.catalogosUI.cancelar()}" ajax="true" update="@form">
                                     </p:commandButton>
                                 </h:panelGrid>
@@ -80,15 +85,23 @@ and open the template in the editor.
                 <div class="ShadowBox whiteback RedBorderedBox ui-fluid">
                     <div class="Container100 Responsive100">
                         <div class="ContainerIndent">
+                            <f:facet name="header">
+                                <p:messages id="msgs" />
+                            </f:facet>
 
 
                             <h:form id="serForm">
-                                <h:panelGrid id="inputCatz" columns="5">
-                                    <p:outputLabel value="CLAVE "></p:outputLabel>
-                                    <p:inputText label="Ingresar Clave" value="#{catalogosUI.catalogosHelper.ctoServicio.clave}"/>  
 
-                                    <p:outputLabel value="Nombre: "></p:outputLabel>
-                                    <p:inputText label="Ingresar Nombre:" value="#{catalogosUI.catalogosHelper.ctoServicio.servicio}"/>
+
+                                <h:panelGrid id="inputCatz" columns="5">
+
+
+                                    <p:outputLabel for="clave" value="CLAVE "></p:outputLabel>
+                                    <p:inputText id="clave" label="Ingresar Clave" value="#{catalogosUI.catalogosHelper.ctoServicio.clave}" required="true" requiredMessage="required.">
+                                    </p:inputText>
+
+                                    <p:outputLabel for="nombre" value="Nombre: "></p:outputLabel>
+                                    <p:inputText id="nombre" label="Ingresar Nombre:" value="#{catalogosUI.catalogosHelper.ctoServicio.servicio}" required="true" requiredMessage="required."/>
 
 
                                     <p:selectOneMenu id="zona" value="#{catalogosUI.catalogosHelper.idZonaSelected}" label="Zona">
@@ -98,10 +111,15 @@ and open the template in the editor.
 
 
                                 <h:panelGrid columns="3">
-                                    <p:commandButton value="Agregar" actionListener="#{catalogosUI.catalogosHelper.agregarServicio()}" ajax="true" update=":dataS:dcs">
+
+                                    <p:commandButton value="Registrar" actionListener="#{catalogosUI.catalogosHelper.agregarServicio()}" ajax="true" update=":dataS:dcs">
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
                                     <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarServicio()}" ajax="true" update=":dataS:dcs">
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
+
+
                                     <p:commandButton value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update="@form">
                                     </p:commandButton>
                                 </h:panelGrid>
@@ -132,6 +150,10 @@ and open the template in the editor.
                 </h:form>
             </div>
         </div>
+        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+        </p:confirmDialog>
+    </ui:define>
 
-    </body>
-</html>
+</ui:composition>
