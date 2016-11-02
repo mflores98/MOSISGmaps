@@ -29,43 +29,65 @@ and open the template in the editor.
 
 
                             <h:form id="formCat">
-                                <h:panelGrid id="inputCatz" columns="12">
-                                    <p:outputLabel value="ValorTag "></p:outputLabel>
-                                    <p:inputText label="Valor Tag:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.valorTag}"/>                            
+                                <p:messages id="messages" autoUpdate="false" />
 
-                                    <p:outputLabel value="Nombre"></p:outputLabel>
-                                    <p:inputText label="Nombre:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.nombre}"/>                            
+                                <h:panelGrid id="pgD" columns="1"> 
+                                    <p:outputLabel for="txtv" value="ValorTag "></p:outputLabel>
+                                    <p:inputText id="txtv" label="Valor Tag:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.valorTag}"/>                            
 
-                                    <p:outputLabel value="Latitud "></p:outputLabel>
-                                    <p:inputText label="Latitud:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.latitud}"/> 
+                                    <p:outputLabel for="txtn" value="Nombre"></p:outputLabel>
+                                    <p:inputText  id="txtn" label="Nombre:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.nombre}" required="true"/>    
+                                    <p:message for="txtn"/>
 
-                                    <p:outputLabel value="Longitud "></p:outputLabel>                                 
-                                    <p:inputText label="Longitud:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.longitud}"/> 
+                                    <p:outputLabel for="txtlat" value="Latitud "></p:outputLabel>
+                                    <p:inputText id="txtlat" label="Latitud:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.latitud}" disabled="true"/> 
 
-                                    <p:outputLabel value="Altitud "></p:outputLabel>
-                                    <p:inputText label="Altitud:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.altitud}"/> 
+                                    <p:outputLabel for="txtln" value="Longitud "></p:outputLabel>                                 
+                                    <p:inputText id="txtln" label="Longitud:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.longitud}" disabled="true"/> 
 
+                                    <p:outputLabel for="txtal" value="Altitud "></p:outputLabel>
+                                    <p:inputText id="txtal" label="Altitud:" value="#{etiquetasUI.etiquetaHelper.currentEtiqueta.altitud}" disabled="true"/> 
 
-                                    <p:selectOneMenu id="service" value="#{etiquetasUI.etiquetaHelper.servicioIDint}" label="Servicios"
-                                                     filter="true" filterMatchMode="contains"
+                                    <p:outputLabel for="servicio" value="Servicio: "></p:outputLabel>
+                                    <p:selectOneMenu id="servicio" value="#{etiquetasUI.etiquetaHelper.servicioIDint}" label="Servicios"
+                                                     filter="true" filterMatchMode="contains" required="true"
                                                      >
-                                        
+                                        <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                         <f:selectItems value="#{etiquetasUI.listaServicio}" var="serv" itemValue="#{serv.idCtoServicio}" itemLabel="#{serv.servicio}"/>
                                     </p:selectOneMenu>
+                                    <p:message for="servicio"/>
 
                                 </h:panelGrid>
 
 
 
 
-                                <h:panelGrid columns="3">
+                                <h:panelGrid columns="3" id="pgBotE">
 
-                                    <p:commandButton value="Agregar" actionListener="#{etiquetasUI.etiquetaHelper.registrarEtiqueta()}" ajax="true" update="formtab:dca">
+                                    <p:commandButton value="Agregar" actionListener="#{etiquetasUI.registrar()}" ajax="true" update="formtab:dca, pgD">
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>  
-                                    <p:commandButton value="Modificar" actionListener="#{etiquetasUI.etiquetaHelper.modificarEtiqueta()}" ajax="true" update="formtab:dca">
+                                    <p:commandButton value="Modificar" actionListener="#{etiquetasUI.modificarEtiqueta()}"
+                                                     ajax="true" update="formtab:dca, pgD, pgBotE" binding="#{etiquetasUI.buttonModificar}" disabled="true">
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>  
+                                    <p:commandButton value="Eliminar" actionListener="#{etiquetasUI.eliminar()}" ajax="true" update="formtab:dca,pgD, pgBotE"
+                                                     disabled="true" binding="#{etiquetasUI.buttonEliminar}">
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+
+                                    <p:commandButton  value="Cancelar" actionListener="#{etiquetasUI.cancelar()}" ajax="true" update="pgBotE">
+
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+
+                                    </p:commandButton>
+
 
                                 </h:panelGrid>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
                             </h:form>
                         </div>
                     </div>

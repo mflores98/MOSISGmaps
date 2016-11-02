@@ -9,6 +9,7 @@ import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.CtoServicio;
 import com.mosis.entity.Etiquetas;
 import com.mosis.entity.Usuarios;
+import com.mosis.excepciones.MyException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -57,24 +58,30 @@ public class EtiquetaHelper implements Serializable {
         this.usuarioActual = usuarioActual;
     }
 
-    public void registrarEtiqueta() {
-        if (getCurrentEtiqueta().getNombre() != null && !currentEtiqueta.getNombre().isEmpty()&&!currentEtiqueta.getValorTag().isEmpty()) {
+    public void registrarEtiqueta() throws Exception {
+        if (getCurrentEtiqueta().getNombre() != null) {
             try {
-                ServiceFacadeLocator.getInstanceEtiquetas().registrarEtiqueta(currentEtiqueta, servicioIDint, 9);//usuario 9
+                ServiceFacadeLocator.getInstanceEtiquetas().registrarEtiqueta(currentEtiqueta, servicioIDint, 20);//usuario 20
             } catch (Exception ex) {
                 System.out.println("error: " + ex.getLocalizedMessage());
+                throw new Exception("");
+
             }
         } else {
-            System.err.println("getCurrent Etiqeta es null");
+            throw new Exception("");
         }
     }
+
+//    public void eliminar() throws MyException {
+//        ServiceFacadeLocator.getInstanceEtiquetas().deleteEtiquetas(currentEtiqueta.getIdEtiqueta());
+//    }
 
     public void modificarEtiqueta() {
         System.out.println("id etiquetaa editar: " + currentEtiqueta.getIdEtiqueta());
         System.out.println("serviio: " + servicioSelected.getIdCtoServicio());
-        if (currentEtiqueta!= null) {
+        if (currentEtiqueta != null) {
             try {
-                ServiceFacadeLocator.getInstanceEtiquetas().actualizarEtiqueta(currentEtiqueta.getIdEtiqueta(), currentEtiqueta, servicioSelected.getIdCtoServicio(), 9);//usuario 9 
+                ServiceFacadeLocator.getInstanceEtiquetas().actualizarEtiqueta(currentEtiqueta.getIdEtiqueta(), currentEtiqueta, servicioSelected.getIdCtoServicio(), 20);//usuario 9 
             } catch (Exception e) {
                 System.out.println("Algo salio mal: " + e);
             }
