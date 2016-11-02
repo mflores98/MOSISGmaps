@@ -11,11 +11,15 @@ import com.mosis.entity.CtoZona;
 import com.mosis.helper.CatalogosHelper;
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.component.behavior.AjaxBehavior;
 
 /**
  *
@@ -26,19 +30,29 @@ import javax.faces.event.AjaxBehaviorEvent;
 public class CatalogosUI implements Serializable {
 
     private CatalogosHelper catalogosHelper;
-    private CtoZona ctoZona;
 
-    public CtoZona getCtoZona() {
-        return ctoZona;
+    private HtmlCommandButton buttonModificar;
+    private HtmlCommandButton buttonEliminar;
+
+    public HtmlCommandButton getButtonEliminar() {
+        return buttonEliminar;
     }
 
-    public void setCtoZona(CtoZona ctoZona) {
-        this.ctoZona = ctoZona;
+    public void setButtonEliminar(HtmlCommandButton buttonEliminar) {
+        this.buttonEliminar = buttonEliminar;
+    }
+
+    public HtmlCommandButton getButtonModificar() {
+        return buttonModificar;
+    }
+
+    public void setButtonModificar(HtmlCommandButton buttonModificar) {
+        this.buttonModificar = buttonModificar;
     }
 
     public CatalogosUI() {
         catalogosHelper = new CatalogosHelper();
-        ctoZona = new CtoZona();
+
     }
 
     /**
@@ -65,13 +79,29 @@ public class CatalogosUI implements Serializable {
 
     public void stateChange(AjaxBehaviorEvent event) {
         if (catalogosHelper.getCtoZona().getIdCtoZona() != null) {
+            //habilitar botones
+            this.buttonModificar.setDisabled(false);
+            this.buttonEliminar.setDisabled(false);
             System.out.println("Este es el ID: " + catalogosHelper.getCtoZona().getIdCtoZona());
-            System.out.println("esta seleccionado");
             catalogosHelper.setCtoZona(catalogosHelper.getCtoZona());
         } else if (catalogosHelper.getCtoServicio().getIdCtoServicio() != null) {
             System.out.println("en servicio");
+
             catalogosHelper.setCtoServicio(catalogosHelper.getCtoServicio());
         }
+    }
+
+    public void stateChangeServ(AjaxBehavior behavior) {
+        System.err.println("Entre a metodo");
+
+        if (catalogosHelper.getCtoServicio().getIdCtoZona() != null) {
+            //habilitar botones
+            this.buttonModificar.setDisabled(false);
+            this.buttonEliminar.setDisabled(false);
+            System.err.println("Entre a metodo");
+            catalogosHelper.setCtoZona(catalogosHelper.getCtoServicio().getIdCtoZona());
+        }
+
     }
 
     public void registrarZonaConfirm() {
@@ -86,22 +116,48 @@ public class CatalogosUI implements Serializable {
 
     public void editarZona() throws Exception {
         if (catalogosHelper.getCtoZona().getIdCtoZona() != null) {
-            addMessage("Se actualizo", "");
             ServiceFacadeLocator.getInstanceZonas().modificarZona(catalogosHelper.getCtoZona().getIdCtoZona(), catalogosHelper.getCtoZona().getZona());
+            //desabilita
+            buttonModificar.setDisabled(true);
+            buttonEliminar.setDisabled(true);
         } else {
             System.out.println("no hay zona selecccioando para editar");
         }
     }
 
-//    public void elimanar() {
-//        System.out.println("metodo eliminar"+catalogosHelper.getCtoZona().getZona());
-//        if (catalogosHelper.getCtoZona().getIdCtoZona() != null) {
-//            addMessage("Eliminado", "");
-//            if (catalogosHelper.getCtoZona() != null) {
-//                ServiceFacadeLocator.getInstanceZonas().eliminar();
-//            }
-//        }
-//    }
+    public void elimanar() {
+        System.out.println("metodo eliminar: " + catalogosHelper.getCtoZona().getIdCtoZona());
+        if (catalogosHelper.getCtoZona().getIdCtoZona() != null) {
+            if (catalogosHelper.getCtoZona() != null) {
+                ServiceFacadeLocator.getInstanceZonas().eliminar(catalogosHelper.getCtoZona().getIdCtoZona());
+                //desabilita
+                buttonModificar.setDisabled(true);
+                buttonEliminar.setDisabled(true);
+            }
+        }
+    }
+
+    public void eliminar() {
+        System.out.println("id servicio a eliminar "+catalogosHelper.getCtoServicio().getIdCtoServicio());
+        if (catalogosHelper.getCtoServicio().getIdCtoServicio() != null) {
+            try {
+                ServiceFacadeLocator.getInstanceServicio().eliminar(catalogosHelper.getCtoServicio().getIdCtoServicio());
+                //desabilita
+                buttonModificar.setDisabled(true);
+                buttonEliminar.setDisabled(true);
+            } catch (Exception ex) {
+                addMessage("Ocurrio un error", "");
+            }
+        }
+
+    }
+
+    public void cancelar() {
+        //desabilita
+        buttonModificar.setDisabled(true);
+        buttonEliminar.setDisabled(true);
+
+    }
 
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
@@ -115,6 +171,8 @@ public class CatalogosUI implements Serializable {
                     catalogosHelper.getCtoServicio().getClave(),
                     catalogosHelper.getCtoServicio().getServicio(),
                     catalogosHelper.getIdZonaSelected());
+            buttonModificar.setDisabled(true);
+            buttonEliminar.setDisabled(true);
         } else {
             System.out.println("no esta seleccionado el servicio a editr");
         }

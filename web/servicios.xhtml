@@ -31,37 +31,49 @@ and open the template in the editor.
 
                             <h:form id="serForm">
 
-                                <p:messages id="messages" showDetail="true" autoUpdate="true" />
-
-                                <h:panelGrid id="inputCatz" columns="5">
+                                <p:messages id="messages" autoUpdate="false" />
 
 
-                                    <p:outputLabel for="clave" value="CLAVE "></p:outputLabel>
-                                    <p:inputText id="clave" label="Ingresar Clave" value="#{catalogosUI.catalogosHelper.ctoServicio.clave}" required="true" >
-                                    </p:inputText>
+                                <h:panelGrid id="pgDatos2" columns="3">
 
                                     <p:outputLabel for="nombre" value="Nombre: "></p:outputLabel>
-                                    <p:inputText id="nombre" label="Ingresar Nombre:" value="#{catalogosUI.catalogosHelper.ctoServicio.servicio}" required="true" requiredMessage="required."/>
+                                    <p:inputText id="nombre" label="Ingresar Nombre de Servicio:" value="#{catalogosUI.catalogosHelper.ctoServicio.servicio}"
+                                                 required="true"/>
+                                    <p:message for="nombre"/> 
 
+                                    <p:outputLabel for="clave" value="Clave "></p:outputLabel>
+                                    <p:inputText id="clave" label="Ingresar Clave" value="#{catalogosUI.catalogosHelper.ctoServicio.clave}" required="true" >
+                                    </p:inputText>
+                                    <p:message for="clave"/>
 
-                                    <p:selectOneMenu id="zona" value="#{catalogosUI.catalogosHelper.idZonaSelected}" label="Zona">
+                                    <p:outputLabel for="zona" value="Zona: "></p:outputLabel>
+                                    <p:selectOneMenu id="zona" value="#{catalogosUI.catalogosHelper.idZonaSelected}" label="Zona"
+                                                     filter="true" filterMatchMode="contains" required="true"
+                                                     >
+                                        <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
                                         <f:selectItems value="#{catalogosUI.listCtoZonas}" var="zona" itemValue="#{zona.idCtoZona}" itemLabel="#{zona.zona}"/>
                                     </p:selectOneMenu>
+                                    <p:message for="zona"/>
                                 </h:panelGrid>
 
-
-                                <h:panelGrid columns="3">
-
-                                    <p:commandButton value="Registrar" actionListener="#{catalogosUI.catalogosHelper.agregarServicio()}" ajax="true" update=":dataS:dcs">
+                                <h:panelGrid  id="pgBot2" columns="4">
+                                    <p:commandButton value="Registrar" actionListener="#{catalogosUI.catalogosHelper.agregarServicio()}" ajax="true"
+                                                     update=":dataS:dcs, pgDatos2">
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
-                                    <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarServicio()}" ajax="true" update=":dataS:dcs">
+                                    <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarServicio()}" ajax="true"
+                                                     update=":dataS:dcs, pgDatos2, pgBot2" binding="#{catalogosUI.buttonModificar}" disabled="true"
+                                                     >
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
-
-
-                                    <p:commandButton value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update="@form">
+                                    <p:commandButton value="Eliminar" actionListener="#{catalogosUI.eliminar()}" ajax="true" 
+                                                     update=":dataS:dcs, pgDatos2, pgBot2"
+                                                     binding="#{catalogosUI.buttonEliminar}" disabled="true">
+                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
+                                    <p:commandButton  value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update="pgBot2">
+                                    </p:commandButton>
+                                    
                                 </h:panelGrid>
                                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
@@ -79,17 +91,19 @@ and open the template in the editor.
                         <f:facet name="header">
                             Listado de Catalogo Servicios
                         </f:facet>
-                        <p:ajax event="rowSelect" update=":serForm" process="@this" listener="#{catalogosUI.stateChange(behavior)}"/>
+                        <p:ajax event="rowSelect" update=":serForm" process="@this" listener="#{catalogosUI.stateChangeServ(behavior)}"/>
 
-                        <p:column headerText="idServicio" sortBy="#{cats.idCtoServicio}" footerText="Id">
-                            <h:outputText value="#{cats.idCtoServicio}" />
-                        </p:column>
-                        <p:column headerText="Clave" sortBy="#{cats.clave}" footerText="Id">
+                        <p:column headerText="Clave" sortBy="#{cats.clave}" footerText="Clave">
                             <h:outputText value="#{cats.clave}" />
                         </p:column>
-                        <p:column headerText="Servicio" sortBy="#{cats.servicio}" footerText="Id">
+                        <p:column headerText="Servicio" sortBy="#{cats.servicio}" footerText="Servicio">
                             <h:outputText value="#{cats.servicio}" />
                         </p:column>
+                        <p:column headerText="Zona" sortBy="#{cats.idCtoZona.zona}" footerText="Zona">
+                            <h:outputText value="#{cats.idCtoZona.zona}" />
+                        </p:column>
+
+
                     </p:dataTable>
                 </h:form>
             </div>

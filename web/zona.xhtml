@@ -22,26 +22,40 @@ and open the template in the editor.
                 <div class="ContainerIndent">
 
                     <h:form id="zonaForm">
-                        <p:messages id="messages" showDetail="true" autoUpdate="true" />
+                        <p:messages id="messages" autoUpdate="false" />
 
-                        <h:panelGrid id="inputCatz" columns="2">
+                        <h:panelGrid id="pgDatos" columns="3">
 
-                            <p:outputLabel for="nombre" value="Nombre: "></p:outputLabel>
-                            <p:inputText id="nombre" label="Ingresar Nombre:" value="#{catalogosUI.catalogosHelper.ctoZona.zona}" required="true"/>                            
+                            <p:outputLabel for="nombreZ" value="Nombre: "></p:outputLabel>
+                            <p:inputText id="nombreZ" label="Ingresar Nombre:"
+                                         value="#{catalogosUI.catalogosHelper.ctoZona.zona}" 
+                                         required="true"/> 
+                            <p:message for="nombreZ"/>
+                            
+                            
                         </h:panelGrid>
-
-                        <h:panelGrid columns="3">
-                            <p:commandButton value="Registrar" actionListener="#{catalogosUI.registrarZonaConfirm()}" ajax="true" update=":dataF:dca" >
+                        <p:panelGrid id="pgBot" columns="4">
+                            <p:commandButton value="Registrar" actionListener="#{catalogosUI.registrarZonaConfirm()}" ajax="true" update=":dataF:dca, pgDatos" >
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
-                            <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarZona()}" ajax="true" update=":dataF:dca" >
+
+                            <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarZona()}" ajax="true" update=":dataF:dca,pgBot, pgDatos"
+                                             binding="#{catalogosUI.buttonModificar}" disabled="true"
+                                             >
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
 
-                            <p:commandButton value="Cancelar" actionListener="#{catalogosUI.catalogosUI.cancelar()}" ajax="true" update="@form">
+                            <p:commandButton value="Elimanar" actionListener="#{catalogosUI.elimanar()}" ajax="true" update=":dataF:dca, pgBot,pgDatos"
+                                             binding="#{catalogosUI.buttonEliminar}" disabled="true"
+                                             >
+                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
-                            <p:commandButton value="Elimanar" actionListener="#{catalogosUI.elimanar()}" ajax="true" update=":dataF:dca"></p:commandButton>
-                        </h:panelGrid>
+
+                            <p:commandButton value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update=":dataF:dca, pgBot, pgDatos">
+                            </p:commandButton>
+
+
+                        </p:panelGrid> 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
