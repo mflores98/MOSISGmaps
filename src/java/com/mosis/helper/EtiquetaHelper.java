@@ -81,7 +81,7 @@ public class EtiquetaHelper implements Serializable {
         System.out.println("serviio: " + servicioSelected.getIdCtoServicio());
         if (currentEtiqueta != null) {
             try {
-                ServiceFacadeLocator.getInstanceEtiquetas().actualizarEtiqueta(currentEtiqueta.getIdEtiqueta(), currentEtiqueta, servicioSelected.getIdCtoServicio(), 20);//usuario 9 
+                ServiceFacadeLocator.getInstanceEtiquetas().actualizarEtiqueta(currentEtiqueta.getIdEtiqueta(), currentEtiqueta, servicioIDint, 20);//usuario 9 
             } catch (Exception e) {
                 System.out.println("Algo salio mal: " + e);
             }

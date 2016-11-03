@@ -66,12 +66,12 @@ and open the template in the editor.
                                                      >
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
-                                    <p:commandButton value="Eliminar" actionListener="#{catalogosUI.eliminar()}" ajax="true" 
-                                                     update=":dataS:dcs, pgDatos2, pgBot2"
+                                    <p:commandButton value="Eliminar" action="#{catalogosUI.eliminar()}" ajax="true" 
+                                                     update=":dataS:dcs, pgDatos2, pgBot2" immediate="true"
                                                      binding="#{catalogosUI.buttonEliminar}" disabled="true">
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
-                                    <p:commandButton  value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update="pgBot2">
+                                    <p:commandButton  value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update="@form" immediate="true">
                                     </p:commandButton>
                                     
                                 </h:panelGrid>

@@ -33,6 +33,7 @@ public class EtiquetasUI implements Serializable {
 
     private HtmlCommandButton buttonModificar;
     private HtmlCommandButton buttonEliminar;
+    private HtmlCommandButton buttonRegistrar;
 
     public HtmlCommandButton getButtonModificar() {
         return buttonModificar;
@@ -79,6 +80,7 @@ public class EtiquetasUI implements Serializable {
             //habilita botones
             this.buttonModificar.setDisabled(false);
             this.buttonEliminar.setDisabled(false);
+            this.buttonRegistrar.setDisabled(true);
             //de etiqueta seleccionada obtengo el servicio
             etiquetaHelper.setServicioSelected(etiquetaHelper.getCurrentEtiqueta().getFkServicio());
             //y usuario
@@ -88,31 +90,43 @@ public class EtiquetasUI implements Serializable {
 
     public void modificarEtiqueta() {
 
+        //habilita
+        buttonRegistrar.setDisabled(false);
+
         etiquetaHelper.modificarEtiqueta();
         //desabilita
         buttonModificar.setDisabled(true);
         buttonEliminar.setDisabled(true);
+        this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
+
     }
 
     public void registrar() {
+
         try {
             etiquetaHelper.registrarEtiqueta();
             //desabilita
             buttonModificar.setDisabled(true);
             buttonEliminar.setDisabled(true);
+            this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
+
         } catch (Exception ex) {
             addMessage("Ocurrio un problema", "");
         }
+
     }
 
     public void eliminar() {
-        System.out.println("eiliminar");
+
         //desabilita
         buttonModificar.setDisabled(true);
         buttonEliminar.setDisabled(true);
 //            etiquetaHelper.eliminar();
         if (etiquetaHelper.getCurrentEtiqueta() != null) {
             ServiceFacadeLocator.getInstanceEtiquetas().deleteEtiqueta(etiquetaHelper.getCurrentEtiqueta().getIdEtiqueta());
+            this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
+            //habilita
+            buttonRegistrar.setDisabled(false);
         } else {
             addMessage("No se elimino", "");
         }
@@ -120,14 +134,26 @@ public class EtiquetasUI implements Serializable {
     }
 
     public void cancelar() {
+        //habilita
+        buttonRegistrar.setDisabled(false);
         //desabilita
         buttonModificar.setDisabled(true);
         buttonEliminar.setDisabled(true);
+        this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
+
     }
 
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public HtmlCommandButton getButtonRegistrar() {
+        return buttonRegistrar;
+    }
+
+    public void setButtonRegistrar(HtmlCommandButton buttonRegistrar) {
+        this.buttonRegistrar = buttonRegistrar;
     }
 
 }

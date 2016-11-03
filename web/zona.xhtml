@@ -31,8 +31,8 @@ and open the template in the editor.
                                          value="#{catalogosUI.catalogosHelper.ctoZona.zona}" 
                                          required="true"/> 
                             <p:message for="nombreZ"/>
-                            
-                            
+
+
                         </h:panelGrid>
                         <p:panelGrid id="pgBot" columns="4">
                             <p:commandButton value="Registrar" actionListener="#{catalogosUI.registrarZonaConfirm()}" ajax="true" update=":dataF:dca, pgDatos" >
@@ -45,13 +45,17 @@ and open the template in the editor.
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
 
-                            <p:commandButton value="Elimanar" actionListener="#{catalogosUI.elimanar()}" ajax="true" update=":dataF:dca, pgBot,pgDatos"
+                            <p:commandButton value="Elimanar" action="#{catalogosUI.elimanar()}" ajax="true" update=":dataF:dca, pgBot, pgDatos"
                                              binding="#{catalogosUI.buttonEliminar}" disabled="true"
                                              >
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
 
-                            <p:commandButton value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update=":dataF:dca, pgBot, pgDatos">
+                            <p:commandButton value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update=":dataF:dca, pgBot, pgDatos"
+                                             immediate="true">
+                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+
+
                             </p:commandButton>
 
 
