@@ -51,7 +51,7 @@
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
 
-                            <p:commandButton value="Modificar" actionListener="#{empleadoUI.modificar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos">
+                            <p:commandButton value="Modificar" actionListener="#{empleadoUI.modificar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos, pgSelect">
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
                             <p:commandButton value="Eliminar" actionListener="#{empleadoUI.eliminar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos" immediate="true">
