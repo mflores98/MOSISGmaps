@@ -10,6 +10,7 @@ import com.mosis.entity.CtoServicio;
 import com.mosis.entity.Etiquetas;
 import com.mosis.entity.Usuarios;
 import com.mosis.excepciones.MyException;
+import com.mosis.ui.UsuarioUILogin;
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,10 +21,14 @@ public class EtiquetaHelper implements Serializable {
     private Usuarios usuarioActual;
     private int servicioIDint;
 
+    ////////////
+    private UsuarioUILogin login;
+
     public EtiquetaHelper() {
         currentEtiqueta = new Etiquetas();
         servicioSelected = new CtoServicio();
         usuarioActual = new Usuarios();
+        login = new UsuarioUILogin();
     }
 
     public List<Etiquetas> getEtiquetas() {
@@ -59,15 +64,17 @@ public class EtiquetaHelper implements Serializable {
     }
 
     public void registrarEtiqueta() throws Exception {
-        if (getCurrentEtiqueta().getNombre() != null) {
+        if (getCurrentEtiqueta().getNombre() != null ) {
             try {
-                ServiceFacadeLocator.getInstanceEtiquetas().registrarEtiqueta(currentEtiqueta, servicioIDint, 20);//usuario 20
+
+                ServiceFacadeLocator.getInstanceEtiquetas().registrarEtiqueta(currentEtiqueta, servicioIDint,20);//usuario 20 , login.getUsuario().getIdUsuario()
             } catch (Exception ex) {
                 System.out.println("error: " + ex.getLocalizedMessage());
                 throw new Exception("");
 
             }
         } else {
+            System.out.println("no hay sesion");
             throw new Exception("");
         }
     }
@@ -75,20 +82,16 @@ public class EtiquetaHelper implements Serializable {
 //    public void eliminar() throws MyException {
 //        ServiceFacadeLocator.getInstanceEtiquetas().deleteEtiquetas(currentEtiqueta.getIdEtiqueta());
 //    }
-
     public void modificarEtiqueta() {
-        System.out.println("id etiquetaa editar: " + currentEtiqueta.getIdEtiqueta());
-        System.out.println("serviio: " + servicioSelected.getIdCtoServicio());
+//        System.out.println("id etiquetaa editar: " + currentEtiqueta.getIdEtiqueta());
+//        System.out.println("serviio: " + servicioSelected.getIdCtoServicio());
         if (currentEtiqueta != null) {
             try {
                 ServiceFacadeLocator.getInstanceEtiquetas().actualizarEtiqueta(currentEtiqueta.getIdEtiqueta(), currentEtiqueta, servicioIDint, 20);//usuario 9 
             } catch (Exception e) {
                 System.out.println("Algo salio mal: " + e);
             }
-        } else {
-            System.out.println("completar");
-        }
-
+        } 
     }
 
     public int getServicioIDint() {

@@ -9,20 +9,23 @@ import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.Empleado;
 import com.mosis.entity.TipoEmpleado;
 import com.mosis.helper.EmpleadoHelper;
+import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.behavior.AjaxBehavior;
 
 /**
  *
  * @author Owner
  */
 @ManagedBean
-@RequestScoped
-public class EmpleadoUI {
+@ViewScoped
+public class EmpleadoUI implements Serializable {
 
     private EmpleadoHelper empleadoHelper;
-    private Empleado empleado;
+//    private Empleado empleado;
 
     public EmpleadoUI() {
         empleadoHelper = new EmpleadoHelper();
@@ -42,20 +45,6 @@ public class EmpleadoUI {
         this.empleadoHelper = empleadoHelper;
     }
 
-    /**
-     * @return the empleado
-     */
-    public Empleado getEmpleado() {
-        return empleado;
-    }
-
-    /**
-     * @param empleado the empleado to set
-     */
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
-    }
-
     public List<Empleado> getListEmpleados() {
 //        return this.empleadoHelper.getDelegateEmpleado().getListEmpleados();
         return ServiceFacadeLocator.getInstanceEmpleado().getListEmpleados();
@@ -63,6 +52,28 @@ public class EmpleadoUI {
 
     public List<TipoEmpleado> getListTipoEmpleado() {
         return ServiceFacadeLocator.getInstanceTipoEmpleado().getListTipoEmpleado();
+    }
+
+    public void registar() {
+        empleadoHelper.registar();
+    }
+
+    public void modificar() {
+        empleadoHelper.modificar();
+    }
+
+    public void stateChange(AjaxBehavior behavior) {
+        System.err.println("Entre a este metodo");
+
+        if (empleadoHelper.getEmpleado().getFkIdTipoEmpleado().getIdTipoEmpleado() != null) {
+            //habilitar botones
+//            this.buttonModificar.setDisabled(false);
+//            this.buttonEliminar.setDisabled(false);
+            System.err.println("ya Entre a metodo");
+            empleadoHelper.setEmpleado(getEmpleadoHelper().getEmpleado());
+//            catalogosHelper.setCtoZona(catalogosHelper.getCtoServicio().getIdCtoZona());
+        }
+
     }
 
 }

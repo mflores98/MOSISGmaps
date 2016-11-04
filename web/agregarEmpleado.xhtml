@@ -6,43 +6,50 @@ and open the template in the editor.
 -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      template="/WEB-INF/templeate/Layout.xhtml">
-          
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/WEB-INF/templeate/Layout.xhtml">
+
     <h:head>
         <title>TODO supply a title</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
     <ui:define name="cuerpo">
-        
-    <h:form>
+
+        <h:form>
             <h:panelGrid>
 
-                <p:outputLabel value="Numero "></p:outputLabel>
-                <p:inputText label="Ingresar numero" value="#{empleadoUI.empleadoHelper.numero}"/>
+                <p:outputLabel for="num" value="Numero "></p:outputLabel>
+                <p:inputText id="num" label="Ingresar numero" value="#{empleadoUI.empleadoHelper.numero}" required="true"/>
+                <p:message for="num"/>
 
                 <p:outputLabel value="Nombre "></p:outputLabel>
                 <p:inputText label="Ingresar Nombre" value="#{empleadoUI.empleadoHelper.nombre}"/>
 
-                <p:outputLabel value="apellido paterno"></p:outputLabel>
-                <p:inputText label="Ingresar Apellido Paterno" value="#{empleadoUI.empleadoHelper.ap}"/>
+                <p:outputLabel for="ap" value="apellido paterno"></p:outputLabel>
+                <p:inputText id="ap" label="Ingresar Apellido Paterno" value="#{empleadoUI.empleadoHelper.ap}" required="true"/>
+                <p:message for="ap"/>
 
-                <p:outputLabel value="apellido materno "></p:outputLabel>
-                <p:inputText label="Ingresar Apellido materno" value="#{empleadoUI.empleadoHelper.am}"/>
+                <p:outputLabel for="am" value="apellido materno "></p:outputLabel>
+                <p:inputText id="am" label="Ingresar Apellido materno" value="#{empleadoUI.empleadoHelper.am}"/>
+                <p:message for="am"/>
 
-                <h:selectOneMenu id="dsadsa" value="#{empleadoUI.empleadoHelper.te}" required="true" label="Text 3">
-                    <f:selectItems value="#{empleadoUI.listTipoEmpleado}" var="entidad" itemValue="#{entidad.idTipoEmpleado}" itemLabel="#{entidad.tipoEmpleado}"/>
-                </h:selectOneMenu> 
+                <p:outputLabel for="select" value="Servicio: "></p:outputLabel>
+                <p:selectOneMenu id="select" value="#{empleadoUI.empleadoHelper.te}" required="true" label="selectte"
+                                 filter="true" filterMatchMode="contains">
+                    <f:selectItem value="Seleccione" noSelectionOption="true"/>
+                    <f:selectItems value="#{empleadoUI.listTipoEmpleado}" var="entidad" 
+                                   itemValue="#{entidad.idTipoEmpleado}" itemLabel="#{entidad.tipoEmpleado}"/>
+                </p:selectOneMenu>
+                <p:message for="select"/>
 
-    
                 <h:commandButton value="Aceptar" actionListener="#{empleadoUI.empleadoHelper.insertPersonaEmpleado()}"></h:commandButton>
             </h:panelGrid>
-            
-            
-            
+
+
+
 
             <p:dataTable var="emp" value="#{empleadoUI.listEmpleados}">
 

@@ -53,7 +53,8 @@ and open the template in the editor.
                                                      filter="true" filterMatchMode="contains" required="true"
                                                      >
                                         <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                        <f:selectItems value="#{etiquetasUI.listaServicio}" var="serv" itemValue="#{serv.idCtoServicio}" itemLabel="#{serv.servicio}"/>
+                                        <f:selectItems value="#{etiquetasUI.listaServicio}" var="serv" itemValue="#{serv.idCtoServicio}"
+                                                       itemLabel="#{serv.servicio}"/>
                                     </p:selectOneMenu>
                                     <p:message for="servicio"/>
 
