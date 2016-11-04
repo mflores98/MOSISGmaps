@@ -16,39 +16,33 @@ import java.io.Serializable;
  * @author Owner
  */
 public class EmpleadoHelper implements Serializable {
-    
+
     private Empleado empleado;
-    
-    
+
     public EmpleadoHelper() {
         empleado = new Empleado();
         empleado.setFkIdPersona(new Persona());
         empleado.setFkIdTipoEmpleado(new TipoEmpleado());
     }
-    
+
     public Empleado getEmpleado() {
         return empleado;
     }
-    
+
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
     }
-    
+
     public void registar() {
-        System.out.println("nombre es: " + this.empleado.getFkIdPersona().getNombre());
-//        ServiceFacadeLocator.getInstanceEmpleado().registrarEmpleado(empleado, 5);
         ServiceFacadeLocator.getInstanceEmpleado().registrarEmpleado(empleado);
-        
-//        ServiceFacadeLocator.getInstanceEmpleado().addEmpleado(
-//                empleado.getNumeroEmpleado(),
-//                empleado.getFkIdPersona().getIdPersona(),
-//                empleado.getFkIdTipoEmpleado().getIdTipoEmpleado());
     }
-    
-    
-    public void modificar(){
+
+    public void modificar() {
         ServiceFacadeLocator.getInstanceEmpleado().modificar(empleado);
     }
-    
-    
+
+    public void eliminar() {
+        ServiceFacadeLocator.getInstanceEmpleado().eliminar(empleado);
+    }
+
 }

@@ -18,46 +18,39 @@
 
                         <p:panelGrid id="pgEmpleadoDatos" columns="3">
                             <p:outputLabel for="num" value="Numero "></p:outputLabel>
-                            <p:inputText id="num" value="#{empleadoUI.empleadoHelper.empleado.numeroEmpleado}" required="true"/>
+                            <p:inputText id="num" value="#{empleadoUI.empleadoHelper.empleado.numeroEmpleado}" required="true" requiredMessage="Se necesita un valor"/>
                             <p:message for="num"/>
 
                             <p:outputLabel for="nom" value="nombre"/>
-                            <p:inputText id="nom" value="#{empleadoUI.empleadoHelper.empleado.fkIdPersona.nombre}" required="true"/>
+                            <p:inputText id="nom" value="#{empleadoUI.empleadoHelper.empleado.fkIdPersona.nombre}" required="true" requiredMessage="Se necesita un valor"/>
                             <p:message for="nom"/>
 
                             <p:outputLabel for="ap" value="ApellidoPaterno"/>
-                            <p:inputText id="ap" value="#{empleadoUI.empleadoHelper.empleado.fkIdPersona.apellidoPaterno}" required="true"/>
+                            <p:inputText id="ap" value="#{empleadoUI.empleadoHelper.empleado.fkIdPersona.apellidoPaterno}" required="true" requiredMessage="Se necesita un valor"/>
                             <p:message for="ap"/>
 
                             <p:outputLabel for="am" value="ApellidoMaterno"/>
                             <p:inputText id="am" value="#{empleadoUI.empleadoHelper.empleado.fkIdPersona.apellidoMaterno}"/>
                             <p:message for="am"/>
-
-
-                            <p:outputLabel for="fecha" value="Fecha de nacimiento:" />
-                            <p:calendar id="fecha" value="#{empleadoUI.empleadoHelper.empleado.fkIdPersona.fechaNacimiento}" required="true" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
-                            <p:message for="fecha"/>
-
-
+                        </p:panelGrid>
+                        <p:panelGrid columns="3" id="pgSelect">
                             <p:outputLabel for="selectTipoEmp" value="Tipo Empleado"/>
                             <p:selectOneMenu id="selectTipoEmp" value="#{empleadoUI.empleadoHelper.empleado.fkIdTipoEmpleado.idTipoEmpleado}"
-                                             filter="true" filterMatchMode="contains" required="true"
+                                             filter="true" filterMatchMode="contains" required="true" requiredMessage="Se necesita un tipo empleado"
                                              >
                                 <f:selectItem itemLabel="Seleccione" noSelectionOption="true" />
                                 <f:selectItems value="#{empleadoUI.listTipoEmpleado}" var="empleado" itemValue="#{empleado.idTipoEmpleado}" itemLabel="#{empleado.tipoEmpleado}"/>
                             </p:selectOneMenu>
                             <p:message for="selectTipoEmp"/>
-
-                        </p:panelGrid >
+                        </p:panelGrid>
 
 
 
                         <p:panelGrid id="pgBotn" columns="4">
-                            <p:commandButton value="Registrar" actionListener="#{empleadoUI.registar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos">
+                            <p:commandButton value="Registrar" actionListener="#{empleadoUI.registar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos, pgSelect">
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
-                            
-                            <!--No cumple funciones-->
+
                             <p:commandButton value="Modificar" actionListener="#{empleadoUI.modificar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos">
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>

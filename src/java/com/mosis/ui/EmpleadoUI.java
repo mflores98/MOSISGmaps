@@ -25,7 +25,6 @@ import javax.faces.component.behavior.AjaxBehavior;
 public class EmpleadoUI implements Serializable {
 
     private EmpleadoHelper empleadoHelper;
-//    private Empleado empleado;
 
     public EmpleadoUI() {
         empleadoHelper = new EmpleadoHelper();
@@ -46,7 +45,6 @@ public class EmpleadoUI implements Serializable {
     }
 
     public List<Empleado> getListEmpleados() {
-//        return this.empleadoHelper.getDelegateEmpleado().getListEmpleados();
         return ServiceFacadeLocator.getInstanceEmpleado().getListEmpleados();
     }
 
@@ -62,6 +60,15 @@ public class EmpleadoUI implements Serializable {
         empleadoHelper.modificar();
     }
 
+    public void eliminar() {
+        empleadoHelper.eliminar();
+    }
+
+    public void cancelar() {
+        empleadoHelper.setEmpleado(new Empleado());
+
+    }
+
     public void stateChange(AjaxBehavior behavior) {
         System.err.println("Entre a este metodo");
 
@@ -71,7 +78,6 @@ public class EmpleadoUI implements Serializable {
 //            this.buttonEliminar.setDisabled(false);
             System.err.println("ya Entre a metodo");
             empleadoHelper.setEmpleado(getEmpleadoHelper().getEmpleado());
-//            catalogosHelper.setCtoZona(catalogosHelper.getCtoServicio().getIdCtoZona());
         }
 
     }
