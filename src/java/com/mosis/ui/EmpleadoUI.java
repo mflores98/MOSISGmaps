@@ -10,6 +10,8 @@ import com.mosis.entity.Empleado;
 import com.mosis.entity.TipoEmpleado;
 import com.mosis.helper.EmpleadoHelper;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -21,12 +23,23 @@ import javax.faces.component.behavior.AjaxBehavior;
 @ManagedBean
 @ViewScoped
 public class EmpleadoUI {
-    
+
     private EmpleadoHelper empleadoHelper;
     private Empleado empleado;
-    
+
+    private boolean btnRegistrar;
+    private boolean btnModificar;
+    private boolean btnEliminar;
+    private boolean btnCancelar;
+
     public EmpleadoUI() {
         empleadoHelper = new EmpleadoHelper();
+        //btn regis esta habilitado
+        btnRegistrar = false;
+        //los demas btns desabilitados
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
     }
 
     /**
@@ -56,24 +69,104 @@ public class EmpleadoUI {
     public void setEmpleado(Empleado empleado) {
         this.empleado = empleado;
     }
-    
+
     public List<Empleado> getListEmpleados() {
         return this.empleadoHelper.getDelegateEmpleado().getListEmpleados();
     }
-    
+
     public List<TipoEmpleado> getListTipoEmpleado() {
         return ServiceFacadeLocator.getInstanceTipoEmpleado().getListTipoEmpleado();
     }
-    
+
     public void stateChange(AjaxBehavior behavior) {
-        System.err.println("Entre a metodo");
-        
+        //btn regis esta inabi
+        btnRegistrar = true;
+        //los demas btns habilitados
+        btnModificar = false;
+        btnEliminar = false;
+        btnCancelar = false;
+
         if (empleado != null) {
             System.err.println("Entre");
             empleadoHelper.setCurrentEmpleado(empleado);
-            
+
         }
-        
+
     }
-    
+
+    public void cancelar() {
+        //btn regis esta habi
+        btnRegistrar = false;
+        //los demas btns desahabilitados
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
+
+        empleadoHelper.cancelar();
+    }
+
+    public void eliminar() {
+        //btn regis esta habi
+        btnRegistrar = false;
+        //los demas btns desahabilitados
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
+        empleadoHelper.eliminar();
+    }
+
+    public void registrar() {
+        try {
+            empleadoHelper.insertPersonaEmpleado();
+        } catch (Exception ex) {
+            Logger.getLogger(EmpleadoUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void actualizar() {
+        //btn regis esta habi
+        btnRegistrar = false;
+        //los demas btns desahabilitados
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
+        try {
+            empleadoHelper.actualizarPersonaEmpleado();
+        } catch (Exception ex) {
+            Logger.getLogger(EmpleadoUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public boolean isBtnRegistrar() {
+        return btnRegistrar;
+    }
+
+    public void setBtnRegistrar(boolean btnRegistrar) {
+        this.btnRegistrar = btnRegistrar;
+    }
+
+    public boolean isBtnModificar() {
+        return btnModificar;
+    }
+
+    public void setBtnModificar(boolean btnModificar) {
+        this.btnModificar = btnModificar;
+    }
+
+    public boolean isBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public void setBtnEliminar(boolean btnEliminar) {
+        this.btnEliminar = btnEliminar;
+    }
+
+    public boolean isBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public void setBtnCancelar(boolean btnCancelar) {
+        this.btnCancelar = btnCancelar;
+    }
+
 }

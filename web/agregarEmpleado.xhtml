@@ -58,20 +58,30 @@ and open the template in the editor.
                                 <p:message for="txt3"/>
 
                             </h:panelGrid>
-                            <h:panelGrid id="buttonsCrud" columns="3">
+                            <h:panelGrid id="buttonsCrud" columns="4">
 
-                                <p:commandButton value="Agregar" actionListener="#{empleadoUI.empleadoHelper.insertPersonaEmpleado()}" ajax="true" update="@form">
+                                <p:commandButton value="Agregar" actionListener="#{empleadoUI.registrar()}" ajax="true" update="@form"
+                                                 disabled="#{empleadoUI.btnRegistrar}"
+                                                 >
                                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                 </p:commandButton>
-                                <p:commandButton value="Actualizar" actionListener="#{empleadoUI.empleadoHelper.actualizarPersonaEmpleado()}" ajax="true" update="@form">
+                                <p:commandButton value="Actualizar" actionListener="#{empleadoUI.actualizar()}" ajax="true" update="@form"
+                                                 disabled="#{empleadoUI.btnModificar}"
+                                                 >
                                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                 </p:commandButton>
 
-                                <p:commandButton value="Eliminar" action="#{empleadoUI.empleadoHelper.eliminar()}" ajax="true" update="@form">
+                                <p:commandButton value="Eliminar" action="#{empleadoUI.eliminar()}" ajax="true" update="@form"
+                                                 disabled="#{empleadoUI.btnEliminar}"
+
+                                                 >
                                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                 </p:commandButton>
-                                
-                                <p:commandButton value="Cancelar" actionListener="#{empleadoUI.empleadoHelper.cancelar()}" ajax="false" update="@form">
+
+                                <p:commandButton value="Cancelar" actionListener="#{empleadoUI.cancelar()}" ajax="false" update="@form"
+                                                 disabled="#{empleadoUI.btnCancelar}"
+
+                                                 >
 
                                 </p:commandButton>
                             </h:panelGrid>
