@@ -27,33 +27,31 @@ and open the template in the editor.
                     <h:panelGrid id="pgDatos" columns="3">
 
                         <p:outputLabel for="nombreZ" value="Nombre: "></p:outputLabel>
-                        <p:inputText id="nombreZ" label="Ingresar Nombre:"
-                                     value="#{zonaUI.zonaHelper.ctoZona.zona}" 
-                                     required="true"/> 
+                        <p:inputText id="nombreZ" label="Nombre:" value="#{zonaUI.zonaHelper.ctoZona.zona}" required="true"
+                                     requiredMessage="Requiere valor"
+                                     /> 
                         <p:message for="nombreZ"/>
-
-
                     </h:panelGrid>
+
                     <p:panelGrid id="pgBot" columns="4">
-                        <p:commandButton value="Registrar" actionListener="#{zonaUI.registrarZonaConfirm()}" ajax="true" update=":dataF:dca, pgDatos"
+                        <p:commandButton value="Registrar" actionListener="#{zonaUI.registrarZonaConfirm()}" ajax="true" update=":dataF:dca, pgDatos" disabled="#{zonaUI.btnRegistrar}"
                                          >
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                         </p:commandButton>
 
-                        <p:commandButton value="Modificar" actionListener="#{zonaUI.editarZona()}" ajax="true" update=":dataF:dca, pgBot, pgDatos"
+                        <p:commandButton value="Modificar" actionListener="#{zonaUI.editarZona()}" ajax="true" update=":dataF:dca, pgBot, pgDatos" disabled="#{zonaUI.btnModificar}"
                                          >
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                         </p:commandButton>
 
-                        <p:commandButton value="Eliminar" action="#{zonaUI.elimanar()}" ajax="true" update=":dataF:dca, pgBot, pgDatos"
+                        <p:commandButton value="Eliminar" action="#{zonaUI.elimanar()}" ajax="true" update=":dataF:dca, pgBot, pgDatos" disabled="#{zonaUI.btnEliminar}"
                                          >
                             <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                         </p:commandButton>
 
-                        <p:commandButton value="Cancelar" action="#{zonaUI.zonaHelper.cancelar()}" ajax="false" update="@form"
+                        <p:commandButton value="Cancelar" action="#{zonaUI.cancelar()}" ajax="false" update="@form" disabled="#{zonaUI.btnCancelar}"
                                          immediate="true"
                                          >
-                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
 
 
                         </p:commandButton>
@@ -73,7 +71,7 @@ and open the template in the editor.
                         <f:facet name="header">
                             Listado de Catalogo Zonas
                         </f:facet>
-                        <p:ajax event="rowSelect" update=":zonaForm" process="@this" listener="#{zonaUI.stateChange(behavior)}"/>
+                        <p:ajax event="rowSelect" update=":zonaForm, :zonaForm:pgBot " process="@this" listener="#{zonaUI.stateChange(behavior)}"/>
 
                         <p:column headerText="Id" sortBy="#{catz.idCtoZona}" footerText="Id">
                             <h:outputText value="#{catz.idCtoZona}" />

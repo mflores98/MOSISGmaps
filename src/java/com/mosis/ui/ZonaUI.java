@@ -25,6 +25,10 @@ public class ZonaUI implements Serializable {
 
     private ZonaHelper zonaHelper;
     private CtoZona ctoZona;
+    private boolean btnRegistrar;
+    private boolean btnModificar;
+    private boolean btnEliminar;
+    private boolean btnCancelar;
 
     public CtoZona getCtoZona() {
         return ctoZona;
@@ -34,13 +38,115 @@ public class ZonaUI implements Serializable {
         this.ctoZona = ctoZona;
     }
 
-//    private HtmlCommandButton buttonModificar;
-//    private HtmlCommandButton buttonEliminar;
-//    private HtmlCommandButton buttonCancelar;
-//    private HtmlCommandButton buttonRegistrar;
-
     public ZonaUI() {
         zonaHelper = new ZonaHelper();
+        //btn regis esta habilitado
+        btnRegistrar = false;
+        //los demas btns desabilitados
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
+    }
+
+    public void registrarZonaConfirm() {
+        zonaHelper.agredarZona();
+
+        this.zonaHelper.setCtoZona(new CtoZona());
+
+    }
+
+    public void stateChange(AjaxBehaviorEvent event) {
+        //btn regis esta inabi
+        btnRegistrar = true;
+        //los demas btns habilitados
+        btnModificar = false;
+        btnEliminar = false;
+        btnCancelar = false;
+
+        if (ctoZona != null) {
+
+            System.out.println("Este es el ID: " + zonaHelper.getCtoZona().getIdCtoZona());
+            zonaHelper.setCtoZona(ctoZona);
+
+        }
+    }
+
+    public void editarZona() throws Exception {
+        if (zonaHelper.getCtoZona().getIdCtoZona() != null) {
+            ServiceFacadeLocator.getInstanceZonas().modificarZona(zonaHelper.getCtoZona().getIdCtoZona(), zonaHelper.getCtoZona().getZona());
+        } else {
+            System.out.println("no hay zona selecccioando para editar");
+        }
+        //btn regis esta habi
+        btnRegistrar = false;
+        //los demas btns desahabilitados
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
+
+        this.zonaHelper.setCtoZona(new CtoZona());
+    }
+
+    public void elimanar() {
+        System.out.println("metodo eliminar: " + zonaHelper.getCtoZona().getIdCtoZona());
+        if (zonaHelper.getCtoZona().getIdCtoZona() != null) {
+            if (zonaHelper.getCtoZona() != null) {
+                ServiceFacadeLocator.getInstanceZonas().eliminar(zonaHelper.getCtoZona().getIdCtoZona());
+            }
+        }
+        //btn regis esta habi
+        btnRegistrar = false;
+        //los demas btns desahabilitados
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
+
+        this.zonaHelper.setCtoZona(new CtoZona());
+    }
+
+    public void cancelar() {
+        System.out.println("cancelar");
+        //btn regis esta habi
+        btnRegistrar = false;
+        //los demas btns desahabilitados
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
+
+        this.zonaHelper.setCtoZona(new CtoZona());
+
+    }
+
+    public boolean isBtnRegistrar() {
+        return btnRegistrar;
+    }
+
+    public void setBtnRegistrar(boolean btnRegistrar) {
+        this.btnRegistrar = btnRegistrar;
+    }
+
+    public boolean isBtnModificar() {
+        return btnModificar;
+    }
+
+    public void setBtnModificar(boolean btnModificar) {
+        this.btnModificar = btnModificar;
+    }
+
+    public boolean isBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public void setBtnEliminar(boolean btnEliminar) {
+        this.btnEliminar = btnEliminar;
+    }
+
+    public boolean isBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public void setBtnCancelar(boolean btnCancelar) {
+        this.btnCancelar = btnCancelar;
     }
 
     public ZonaHelper getZonaHelper() {
@@ -51,102 +157,8 @@ public class ZonaUI implements Serializable {
         this.zonaHelper = zonaHelper;
     }
 
-//    public HtmlCommandButton getButtonModificar() {
-//        return buttonModificar;
-//    }
-//
-//    public void setButtonModificar(HtmlCommandButton buttonModificar) {
-//        this.buttonModificar = buttonModificar;
-//    }
-//
-//    public HtmlCommandButton getButtonEliminar() {
-//        return buttonEliminar;
-//    }
-//
-//    public void setButtonEliminar(HtmlCommandButton buttonEliminar) {
-//        this.buttonEliminar = buttonEliminar;
-//    }
-//
-//    public HtmlCommandButton getButtonCancelar() {
-//        return buttonCancelar;
-//    }
-//
-//    public void setButtonCancelar(HtmlCommandButton buttonCancelar) {
-//        this.buttonCancelar = buttonCancelar;
-//    }
-//
-//    public HtmlCommandButton getButtonRegistrar() {
-//        return buttonRegistrar;
-//    }
-//
-//    public void setButtonRegistrar(HtmlCommandButton buttonRegistrar) {
-//        this.buttonRegistrar = buttonRegistrar;
-//    }
-
     public List<CtoZona> getListCtoZonas() {
         return ServiceFacadeLocator.getInstanceZonas().getListZonas();
     }
-      public void registrarZonaConfirm() {
-        zonaHelper.agredarZona();
-//        //desabilita
-//        this.buttonModificar.setDisabled(true);
-//        this.buttonEliminar.setDisabled(true);
-        this.zonaHelper.setCtoZona(new CtoZona());
-
-    }
-
-    public void stateChange(AjaxBehaviorEvent event) {
-        if (ctoZona != null) {
-//            //habilitar botones
-//            this.buttonModificar.setDisabled(false);
-//            this.buttonEliminar.setDisabled(false);
-//            this.buttonCancelar.setDisabled(false);
-//            //desabilitar
-//            this.buttonRegistrar.setDisabled(true);
-
-            System.out.println("Este es el ID: " + zonaHelper.getCtoZona().getIdCtoZona());
-            zonaHelper.setCtoZona(ctoZona);
-        }
-    }
-
-    public void editarZona() throws Exception {
-        if (zonaHelper.getCtoZona().getIdCtoZona() != null) {
-            ServiceFacadeLocator.getInstanceZonas().modificarZona(zonaHelper.getCtoZona().getIdCtoZona(), zonaHelper.getCtoZona().getZona());
-//            //desabilita
-//            buttonModificar.setDisabled(true);
-//            buttonEliminar.setDisabled(true);
-//            //hablilita
-//            buttonRegistrar.setDisabled(false);
-        } else {
-            System.out.println("no hay zona selecccioando para editar");
-        }
-        this.zonaHelper.setCtoZona(new CtoZona());
-    }
-
-    public void elimanar() {
-        System.out.println("metodo eliminar: " + zonaHelper.getCtoZona().getIdCtoZona());
-        if (zonaHelper.getCtoZona().getIdCtoZona() != null) {
-            if (zonaHelper.getCtoZona() != null) {
-                ServiceFacadeLocator.getInstanceZonas().eliminar(zonaHelper.getCtoZona().getIdCtoZona());
-                //desabilita
-//                buttonModificar.setDisabled(true);
-//                buttonEliminar.setDisabled(true);
-//                buttonCancelar.setDisabled(true);
-//                buttonRegistrar.setDisabled(false);
-
-            }
-        }
-        this.zonaHelper.setCtoZona(new CtoZona());
-    }
-//
-//    public void cancelar() {
-//        //desabilita
-////        buttonModificar.setDisabled(true);
-////        buttonEliminar.setDisabled(true);
-////        buttonRegistrar.setDisabled(false);
-//
-//        zonaHelper.cancelar();
-//
-//    }
 
 }

@@ -39,9 +39,4 @@ public class ZonaHelper implements Serializable {
 //            System.out.println("faltan campos.no lamacenadp");
         }
     }
-
-    public void cancelar() {
-        this.ctoZona = new CtoZona();
-        
-    }
 }

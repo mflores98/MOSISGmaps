@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+        <div>TODO write content</div>
+
+    <h:form id="form"> 
+
+        <p:commandButton value="agregar"
+                         actionListener="#{pruebasUI.registrar()}" update="form" disabled="#{pruebasUI.btnRegistrar}">
+        </p:commandButton>
+
+        <p:commandButton value="ModificiarS" 
+                         actionListener="#{pruebasUI.modificar()}" update="form" disabled="#{pruebasUI.btnModificar}">
+        </p:commandButton>
+
+        <p:commandButton value="eliminar" 
+                         actionListener="#{pruebasUI.eliminar()}" update="form" disabled="#{pruebasUI.btnEliminar}">
+        </p:commandButton>
+
+        <p:commandButton value="cancelar" 
+                         actionListener="#{pruebasUI.cancelar()}" update="form" disabled="#{pruebasUI.btnCancelar}">
+        </p:commandButton>
+
+
+    </h:form>
+</body>
+</html>
