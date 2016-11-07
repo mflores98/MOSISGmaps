@@ -5,87 +5,86 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templeate/Layout.xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
     <h:head>
         <title>Zona</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    <ui:define name="cuerpo">
-
-        <div class="ShadowBox whiteback RedBorderedBox ui-fluid">
-            <div class="Container100 Responsive100">
-                <div class="ContainerIndent">
-
-                    <h:form id="zonaForm">
-                        <p:messages id="messages" autoUpdate="false" />
-
-                        <h:panelGrid id="pgDatos" columns="3">
-
-                            <p:outputLabel for="nombreZ" value="Nombre: "></p:outputLabel>
-                            <p:inputText id="nombreZ" label="Ingresar Nombre:"
-                                         value="#{catalogosUI.catalogosHelper.ctoZona.zona}" 
-                                         required="true"/> 
-                            <p:message for="nombreZ"/>
 
 
-                        </h:panelGrid>
-                        <p:panelGrid id="pgBot" columns="4">
-                            <p:commandButton value="Registrar" actionListener="#{catalogosUI.registrarZonaConfirm()}" ajax="true" update=":dataF:dca, pgDatos" >
-                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                            </p:commandButton>
+    <div class="ShadowBox whiteback RedBorderedBox ui-fluid">
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent">
 
-                            <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarZona()}" ajax="true" update=":dataF:dca,pgBot, pgDatos"
-                                             binding="#{catalogosUI.buttonModificar}" disabled="true"
-                                             >
-                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                            </p:commandButton>
+                <h:form id="zonaForm">
+                    <p:messages id="messages" autoUpdate="false" />
 
-                            <p:commandButton value="Elimanar" action="#{catalogosUI.elimanar()}" ajax="true" update=":dataF:dca, pgBot, pgDatos"
-                                             binding="#{catalogosUI.buttonEliminar}" disabled="true"
-                                             >
-                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                            </p:commandButton>
+                    <h:panelGrid id="pgDatos" columns="3">
 
-                            <p:commandButton value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update=":dataF:dca, pgBot, pgDatos"
-                                             immediate="true">
-                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                        <p:outputLabel for="nombreZ" value="Nombre: "></p:outputLabel>
+                        <p:inputText id="nombreZ" label="Ingresar Nombre:"
+                                     value="#{zonaUI.zonaHelper.ctoZona.zona}" 
+                                     required="true"/> 
+                        <p:message for="nombreZ"/>
 
 
-                            </p:commandButton>
+                    </h:panelGrid>
+                    <p:panelGrid id="pgBot" columns="4">
+                        <p:commandButton value="Registrar" actionListener="#{zonaUI.registrarZonaConfirm()}" ajax="true" update=":dataF:dca, pgDatos"
+                                         >
+                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                        <p:commandButton value="Modificar" actionListener="#{zonaUI.editarZona()}" ajax="true" update=":dataF:dca, pgBot, pgDatos"
+                                         >
+                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                        <p:commandButton value="Eliminar" action="#{zonaUI.elimanar()}" ajax="true" update=":dataF:dca, pgBot, pgDatos"
+                                         >
+                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                        </p:commandButton>
+
+                        <p:commandButton value="Cancelar" action="#{zonaUI.zonaHelper.cancelar()}" ajax="false" update="@form"
+                                         immediate="true"
+                                         >
+                            <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
 
 
-                        </p:panelGrid> 
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                        </p:confirmDialog>
-                    </h:form>
+                        </p:commandButton>
 
-                    <h:form id="dataF">
-                        <p:dataTable id="dca" var="catz" value="#{catalogosUI.listCtoZonas}" selectionMode="single" selection="#{catalogosUI.catalogosHelper.ctoZona}" rowKey="#{catz.idCtoZona}" 
-                                     rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true">
-                            <f:facet name="header">
-                                Listado de Catalogo Zonas
-                            </f:facet>
-                            <p:ajax event="rowSelect" update=":zonaForm" process="@this" listener="#{catalogosUI.stateChange(behavior)}"/>
 
-                            <p:column headerText="Id" sortBy="#{catz.idCtoZona}" footerText="Id">
-                                <h:outputText value="#{catz.idCtoZona}" />
-                            </p:column>
-                            <p:column headerText="Nombre" sortBy="#{catz.zona}" footerText="Id">
-                                <h:outputText value="#{catz.zona}" />
-                            </p:column>
+                    </p:panelGrid> 
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </h:form>
 
-                        </p:dataTable>
-                    </h:form>
-                </div>
+                <h:form id="dataF">
+                    <p:dataTable id="dca" var="catz" value="#{zonaUI.listCtoZonas}" selectionMode="single" selection="#{zonaUI.zonaHelper.ctoZona}" rowKey="#{catz.idCtoZona}" 
+                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true">
+                        <f:facet name="header">
+                            Listado de Catalogo Zonas
+                        </f:facet>
+                        <p:ajax event="rowSelect" update=":zonaForm" process="@this" listener="#{zonaUI.stateChange(behavior)}"/>
+
+                        <p:column headerText="Id" sortBy="#{catz.idCtoZona}" footerText="Id">
+                            <h:outputText value="#{catz.idCtoZona}" />
+                        </p:column>
+                        <p:column headerText="Nombre" sortBy="#{catz.zona}" footerText="Id">
+                            <h:outputText value="#{catz.zona}" />
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
             </div>
         </div>
-    </ui:define>
-</ui:composition>
+    </div>
+</html>

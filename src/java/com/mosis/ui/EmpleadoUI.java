@@ -9,10 +9,8 @@ import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.Empleado;
 import com.mosis.entity.TipoEmpleado;
 import com.mosis.helper.EmpleadoHelper;
-import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.behavior.AjaxBehavior;
 
@@ -22,10 +20,11 @@ import javax.faces.component.behavior.AjaxBehavior;
  */
 @ManagedBean
 @ViewScoped
-public class EmpleadoUI implements Serializable {
-
+public class EmpleadoUI {
+    
     private EmpleadoHelper empleadoHelper;
-
+    private Empleado empleado;
+    
     public EmpleadoUI() {
         empleadoHelper = new EmpleadoHelper();
     }
@@ -44,42 +43,37 @@ public class EmpleadoUI implements Serializable {
         this.empleadoHelper = empleadoHelper;
     }
 
-    public List<Empleado> getListEmpleados() {
-        return ServiceFacadeLocator.getInstanceEmpleado().getListEmpleados();
+    /**
+     * @return the empleado
+     */
+    public Empleado getEmpleado() {
+        return empleado;
     }
 
+    /**
+     * @param empleado the empleado to set
+     */
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+    
+    public List<Empleado> getListEmpleados() {
+        return this.empleadoHelper.getDelegateEmpleado().getListEmpleados();
+    }
+    
     public List<TipoEmpleado> getListTipoEmpleado() {
         return ServiceFacadeLocator.getInstanceTipoEmpleado().getListTipoEmpleado();
     }
-
-    public void registar() {
-        empleadoHelper.registar();
-    }
-
-    public void modificar() {
-        empleadoHelper.modificar();
-    }
-
-    public void eliminar() {
-        empleadoHelper.eliminar();
-    }
-
-    public void cancelar() {
-        empleadoHelper.setEmpleado(new Empleado());
-
-    }
-
+    
     public void stateChange(AjaxBehavior behavior) {
-        System.err.println("Entre a este metodo");
-
-        if (empleadoHelper.getEmpleado().getFkIdTipoEmpleado().getIdTipoEmpleado() != null) {
-            //habilitar botones
-//            this.buttonModificar.setDisabled(false);
-//            this.buttonEliminar.setDisabled(false);
-            System.err.println("ya Entre a metodo");
-            empleadoHelper.setEmpleado(getEmpleadoHelper().getEmpleado());
+        System.err.println("Entre a metodo");
+        
+        if (empleado != null) {
+            System.err.println("Entre");
+            empleadoHelper.setCurrentEmpleado(empleado);
+            
         }
-
+        
     }
-
+    
 }

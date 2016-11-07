@@ -11,8 +11,7 @@ import com.mosis.entity.CtoZona;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
+
 
 /**
  *
@@ -39,13 +38,13 @@ public class CatalogosHelper implements Serializable {
 
     public void agredarZona() {
 //        System.out.println("catt");
-//        if (getCtoZona() != null) {
+        if (ctoZona != null) {
 //            addMessage("Se registro", "");
-        ServiceFacadeLocator.getInstanceZonas().agregarZona(new CtoZona(0, ctoZona.getZona()));
+        ServiceFacadeLocator.getInstanceZonas().agregarZona(new CtoZona(0, getCtoZona().getZona()));
 //            System.out.println("almacenado");
 //        } else {
 //            System.out.println("faltan campos.no lamacenadp");
-//        }
+        }
     }
 
 //    public void addMessage(String summary, String detail) {

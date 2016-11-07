@@ -1,10 +1,15 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      >
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Empleados</title>
         <link rel="stylesheet" type="text/css" href="tab.css"/>
@@ -14,32 +19,32 @@
             <div class="Container100 Responsive100">
                 <div class="ContainerIndent">
                     <h:form id="formularioEmpleado">
-                        <p:messages id="messages" autoUpdate="false" />
+                        <p:growl id="messages" autoUpdate="false"  severity="info, faltal" showSummary="true" showDetail="true"/>
 
                         <p:panelGrid id="pgEmpleadoDatos" columns="3">
                             <p:outputLabel for="num" value="Numero "></p:outputLabel>
-                            <p:inputText id="num" value="#{empleadoUI.empleadoHelper.empleado.numeroEmpleado}" required="true" requiredMessage="Se necesita un valor"/>
+                            <p:inputText id="num" value="#{empleadoUI2.empleadoHelper.empleado.numeroEmpleado}" required="true" requiredMessage="Se necesita un valor"/>
                             <p:message for="num"/>
 
                             <p:outputLabel for="nom" value="nombre"/>
-                            <p:inputText id="nom" value="#{empleadoUI.empleadoHelper.empleado.fkIdPersona.nombre}" required="true" requiredMessage="Se necesita un valor"/>
+                            <p:inputText id="nom" value="#{empleadoUI2.empleadoHelper.persona.nombre}" required="true" requiredMessage="Se necesita un valor"/>
                             <p:message for="nom"/>
 
                             <p:outputLabel for="ap" value="ApellidoPaterno"/>
-                            <p:inputText id="ap" value="#{empleadoUI.empleadoHelper.empleado.fkIdPersona.apellidoPaterno}" required="true" requiredMessage="Se necesita un valor"/>
+                            <p:inputText id="ap" value="#{empleadoUI2.empleadoHelper.persona.apellidoPaterno}" required="true" requiredMessage="Se necesita un valor"/>
                             <p:message for="ap"/>
 
                             <p:outputLabel for="am" value="ApellidoMaterno"/>
-                            <p:inputText id="am" value="#{empleadoUI.empleadoHelper.empleado.fkIdPersona.apellidoMaterno}"/>
+                            <p:inputText id="am" value="#{empleadoUI2.empleadoHelper.persona.apellidoMaterno}"/>
                             <p:message for="am"/>
                         </p:panelGrid>
                         <p:panelGrid columns="3" id="pgSelect">
                             <p:outputLabel for="selectTipoEmp" value="Tipo Empleado"/>
-                            <p:selectOneMenu id="selectTipoEmp" value="#{empleadoUI.empleadoHelper.empleado.fkIdTipoEmpleado.idTipoEmpleado}"
+                            <p:selectOneMenu id="selectTipoEmp" value="#{empleadoUI2.empleadoHelper.tipoEmpleadoInt}"
                                              filter="true" filterMatchMode="contains" required="true" requiredMessage="Se necesita un tipo empleado"
                                              >
                                 <f:selectItem itemLabel="Seleccione" noSelectionOption="true" />
-                                <f:selectItems value="#{empleadoUI.listTipoEmpleado}" var="empleado" itemValue="#{empleado.idTipoEmpleado}" itemLabel="#{empleado.tipoEmpleado}"/>
+                                <f:selectItems value="#{empleadoUI2.listTipoEmpleado}" var="empleado" itemValue="#{empleado.idTipoEmpleado}" itemLabel="#{empleado.tipoEmpleado}"/>
                             </p:selectOneMenu>
                             <p:message for="selectTipoEmp"/>
                         </p:panelGrid>
@@ -47,19 +52,33 @@
 
 
                         <p:panelGrid id="pgBotn" columns="4">
-                            <p:commandButton value="Registrar" actionListener="#{empleadoUI.registar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos, pgSelect">
-                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                            <p:commandButton value="Registrar" actionListener="#{empleadoUI2.registar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos, pgSelect"
+                                             
+                                             
+                                             >
+                                <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert"/>
                             </p:commandButton>
 
-                            <p:commandButton value="Modificar" actionListener="#{empleadoUI.modificar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos, pgSelect">
+                            <p:commandButton value="Modificar" actionListener="#{empleadoUI2.modificar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos, pgSelect, pgBotn"
+                                             
+                                             >
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
-                            <p:commandButton value="Eliminar" actionListener="#{empleadoUI.eliminar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos" immediate="true">
+                            <p:commandButton value="Eliminar" actionListener="#{empleadoUI2.eliminar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos" immediate="true"
+                                           
+                                             >
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
-                            <p:commandButton value="Cancelar" actionListener="#{empleadoUI.cancelar()}" ajax="true" update=":formEmpleados:dtEmp, pgEmpleadoDatos" immediate="true">
+                            
+                            
+                              <!--update=":formEmpleados:dtEmp, pgEmpleadoDatos, pgBotn"-->           
+                            <p:commandButton value="Cancelar" actionListener="#{empleadoUI2.empleadoHelper.cancelar()}" ajax="false" update="@form" 
+                                             immediate="true">
                                 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                             </p:commandButton>
+                            
+                            <p:commandButton value="Cancelar2" actionListener="#{empleadoUI2.empleadoHelper.cancelar()}" ajax="false" update="@form" immediate="true">
+                                    </p:commandButton>
                         </p:panelGrid>
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
@@ -69,10 +88,10 @@
 
                     <h:form id="formEmpleados">
                         <p:dataTable id="dtEmp" var="emp" value="#{empleadoUI.listEmpleados}" selectionMode="single" 
-                                     selection="#{empleadoUI.empleadoHelper.empleado}" rowKey="#{emp.idEmpleado}" 
+                                     selection="#{empleadoUI2.empleadoHelper.empleado}" rowKey="#{emp.idEmpleado}" 
                                      rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true">
-                            <p:ajax event="rowSelect" update=":formularioEmpleado:pgEmpleadoDatos" process="@this" listener="#{empleadoUI.stateChange(behavior)}"/>
+                            <p:ajax event="rowSelect" update=":formularioEmpleado" process="@this" listener="#{empleadoUI2.stateChange(behavior)}"/>
 
                             <f:facet name="header">
                                 Listado de Empleados

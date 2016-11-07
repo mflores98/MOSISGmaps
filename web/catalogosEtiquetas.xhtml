@@ -60,9 +60,9 @@ and open the template in the editor.
 
                                 </h:panelGrid>
 
-                                <h:panelGrid columns="3" id="pgBotE">
+                                <h:panelGrid columns="4" id="pgBotE">
 
-                                    <p:commandButton value="Agregar" actionListener="#{etiquetasUI.registrar()}" ajax="true" update="formtab:dca, pgD"
+                                    <p:commandButton value="Agregar" actionListener="#{etiquetasUI.registrar()}" ajax="true" update=":formtab:dca, pgD"
                                                      binding="#{etiquetasUI.buttonRegistrar}"  disabled="false"
                                                      >
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
@@ -70,12 +70,17 @@ and open the template in the editor.
                                     <p:commandButton value="Modificar" actionListener="#{etiquetasUI.modificarEtiqueta()}"  
                                                      ajax="true" update="formtab:dca, pgD, pgBotE" binding="#{etiquetasUI.buttonModificar}" disabled="true">
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                                    </p:commandButton>  
-                                    <p:commandButton value="Eliminar" action="#{etiquetasUI.eliminar()}" ajax="true" update="formtab:dca, pgD, pgBotE"
-                                                     disabled="true" binding="#{etiquetasUI.buttonEliminar}" immediate="true">
+                                    </p:commandButton> 
+                                    
+                                    <p:commandButton value="Eliminar" action="#{etiquetasUI.eliminar()}"  
+                                                     ajax="true" update=":formtab:dca, pgD, pgBotE" binding="#{etiquetasUI.buttonEliminar}" disabled="true" immediate="true">
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                                    </p:commandButton>
-                                    <p:commandButton  value="Cancelar" actionListener="#{etiquetasUI.cancelar()}" ajax="true" update="formtab:dca, pgD, pgBotE" immediate="true">
+                                    </p:commandButton>  
+                                    
+                           
+                                    <p:commandButton  value="Cancelar" actionListener="#{etiquetasUI.cancelar()}" ajax="true" update="formtab:dca, pgD, pgBotE" 
+                                                      binding="#{etiquetasUI.buttonCancelar}" disabled="true" immediate="true">
+                                        
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>
                                 </h:panelGrid>

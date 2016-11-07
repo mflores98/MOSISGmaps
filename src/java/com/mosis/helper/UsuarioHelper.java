@@ -53,7 +53,6 @@ public class UsuarioHelper implements Serializable {
     }
 
     public void registrarUsaurio() throws MyException, MyException2 {
-        System.out.println("Password: " + usuario.getPassword());
             ServiceFacadeLocator.getInstanceUsuario().registrarUsaurio(usuario, persona, idTipoUsuarioSelected);
      
     }

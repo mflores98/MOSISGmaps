@@ -7,6 +7,7 @@ package com.mosis.ui;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.CtoServicio;
+import com.mosis.entity.Empleado;
 import com.mosis.entity.Etiquetas;
 import com.mosis.excepciones.MyException;
 import com.mosis.helper.EtiquetaHelper;
@@ -20,6 +21,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -34,6 +36,15 @@ public class EtiquetasUI implements Serializable {
     private HtmlCommandButton buttonModificar;
     private HtmlCommandButton buttonEliminar;
     private HtmlCommandButton buttonRegistrar;
+    private HtmlCommandButton buttonCancelar;
+
+    public HtmlCommandButton getButtonCancelar() {
+        return buttonCancelar;
+    }
+
+    public void setButtonCancelar(HtmlCommandButton buttonCancelar) {
+        this.buttonCancelar = buttonCancelar;
+    }
 
     public HtmlCommandButton getButtonModificar() {
         return buttonModificar;
@@ -81,6 +92,7 @@ public class EtiquetasUI implements Serializable {
             this.buttonModificar.setDisabled(false);
             this.buttonEliminar.setDisabled(false);
             this.buttonRegistrar.setDisabled(true);
+            this.buttonCancelar.setDisabled(false);
             //de etiqueta seleccionada obtengo el servicio
             etiquetaHelper.setServicioSelected(etiquetaHelper.getCurrentEtiqueta().getFkServicio());
             //y usuario
@@ -91,12 +103,14 @@ public class EtiquetasUI implements Serializable {
     public void modificarEtiqueta() {
 
         //habilita
-        buttonRegistrar.setDisabled(false);
+        this.buttonRegistrar.setDisabled(false);
 
         etiquetaHelper.modificarEtiqueta();
         //desabilita
-        buttonModificar.setDisabled(true);
-        buttonEliminar.setDisabled(true);
+        this.buttonModificar.setDisabled(true);
+        this.buttonEliminar.setDisabled(true);
+        this.buttonCancelar.setDisabled(true);
+
         this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
 
     }
@@ -106,8 +120,8 @@ public class EtiquetasUI implements Serializable {
         try {
             etiquetaHelper.registrarEtiqueta();
             //desabilita
-            buttonModificar.setDisabled(true);
-            buttonEliminar.setDisabled(true);
+            this.buttonModificar.setDisabled(true);
+            this.buttonEliminar.setDisabled(true);
             this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
 
         } catch (Exception ex) {
@@ -119,14 +133,16 @@ public class EtiquetasUI implements Serializable {
     public void eliminar() {
 
         //desabilita
-        buttonModificar.setDisabled(true);
-        buttonEliminar.setDisabled(true);
+        this.buttonModificar.setDisabled(true);
+        this.buttonEliminar.setDisabled(true);
+        this.buttonCancelar.setDisabled(true);
+
 //            etiquetaHelper.eliminar();
         if (etiquetaHelper.getCurrentEtiqueta() != null) {
             ServiceFacadeLocator.getInstanceEtiquetas().deleteEtiqueta(etiquetaHelper.getCurrentEtiqueta().getIdEtiqueta());
             this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
             //habilita
-            buttonRegistrar.setDisabled(false);
+            this.buttonRegistrar.setDisabled(false);
         } else {
             addMessage("No se elimino", "");
         }
@@ -135,14 +151,25 @@ public class EtiquetasUI implements Serializable {
 
     public void cancelar() {
         //habilita
-        buttonRegistrar.setDisabled(false);
+        this.buttonRegistrar.setDisabled(false);
         //desabilita
-        buttonModificar.setDisabled(true);
-        buttonEliminar.setDisabled(true);
-        this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
+        this.buttonModificar.setDisabled(true);
+        this.buttonEliminar.setDisabled(true);
+        this.buttonCancelar.setDisabled(true);
+        this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());//limpiar campos
+//        lim();
+//        this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas(null, null, null, null, null, null, null, null, null, null, null, null));
 
     }
 
+//    public void lim() {
+//        System.out.println("limpia");
+//        Etiquetas e = new Etiquetas();
+//        e.setValorTag("");
+//        e.setNombre("");
+//        this.etiquetaHelper.setCurrentEtiqueta(e);
+//
+//    }
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);

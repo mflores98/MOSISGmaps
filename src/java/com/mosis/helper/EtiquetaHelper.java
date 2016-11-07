@@ -27,8 +27,8 @@ public class EtiquetaHelper implements Serializable {
     public EtiquetaHelper() {
         currentEtiqueta = new Etiquetas();
         servicioSelected = new CtoServicio();
-        usuarioActual = new Usuarios();
-        login = new UsuarioUILogin();
+//        usuarioActual = new Usuarios();
+//        login = new UsuarioUILogin();
     }
 
     public List<Etiquetas> getEtiquetas() {

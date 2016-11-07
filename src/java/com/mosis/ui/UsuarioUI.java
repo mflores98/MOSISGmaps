@@ -48,6 +48,7 @@ public class UsuarioUI implements Serializable {
             addMessage("Se registro", getUsuarioHelper().getUsuario().getUserName());
             usuarioHelper.registrarUsaurio();
         } catch (MyException | MyException2 ex) {
+            System.out.println("Ya esta registrado");
             addMessage("Advertencia", getUsuarioHelper().getUsuario().getUserName()+" ya se encuentra registrado");
             
         }
