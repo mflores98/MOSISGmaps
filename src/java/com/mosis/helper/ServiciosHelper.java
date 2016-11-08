@@ -46,6 +46,8 @@ public class ServiciosHelper implements Serializable {
         } catch (Exception e) {
             System.out.println("Erroror");
         }
+        ctoServicio = new CtoServicio();
+        ctoServicio.setIdCtoZona(new CtoZona());
     }
 
     public void editarServicio() {
@@ -74,11 +76,4 @@ public class ServiciosHelper implements Serializable {
         this.ctoServicio = ctoServicio;
     }
 
-//    public int getIdZonaSelected() {
-//        return idZonaSelected;
-//    }
-//
-//    public void setIdZonaSelected(int idZonaSelected) {
-//        this.idZonaSelected = idZonaSelected;
-//    }
 }

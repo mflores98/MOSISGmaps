@@ -47,7 +47,7 @@ and open the template in the editor.
 
                             </h:panelGrid>
 
-                            <p:panelGrid columns="1" id="pgZona"> 
+                            <p:panelGrid columns="3" id="pgZona"> 
                                 <p:outputLabel for="zona" value="Zona: "></p:outputLabel>
                                 <p:selectOneMenu id="zona" value="#{serviciosUI.serviciosHelper.ctoServicio.idCtoZona.idCtoZona}" label="Zona"
                                                  filter="true" filterMatchMode="contains" required="true"
@@ -60,11 +60,11 @@ and open the template in the editor.
 
                             <h:panelGrid  id="pgBot2" columns="4">
                                 <p:commandButton value="Registrar" actionListener="#{serviciosUI.registrar()}" ajax="true" disabled="#{serviciosUI.btnRegistrar}"
-                                                 update=":dataS:dcs, pgDatos2">
+                                                 update=":dataS:dcs, pgDatos2, pgZona">
                                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                 </p:commandButton>
                                 <p:commandButton value="Actualizar" actionListener="#{serviciosUI.actualizr()}" ajax="true"
-                                                 update=":dataS:dcs, pgDatos2, pgBot2"  disabled="#{serviciosUI.btnModificar}" 
+                                                 update=":dataS:dcs, pgDatos2, pgBot2, pgZona"  disabled="#{serviciosUI.btnModificar}" 
                                                  >
                                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                 </p:commandButton>
