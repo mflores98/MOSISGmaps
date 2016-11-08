@@ -26,48 +26,54 @@ and open the template in the editor.
                     <div class="Container100 Responsive100">
                         <div class="ContainerIndent">
                             <h:form id="usForm">
-                                <h:panelGrid id="idu" columns="6">
+                                <p:messages id="messages" autoUpdate="false" />
 
-                                    <p:outputLabel value="Nombre: "></p:outputLabel>
-                                    <p:inputText label="Ingresar Nombre:" value="#{usuarioUI.usuarioHelper.persona.nombre}"/>                            
-                                    <p:outputLabel value="Apellido Paterno: "></p:outputLabel>
-                                    <p:inputText label="Ingresar Apellido Paterno" value="#{usuarioUI.usuarioHelper.persona.apellidoPaterno}"/>                            
+                                <h:panelGrid id="pgForm" columns="1">
+
+                                    <p:outputLabel for="nom" value="Nombre: "></p:outputLabel>
+                                    <p:inputText id="nom" label="Ingresar Nombre:" value="#{usuarioUI.usuarioHelper.persona.nombre}" required="true"/>
+                                    <p:message for="nom"/>
+
+                                    <p:outputLabel for="ap" value="Apellido Paterno: "></p:outputLabel>
+                                    <p:inputText id="ap" label="Ingresar Apellido Paterno" value="#{usuarioUI.usuarioHelper.persona.apellidoPaterno}" required="true"/>                            
+                                    <p:message for="ap"/>
+
                                     <p:outputLabel value="Apellido Materno "></p:outputLabel>
                                     <p:inputText label="Ingresar Apellido Materno" value="#{usuarioUI.usuarioHelper.persona.apellidoMaterno}"/>  
-                                    <p:outputLabel for="fecha" value="Fecha:" />
+                                    <p:outputLabel for="fecha" value="Fecha Nacimiento:" />
                                     <p:calendar id="fecha" value="#{usuarioUI.usuarioHelper.persona.fechaNacimiento}" locale="de" navigator="true" pattern="yyyy-MMM-dd" />
+
+                                    <p:outputLabel for="nus" value="Nombre de usuario: "></p:outputLabel>
+                                    <p:inputText id="nus" label="Usuario" value="#{usuarioUI.usuarioHelper.usuario.userName}" required="true"/>  
+                                    <p:message for="nus"/>
                                 </h:panelGrid>
 
                                 <p:spacer height="10" />
                                 <p:separator />
 
-                                <p:panelGrid id="idu2" columns="6">
-                                    <p:outputLabel value="Usuario: "></p:outputLabel>
-                                    <p:inputText label="Usuario" value="#{usuarioUI.usuarioHelper.usuario.userName}"/>  
-
-
-                                </p:panelGrid>
                                 <p:column headerText="selet">
-                                    <h:panelGrid>
-                                        <p:outputLabel for="ser" value="TipoUsaurio:  " />
-                                        <p:selectOneMenu id="ser" value="#{usuarioUI.usuarioHelper.idTipoUsuarioSelected}" label="s">
+                                    <h:panelGrid id="pgSelect">
+                                        <p:outputLabel for="ser" value="TipoUsaurio: " />
+                                        <p:selectOneMenu id="ser" value="#{usuarioUI.usuarioHelper.idTipoUsuarioSelected}" label="s" required="true">
                                             <f:selectItems value="#{usuarioUI.lista}" var="tp" itemValue="#{tp.idTipoUsuario}" itemLabel="#{tp.tipoUsuario}"/>
                                         </p:selectOneMenu>
+                                        <p:message for="ser"/>
                                     </h:panelGrid>
                                 </p:column>
 
 
-                                <p:messages id="messages" showDetail="true" autoUpdate="true" showSummary="true" />
 
-                                <h:panelGrid columns="2" id="matchGrid" cellpadding="5">                   
+                                <h:panelGrid columns="3" id="matchGrid" cellpadding="3">                   
                                     <h:outputLabel for="pwd1" value="Password 1: *" />
                                     <p:password id="pwd1" value="#{usuarioUI.usuarioHelper.usuario.password}" match="pwd2" label="Password 1" feedback="true" required="true" />
+                                    <p:message for="pwd1"/>
 
                                     <h:outputLabel for="pwd2" value="Password 2: *" />
                                     <p:password id="pwd2" value="#{usuarioUI.usuarioHelper.usuario.password}" label="Password 2" feedback="true" required="true" />
+                                    <p:message for="pwd2"/>
                                 </h:panelGrid>
 
-                                <p:commandButton value="Registrar" actionListener="#{usuarioUI.destroyWorld()}" >
+                                <p:commandButton value="Registrar" actionListener="#{usuarioUI.destroyWorld()}" update="pgForm, pgSelect, matchGrid">
                                     <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                 </p:commandButton>
 
@@ -81,12 +87,8 @@ and open the template in the editor.
                             </h:form>
                         </div>
                     </div>
-
                 </div>
-
-
             </div>
-
         </div>
     </body>
 </html>
