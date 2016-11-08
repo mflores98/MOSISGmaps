@@ -12,7 +12,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.event.AjaxBehaviorEvent;
 
 /**
@@ -105,7 +104,6 @@ public class ZonaUI implements Serializable {
     }
 
     public void cancelar() {
-        System.out.println("cancelar");
         //btn regis esta habi
         btnRegistrar = false;
         //los demas btns desahabilitados

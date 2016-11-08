@@ -5,109 +5,110 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/WEB-INF/templeate/Layout.xhtml">
+<xhtml xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:f="http://java.sun.com/jsf/core"
+       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui"
+       template="/WEB-INF/templeate/Layout.xhtml">
     <h:head>
         <title>Servicios</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    <ui:define name="cuerpo">
 
-        <div class="Container100">
-            <div class="ContainerIndent">
-                <div class="ShadowBox TexAlCenter whiteback BlueBorderedBox">
-                    <h1 class="BigTopic">Catalogo Servcios </h1>
-                    <span class="gray">Sección de adminstración de Servcios</span>
-                </div>
-                <div class="ShadowBox whiteback RedBorderedBox ui-fluid">
-                    <div class="Container100 Responsive100">
-                        <div class="ContainerIndent">
-
+    <div class="Container100">
+        <div class="ContainerIndent">
+            <div class="ShadowBox TexAlCenter whiteback BlueBorderedBox">
+                <h1 class="BigTopic">Catalogo Servcios </h1>
+                <span class="gray">Sección de adminstración de Servcios</span>
+            </div>
+            <div class="ShadowBox whiteback RedBorderedBox ui-fluid">
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
 
 
-                            <h:form id="serForm">
 
-                                <p:messages id="messages" autoUpdate="false" />
+                        <h:form id="serForm">
+
+                            <p:messages id="messages" autoUpdate="false" />
 
 
-                                <h:panelGrid id="pgDatos2" columns="3">
+                            <h:panelGrid id="pgDatos2" columns="3">
 
-                                    <p:outputLabel for="nombre" value="Nombre: "></p:outputLabel>
-                                    <p:inputText id="nombre" label="Ingresar Nombre de Servicio:" value="#{catalogosUI.catalogosHelper.ctoServicio.servicio}"
-                                                 required="true"/>
-                                    <p:message for="nombre"/> 
+                                <p:outputLabel for="nombre" value="Nombre: "></p:outputLabel>
+                                <p:inputText id="nombre" label="Ingresar Nombre de Servicio:" value="#{serviciosUI.serviciosHelper.ctoServicio.servicio}"
+                                             required="true"/>
+                                <p:message for="nombre"/> 
 
-                                    <p:outputLabel for="clave" value="Clave "></p:outputLabel>
-                                    <p:inputText id="clave" label="Ingresar Clave" value="#{catalogosUI.catalogosHelper.ctoServicio.clave}" required="true" >
-                                    </p:inputText>
-                                    <p:message for="clave"/>
+                                <p:outputLabel for="clave" value="Clave "></p:outputLabel>
+                                <p:inputText id="clave" label="Ingresar Clave" value="#{serviciosUI.serviciosHelper.ctoServicio.clave}" required="true" >
+                                </p:inputText>
+                                <p:message for="clave"/>
 
-                                    <p:outputLabel for="zona" value="Zona: "></p:outputLabel>
-                                    <p:selectOneMenu id="zona" value="#{catalogosUI.catalogosHelper.idZonaSelected}" label="Zona"
-                                                     filter="true" filterMatchMode="contains" required="true"
-                                                     >
-                                        <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
-                                        <f:selectItems value="#{catalogosUI.listCtoZonas}" var="zona" itemValue="#{zona.idCtoZona}" itemLabel="#{zona.zona}"/>
-                                    </p:selectOneMenu>
-                                    <p:message for="zona"/>
-                                </h:panelGrid>
+                            </h:panelGrid>
 
-                                <h:panelGrid  id="pgBot2" columns="4">
-                                    <p:commandButton value="Registrar" actionListener="#{catalogosUI.catalogosHelper.agregarServicio()}" ajax="true"
-                                                     update=":dataS:dcs, pgDatos2">
-                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                                    </p:commandButton>
-                                    <p:commandButton value="Actualizar" actionListener="#{catalogosUI.editarServicio()}" ajax="true"
-                                                     update=":dataS:dcs, pgDatos2, pgBot2" binding="#{catalogosUI.buttonModificar}" disabled="true"
-                                                     >
-                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                                    </p:commandButton>
-                                    <p:commandButton value="Eliminar" action="#{catalogosUI.eliminar()}" ajax="true" 
-                                                     update=":dataS:dcs, pgDatos2, pgBot2" immediate="true"
-                                                     binding="#{catalogosUI.buttonEliminar}" disabled="true">
-                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
-                                    </p:commandButton>
-                                    <p:commandButton  value="Cancelar" actionListener="#{catalogosUI.cancelar()}" ajax="true" update="@form" immediate="true">
-                                    </p:commandButton>
-                                    
-                                </h:panelGrid>
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                                </p:confirmDialog>
-                            </h:form>
-                        </div>
+                            <p:panelGrid columns="1" id="pgZona"> 
+                                <p:outputLabel for="zona" value="Zona: "></p:outputLabel>
+                                <p:selectOneMenu id="zona" value="#{serviciosUI.serviciosHelper.ctoServicio.idCtoZona.idCtoZona}" label="Zona"
+                                                 filter="true" filterMatchMode="contains" required="true"
+                                                 >
+                                    <f:selectItem itemLabel="Seleccione" noSelectionOption="true"/>
+                                    <f:selectItems value="#{serviciosUI.listCtoZonas}" var="zona" itemValue="#{zona.idCtoZona}" itemLabel="#{zona.zona}"/>
+                                </p:selectOneMenu>
+                                <p:message for="zona"/>
+                            </p:panelGrid>
+
+                            <h:panelGrid  id="pgBot2" columns="4">
+                                <p:commandButton value="Registrar" actionListener="#{serviciosUI.registrar()}" ajax="true" disabled="#{serviciosUI.btnRegistrar}"
+                                                 update=":dataS:dcs, pgDatos2">
+                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton value="Actualizar" actionListener="#{serviciosUI.actualizr()}" ajax="true"
+                                                 update=":dataS:dcs, pgDatos2, pgBot2"  disabled="#{serviciosUI.btnModificar}" 
+                                                 >
+                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton value="Eliminar" action="#{serviciosUI.eliminar()}" ajax="true"  
+                                                 update=":dataS:dcs, pgDatos2, pgBot2" immediate="true"
+                                                 disabled="#{serviciosUI.btnEliminar}">
+                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton  value="Cancelar" actionListener="#{serviciosUI.cancelar()}" ajax="false" update="@form" immediate="true" disabled="#{serviciosUI.btnCancelar}">
+                                </p:commandButton>
+
+                            </h:panelGrid>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </h:form>
                     </div>
                 </div>
-
-                <h:form id="dataS">
-                    <p:dataTable id="dcs" var="cats" value="#{catalogosUI.listaServicios}" selectionMode="single" selection="#{catalogosUI.catalogosHelper.ctoServicio}" rowKey="#{cats.idCtoServicio}" 
-                                 rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                 rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true">
-                        <f:facet name="header">
-                            Listado de Catalogo Servicios
-                        </f:facet>
-                        <p:ajax event="rowSelect" update=":serForm" process="@this" listener="#{catalogosUI.stateChangeServ(behavior)}"/>
-
-                        <p:column headerText="Clave" sortBy="#{cats.clave}" footerText="Clave">
-                            <h:outputText value="#{cats.clave}" />
-                        </p:column>
-                        <p:column headerText="Servicio" sortBy="#{cats.servicio}" footerText="Servicio">
-                            <h:outputText value="#{cats.servicio}" />
-                        </p:column>
-                        <p:column headerText="Zona" sortBy="#{cats.idCtoZona.zona}" footerText="Zona">
-                            <h:outputText value="#{cats.idCtoZona.zona}" />
-                        </p:column>
-
-
-                    </p:dataTable>
-                </h:form>
             </div>
-        </div>
 
-    </ui:define>
-</ui:composition>
+            <h:form id="dataS">
+                <p:dataTable id="dcs" var="cats" value="#{serviciosUI.listaServicios}" selectionMode="single" selection="#{serviciosUI.serviciosHelper.ctoServicio}" rowKey="#{cats.idCtoServicio}" 
+                             rows="10" paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15" emptyMessage="No empleados found with given criteria" reflow="true">
+                    <f:facet name="header">
+                        Listado de Catalogo Servicios
+                    </f:facet>
+                    <p:ajax event="rowSelect" update=":serForm" process="@this" listener="#{serviciosUI.stateChangeServ(behavior)}"/>
+
+                    <p:column headerText="Clave" sortBy="#{cats.clave}" footerText="Clave">
+                        <h:outputText value="#{cats.clave}" />
+                    </p:column>
+                    <p:column headerText="Servicio" sortBy="#{cats.servicio}" footerText="Servicio">
+                        <h:outputText value="#{cats.servicio}" />
+                    </p:column>
+                    <p:column headerText="Zona" sortBy="#{cats.idCtoZona.zona}" footerText="Zona">
+                        <h:outputText value="#{cats.idCtoZona.zona}" />
+                    </p:column>
+
+
+                </p:dataTable>
+            </h:form>
+        </div>
+    </div>
+
+</xhtml>
