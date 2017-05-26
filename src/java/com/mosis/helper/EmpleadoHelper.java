@@ -6,7 +6,7 @@
 package com.mosis.helper;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
-import com.mosis.delegate.DelegateEmpleado;
+import com.mosis.entity.CtoServicio;
 import com.mosis.entity.Empleado;
 import com.mosis.entity.Persona;
 import com.mosis.entity.TipoEmpleado;
@@ -21,7 +21,7 @@ import javax.faces.context.FacesContext;
  */
 public class EmpleadoHelper implements Serializable {
 
-    private DelegateEmpleado delegateEmpleado;
+    //private DelegateEmpleado delegateEmpleado;
 
     private String numero;
     private String nombre;
@@ -31,31 +31,33 @@ public class EmpleadoHelper implements Serializable {
     private int fkIdTipoEmpleado;
     private boolean update;
     private Empleado currentEmpleado;
+    private int fkIdCtoServicio;
 
     public EmpleadoHelper() {
-        delegateEmpleado = new DelegateEmpleado();
+      //  delegateEmpleado = new DelegateEmpleado();
         currentEmpleado = new Empleado();
         currentEmpleado.setFkIdPersona(new Persona());
     }
 
-    /**
-     * @return the delegateEmpleado
-     */
-    public DelegateEmpleado getDelegateEmpleado() {
-        return delegateEmpleado;
-    }
-
-    /**
-     * @param delegateEmpleado the delegateEmpleado to set
-     */
-    public void setDelegateEmpleado(DelegateEmpleado delegateEmpleado) {
-        this.delegateEmpleado = delegateEmpleado;
-    }
+//    /**
+//     * @return the delegateEmpleado
+//     */
+//    public DelegateEmpleado getDelegateEmpleado() {
+//        return delegateEmpleado;
+//    }
+//
+//    /**
+//     * @param delegateEmpleado the delegateEmpleado to set
+//     */
+//    public void setDelegateEmpleado(DelegateEmpleado delegateEmpleado) {
+//        this.delegateEmpleado = delegateEmpleado;
+//    }
 
     public void insertPersonaEmpleado() throws Exception {
         try {
             ServiceFacadeLocator.getInstanceEmpleado().insertPersona(currentEmpleado.getNumeroEmpleado(), currentEmpleado.getFkIdPersona().getNombre(),
-                    currentEmpleado.getFkIdPersona().getApellidoPaterno(), currentEmpleado.getFkIdPersona().getApellidoMaterno(), fecha, fkIdTipoEmpleado);
+                    currentEmpleado.getFkIdPersona().getApellidoPaterno(), currentEmpleado.getFkIdPersona().getApellidoMaterno(), fecha,
+                    fkIdTipoEmpleado, fkIdCtoServicio);
         } catch (Exception e) {
             addMessage("Numero ya existe", "");
             System.out.println("Error o  numero ya esta registrado");
@@ -68,10 +70,12 @@ public class EmpleadoHelper implements Serializable {
 
     public void actualizarPersonaEmpleado() throws Exception {
         TipoEmpleado tr = ServiceFacadeLocator.getInstanceTipoEmpleado().getTipoEmpleadoID(fkIdTipoEmpleado);
+        CtoServicio idServicio = ServiceFacadeLocator.getInstanceServicio().getIdServicio(fkIdCtoServicio);
         if (tr != null) {
             try {
 //                ServiceFacadeLocator.getInstanceEmpleado().updatePersona(currentEmpleado, tr);
                 currentEmpleado.setFkIdTipoEmpleado(tr);
+                currentEmpleado.setFkIdCtoServicio(idServicio);
                 ServiceFacadeLocator.getInstanceEmpleado().modificar(currentEmpleado);
             } catch (Exception e) {
                 System.out.println("Error");
@@ -174,5 +178,13 @@ public class EmpleadoHelper implements Serializable {
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public int getFkIdCtoServicio() {
+        return fkIdCtoServicio;
+    }
+
+    public void setFkIdCtoServicio(int fkIdCtoServicio) {
+        this.fkIdCtoServicio = fkIdCtoServicio;
     }
 }

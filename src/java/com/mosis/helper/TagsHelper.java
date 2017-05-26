@@ -6,12 +6,11 @@
 package com.mosis.helper;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
-import com.mosis.delegate.DelegateEtiquetas;
 import com.mosis.entity.CtoAcciones;
 import com.mosis.entity.CtoServicio;
 import com.mosis.entity.Etiquetas;
 import com.mosis.entity.Flujos;
-import com.mosis.entity.Turnos;
+import com.mosis.entity.Turno;
 import java.io.Serializable;
 import java.util.List;
 
@@ -21,28 +20,19 @@ import java.util.List;
  */
 public class TagsHelper implements Serializable {
 
-    private DelegateEtiquetas delegateEtiquetas;
     private Etiquetas etiqueta;
     private CtoAcciones ctoAccionSelected;
-    private Turnos turnoSelected;
+    private Turno turnoSelected;
 
     private boolean update;
 
     public TagsHelper() {
-        delegateEtiquetas = new DelegateEtiquetas();
         etiqueta = new Etiquetas();
         ctoAccionSelected = new CtoAcciones();
-        turnoSelected = new Turnos();
+        turnoSelected = new Turno();
     }
 
-    public DelegateEtiquetas getDelegateEtiquetas() {
-        return delegateEtiquetas;
-    }
-
-    public void setDelegateEtiquetas(DelegateEtiquetas delegateEtiquetas) {
-        this.delegateEtiquetas = delegateEtiquetas;
-    }
-
+   
     public Etiquetas getEtiqueta() {
         return etiqueta;
     }
@@ -59,11 +49,11 @@ public class TagsHelper implements Serializable {
         this.ctoAccionSelected = ctoAccionSelected;
     }
 
-    public Turnos getTurnoSelected() {
+    public Turno getTurnoSelected() {
         return turnoSelected;
     }
 
-    public void setTurnoSelected(Turnos turnoSelected) {
+    public void setTurnoSelected(Turno turnoSelected) {
         this.turnoSelected = turnoSelected;
     }
 

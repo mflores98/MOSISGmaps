@@ -63,7 +63,8 @@ public class ReporteUI {
             Map<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("numeroEmpleado", "numEmp");
 
-            File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reporteEmpleado.jasper"));
+           
+             File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/reporteEmpleado.jasper"));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),
                     null,
                     new JRBeanCollectionDataSource(this.getListaEmpleados()));

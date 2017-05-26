@@ -62,6 +62,9 @@ public class CatalogoHorarioUI implements Serializable {
     }
     public void cancelar(){
         System.out.println("cancelar");
+    } 
+    public void eliminar(){
+        System.out.println("solo eliminar");
     }
 
     public void addMessage(String summary, String detail) {

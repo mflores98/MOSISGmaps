@@ -57,6 +57,14 @@ and open the template in the editor.
                                 </p:selectOneMenu> 
                                 <p:message for="txt3"/>
 
+
+                                <p:outputLabel value="Servicio"/>
+                                <p:selectOneMenu id="servicio" value="#{empleadoUI.empleadoHelper.fkIdCtoServicio}" label="Text 3">
+                                    <f:selectItem itemLabel="Sin Servicio"/>
+                                    <f:selectItems value="#{empleadoUI.listCtoServicio}" var="ctoServicio" itemValue="#{ctoServicio.idCtoServicio}" itemLabel="#{ctoServicio.servicio}"/>
+                                </p:selectOneMenu>
+
+
                             </h:panelGrid>
                             <h:panelGrid id="buttonsCrud" columns="4">
 
@@ -80,9 +88,7 @@ and open the template in the editor.
 
                                 <p:commandButton value="Cancelar" actionListener="#{empleadoUI.cancelar()}" ajax="false" update="@form"
                                                  disabled="#{empleadoUI.btnCancelar}"
-
                                                  >
-
                                 </p:commandButton>
                             </h:panelGrid>
 
@@ -113,6 +119,15 @@ and open the template in the editor.
                             <p:column headerText="Apellido">
                                 <h:outputText value="#{emp.fkIdPersona.apellidoPaterno}" />
                             </p:column>
+
+                            <p:column headerText="Servicio">
+                                <h:outputText value="#{emp.fkIdCtoServicio.servicio}"/>
+                            </p:column> 
+
+                            <p:column headerText="Clave">
+                                <h:outputText value="#{emp.fkIdCtoServicio.clave}"/>
+                            </p:column>
+
                         </p:dataTable>
                     </h:form>
 

@@ -40,34 +40,34 @@ public class Polylines implements Serializable {
         this.idRonda = idRonda;
     }
 
-    
     public void marcar() {
 
-            simpleModel = new DefaultMapModel();
+        simpleModel = new DefaultMapModel();
 
-            List<LatLng> puntosA = new ArrayList<>();
-            List<LatLng> puntosB = new ArrayList<>();
+        List<LatLng> puntosA = new ArrayList<>();
+        List<LatLng> puntosB = new ArrayList<>();
 
-            // List<Rutas> rutas = ServiceFacadeLocator.getInstanceRuta().getListaRutas();
-            List<Rutas> rutas = ServiceFacadeLocator.getInstanceRuta().getRutasByRondaID(idRonda);//rutas por id Ronda    
+        // List<Rutas> rutas = ServiceFacadeLocator.getInstanceRuta().getListaRutas();
+        //  List<Rutas> rutas = ServiceFacadeLocator.getInstanceRuta().getRutasByRondaID(idRonda);//rutas por id Ronda
+        List<Rutas> rutas = ServiceFacadeLocator.getInstanceRuta().getRutasByRonda(idRonda);
 
-            for (Rutas ruta : rutas) {
-                //punto a
-                LatLng latLngA = new LatLng(ruta.getFkIdEtiquetaA().getLatitud(), ruta.getFkIdEtiquetaA().getLongitud());
-                //punto b
-                LatLng latLngB = new LatLng(ruta.getFkIdEtiquetaB().getLatitud(), ruta.getFkIdEtiquetaB().getLongitud());
-                puntosA.add(latLngA);
-                puntosB.add(latLngB);
-                simpleModel.addOverlay(new Marker(latLngA, "A"));
-                simpleModel.addOverlay(new Marker(latLngB, "B"));
-            }
-            Polyline polyline = new Polyline();
-            polyline.getPaths().addAll(puntosA);
-            polyline.getPaths().addAll(puntosB);
-            polyline.setStrokeWeight(10);
-            polyline.setStrokeColor("#ff0000");
-            polyline.setStrokeOpacity(0.7);
-            simpleModel.addOverlay(polyline);
+        for (Rutas ruta : rutas) {
+            //punto a
+            LatLng latLngA = new LatLng(ruta.getFkIdEtiquetaA().getLatitud(), ruta.getFkIdEtiquetaA().getLongitud());
+            //punto b
+            LatLng latLngB = new LatLng(ruta.getFkIdEtiquetaB().getLatitud(), ruta.getFkIdEtiquetaB().getLongitud());
+            puntosA.add(latLngA);
+            puntosB.add(latLngB);
+            simpleModel.addOverlay(new Marker(latLngA, "A"));
+            simpleModel.addOverlay(new Marker(latLngB, "B"));
+        }
+        Polyline polyline = new Polyline();
+        polyline.getPaths().addAll(puntosA);
+        polyline.getPaths().addAll(puntosB);
+        polyline.setStrokeWeight(10);
+        polyline.setStrokeColor("#ff0000");
+        polyline.setStrokeOpacity(0.7);
+        simpleModel.addOverlay(polyline);
     }
 
 //    @PostConstruct
@@ -98,7 +98,6 @@ public class Polylines implements Serializable {
 //            System.out.println("Error: " + e);
 //        }
 //    }
-
     public MapModel getSimpleModel() {
         return simpleModel;
     }

@@ -7,21 +7,15 @@ package com.mosis.ui;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.CtoServicio;
-import com.mosis.entity.Empleado;
 import com.mosis.entity.Etiquetas;
-import com.mosis.excepciones.MyException;
 import com.mosis.helper.EtiquetaHelper;
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.behavior.AjaxBehavior;
-import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 
 /**
  *
@@ -33,37 +27,18 @@ public class EtiquetasUI implements Serializable {
 
     private EtiquetaHelper etiquetaHelper;
 
-    private HtmlCommandButton buttonModificar;
-    private HtmlCommandButton buttonEliminar;
-    private HtmlCommandButton buttonRegistrar;
-    private HtmlCommandButton buttonCancelar;
-
-    public HtmlCommandButton getButtonCancelar() {
-        return buttonCancelar;
-    }
-
-    public void setButtonCancelar(HtmlCommandButton buttonCancelar) {
-        this.buttonCancelar = buttonCancelar;
-    }
-
-    public HtmlCommandButton getButtonModificar() {
-        return buttonModificar;
-    }
-
-    public void setButtonModificar(HtmlCommandButton buttonModificar) {
-        this.buttonModificar = buttonModificar;
-    }
-
-    public HtmlCommandButton getButtonEliminar() {
-        return buttonEliminar;
-    }
-
-    public void setButtonEliminar(HtmlCommandButton buttonEliminar) {
-        this.buttonEliminar = buttonEliminar;
-    }
+    private boolean btnRegistrar;
+    private boolean btnModificar;
+    private boolean btnEliminar;
+    private boolean btnCancelar;
 
     public EtiquetasUI() {
         etiquetaHelper = new EtiquetaHelper();
+
+        btnRegistrar = false;
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
 
     }
 
@@ -84,15 +59,13 @@ public class EtiquetasUI implements Serializable {
     }
 
     public void stateChange(AjaxBehavior behavior) {
-        System.err.println("Entre a metodo");
+        btnRegistrar = true;
+        btnModificar = false;
+        btnEliminar = false;
+        btnCancelar = false;
         if (etiquetaHelper.getCurrentEtiqueta().getFkServicio() != null) {
-            System.out.println("obteniendo servicio de etiqueta");
+
             System.err.println("Entre a metodo");
-            //habilita botones
-            this.buttonModificar.setDisabled(false);
-            this.buttonEliminar.setDisabled(false);
-            this.buttonRegistrar.setDisabled(true);
-            this.buttonCancelar.setDisabled(false);
             //de etiqueta seleccionada obtengo el servicio
             etiquetaHelper.setServicioSelected(etiquetaHelper.getCurrentEtiqueta().getFkServicio());
             //y usuario
@@ -101,27 +74,25 @@ public class EtiquetasUI implements Serializable {
     }
 
     public void modificarEtiqueta() {
-
-        //habilita
-        this.buttonRegistrar.setDisabled(false);
+        btnRegistrar = false;
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
 
         etiquetaHelper.modificarEtiqueta();
-        //desabilita
-        this.buttonModificar.setDisabled(true);
-        this.buttonEliminar.setDisabled(true);
-        this.buttonCancelar.setDisabled(true);
 
         this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
 
     }
 
     public void registrar() {
-
+        btnRegistrar = false;
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
         try {
             etiquetaHelper.registrarEtiqueta();
-            //desabilita
-            this.buttonModificar.setDisabled(true);
-            this.buttonEliminar.setDisabled(true);
+
             this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
 
         } catch (Exception ex) {
@@ -132,17 +103,15 @@ public class EtiquetasUI implements Serializable {
 
     public void eliminar() {
 
-        //desabilita
-        this.buttonModificar.setDisabled(true);
-        this.buttonEliminar.setDisabled(true);
-        this.buttonCancelar.setDisabled(true);
-
+        btnRegistrar = false;
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
 //            etiquetaHelper.eliminar();
         if (etiquetaHelper.getCurrentEtiqueta() != null) {
             ServiceFacadeLocator.getInstanceEtiquetas().deleteEtiqueta(etiquetaHelper.getCurrentEtiqueta().getIdEtiqueta());
             this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());
             //habilita
-            this.buttonRegistrar.setDisabled(false);
         } else {
             addMessage("No se elimino", "");
         }
@@ -150,12 +119,10 @@ public class EtiquetasUI implements Serializable {
     }
 
     public void cancelar() {
-        //habilita
-        this.buttonRegistrar.setDisabled(false);
-        //desabilita
-        this.buttonModificar.setDisabled(true);
-        this.buttonEliminar.setDisabled(true);
-        this.buttonCancelar.setDisabled(true);
+        btnRegistrar = false;
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
         this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas());//limpiar campos
 //        lim();
 //        this.etiquetaHelper.setCurrentEtiqueta(new Etiquetas(null, null, null, null, null, null, null, null, null, null, null, null));
@@ -175,12 +142,59 @@ public class EtiquetasUI implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public HtmlCommandButton getButtonRegistrar() {
-        return buttonRegistrar;
+    /**
+     * @return the btnRegistrar
+     */
+    public boolean isBtnRegistrar() {
+        return btnRegistrar;
     }
 
-    public void setButtonRegistrar(HtmlCommandButton buttonRegistrar) {
-        this.buttonRegistrar = buttonRegistrar;
+    /**
+     * @param btnRegistrar the btnRegistrar to set
+     */
+    public void setBtnRegistrar(boolean btnRegistrar) {
+        this.btnRegistrar = btnRegistrar;
     }
 
+    /**
+     * @return the btnModificar
+     */
+    public boolean isBtnModificar() {
+        return btnModificar;
+    }
+
+    /**
+     * @param btnModificar the btnModificar to set
+     */
+    public void setBtnModificar(boolean btnModificar) {
+        this.btnModificar = btnModificar;
+    }
+
+    /**
+     * @return the btnEliminar
+     */
+    public boolean isBtnEliminar() {
+        return btnEliminar;
+    }
+
+    /**
+     * @param btnEliminar the btnEliminar to set
+     */
+    public void setBtnEliminar(boolean btnEliminar) {
+        this.btnEliminar = btnEliminar;
+    }
+
+    /**
+     * @return the btnCancelar
+     */
+    public boolean isBtnCancelar() {
+        return btnCancelar;
+    }
+
+    /**
+     * @param btnCancelar the btnCancelar to set
+     */
+    public void setBtnCancelar(boolean btnCancelar) {
+        this.btnCancelar = btnCancelar;
+    }
 }

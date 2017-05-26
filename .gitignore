@@ -1,3 +1,54 @@
 /nbproject/private/
 /build/
 /dist/
+
+.classpath
+target/
+.idea/
+.iml
+### Java ###
+.class
+# Package Files #
+.jar
+.war
+*.ear
+*.zip
+*.tar.gz
+.rar
+*.iml
+# Project specific excludes
+#
+
+tomcat
+
+#
+# Default excludes
+#
+# Binaries
+*.7z
+*.dmg
+*.gz
+*.iso
+*.rar
+*.tar
+*.sar
+
+# IntelliJ project files
+*.iws
+*.ipr
+
+# eclipse project file
+.settings/
+.project
+
+# NetBeans specific
+nbbuild/
+nbdist/
+nbactions.xml
+nb-configuration.xml
+
+
+# OS
+.DS_Store
+
+*.properties

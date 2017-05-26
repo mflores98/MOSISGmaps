@@ -34,46 +34,20 @@ import javax.faces.event.ActionListener;
 public class EmpleadoUI2 implements Serializable {
 
     private EmpleadoHelper2 empleadoHelper;
-
-//    private HtmlCommandButton buttonModificar;
-//    private HtmlCommandButton buttonEliminar;
-//    private HtmlCommandButton buttonRegistrar;
-//    private HtmlCommandButton buttonCancelar;
-
-//    public HtmlCommandButton getButtonCancelar() {
-//        return buttonCancelar;
-//    }
-//
-//    public void setButtonCancelar(HtmlCommandButton buttonCancelar) {
-//        this.buttonCancelar = buttonCancelar;
-//    }
-//
-//    public HtmlCommandButton getButtonRegistrar() {
-//        return buttonRegistrar;
-//    }
-//
-//    public void setButtonRegistrar(HtmlCommandButton buttonRegistrar) {
-//        this.buttonRegistrar = buttonRegistrar;
-//    }
-//
-//    public HtmlCommandButton getButtonModificar() {
-//        return buttonModificar;
-//    }
-//
-//    public void setButtonModificar(HtmlCommandButton buttonModificar) {
-//        this.buttonModificar = buttonModificar;
-//    }
-//
-//    public HtmlCommandButton getButtonEliminar() {
-//        return buttonEliminar;
-//    }
-//
-//    public void setButtonEliminar(HtmlCommandButton buttonEliminar) {
-//        this.buttonEliminar = buttonEliminar;
-//    }
+    private boolean btnRegistrar;
+    private boolean btnModificar;
+    private boolean btnEliminar;
+    private boolean btnCancelar;
 
     public EmpleadoUI2() {
         empleadoHelper = new EmpleadoHelper2();
+        //btn registrar habilitado
+        btnRegistrar = false;
+        //los de mas desabilitdos
+        btnModificar = true;
+        btnEliminar = true;
+        btnCancelar = true;
+
     }
 
     /**
@@ -100,15 +74,13 @@ public class EmpleadoUI2 implements Serializable {
 
     public void registar() {
         try {
-            
+
             empleadoHelper.registar();
 //            this.buttonModificar.setDisabled(true);
 //            this.buttonEliminar.setDisabled(true);
-            this.empleadoHelper.setEmpleado(new Empleado());
-            this.empleadoHelper.setPersona(new Persona());
-//            addMessage("Aviso", getEmpleadoHelper().getEmpleado().getNumeroEmpleado() + " se registro");
 
-        } catch (MyException | MyException2 ex) {
+//            addMessage("Aviso", getEmpleadoHelper().getEmpleado().getNumeroEmpleado() + " se registro");
+        } catch (Exception ex) {
 //            Logger.getLogger(EmpleadoUI.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("ya esta registrado");
 //            addMessage("Advertencia", getEmpleadoHelper().getEmpleado().getNumeroEmpleado() + " ya se encuentra registrado");
@@ -128,8 +100,7 @@ public class EmpleadoUI2 implements Serializable {
 //    }
     public void modificar() {
         empleadoHelper.modificar();
-          this.empleadoHelper.setEmpleado(new Empleado());
-            this.empleadoHelper.setPersona(new Persona());
+
         //habilita
 ////        buttonRegistrar.setDisabled(false);
 ////        //desabilita
@@ -139,8 +110,7 @@ public class EmpleadoUI2 implements Serializable {
 
     public void eliminar() {
         empleadoHelper.eliminar();
-          this.empleadoHelper.setEmpleado(new Empleado());
-            this.empleadoHelper.setPersona(new Persona());
+
     }
 
     public void cancelar() {
@@ -160,18 +130,56 @@ public class EmpleadoUI2 implements Serializable {
 
             System.err.println("ya Entre a metodo");
             empleadoHelper.setEmpleado(getEmpleadoHelper().getEmpleado());
-            empleadoHelper.setPersona(getEmpleadoHelper().getEmpleado().getFkIdPersona());
         }
         //            habilitar botones
 //        this.buttonCancelar.setDisabled(false);
 //        this.buttonModificar.setDisabled(false);
 //        this.buttonEliminar.setDisabled(false);
 //        this.buttonRegistrar.setDisabled(true);
+        //btn regis esta inabi
+        btnRegistrar = true;
+        //los demas btns habilitados
+        btnModificar = false;
+        btnEliminar = false;
+        btnCancelar = false;
+
     }
 
     public void addMessage(String summary, String detail) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public boolean isBtnRegistrar() {
+        return btnRegistrar;
+    }
+
+    public void setBtnRegistrar(boolean btnRegistrar) {
+        this.btnRegistrar = btnRegistrar;
+    }
+
+    public boolean isBtnModificar() {
+        return btnModificar;
+    }
+
+    public void setBtnModificar(boolean btnModificar) {
+        this.btnModificar = btnModificar;
+    }
+
+    public boolean isBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public void setBtnEliminar(boolean btnEliminar) {
+        this.btnEliminar = btnEliminar;
+    }
+
+    public boolean isBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public void setBtnCancelar(boolean btnCancelar) {
+        this.btnCancelar = btnCancelar;
     }
 
 }

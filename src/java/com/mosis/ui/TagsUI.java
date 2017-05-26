@@ -11,7 +11,7 @@ import com.mosis.entity.CtoAcciones;
 import com.mosis.entity.CtoServicio;
 import com.mosis.entity.Etiquetas;
 import com.mosis.entity.Flujos;
-import com.mosis.entity.Turnos;
+import com.mosis.entity.Turno;
 import com.mosis.helper.TagsHelper;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -85,17 +85,22 @@ public class TagsUI implements Serializable {
         simpleModel = new DefaultMapModel();
 
         List<Etiquetas> listad = ServiceFacadeLocator.getInstanceEtiquetas().getListEtiquetasByServicioID(idServicioSelected);
-        if (!listad.isEmpty()) {
-            for (Etiquetas etiquetas : listad) {
-                LatLng coord1 = new LatLng(etiquetas.getLatitud(), etiquetas.getLongitud());
-                simpleModel.addOverlay(new Marker(coord1, etiquetas.getNombre(), etiquetas.getNombre(), "http://tagpatrol.com/normal.png", etiquetas.getValorTag() + " id: " + etiquetas.getIdEtiqueta()));
+        try {
+            if (!listad.isEmpty()) {
+                System.out.println("si hay datos");
+                for (Etiquetas etiquetas : listad) {
+                    LatLng coord1 = new LatLng(etiquetas.getLatitud(), etiquetas.getLongitud());
+                    simpleModel.addOverlay(new Marker(coord1, etiquetas.getNombre(), etiquetas.getNombre(), "http://tagpatrol.com/normal.png", etiquetas.getNombre() + " id: " + etiquetas.getIdEtiqueta()));
+                }
+            } else {
+                System.out.println("no hay tag para este servicio");
+                FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "No hay tag para este servicio", null);
+
+                FacesContext.getCurrentInstance().addMessage(null, message);
+
             }
-        } else {
-            System.out.println("no hay tag para este servicio");
-            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "No hay tag para este servicio", null);
-
-            FacesContext.getCurrentInstance().addMessage(null, message);
-
+        } catch (Exception e) {
+            System.out.println("aqui error: "+e.getLocalizedMessage());
         }
 
     }
@@ -144,7 +149,7 @@ public class TagsUI implements Serializable {
         return ServiceFacadeLocator.getinstanceCtoAccion().getListCtoAcciones();
     }
 
-    public List<Turnos> getListaTurnos() {
+    public List<Turno> getListaTurnos() {
         return ServiceFacadeLocator.getTurnosFacade().getListTurnos();
     }
 
@@ -165,7 +170,7 @@ public class TagsUI implements Serializable {
             System.out.println("turno: " + idTurnoSelected);
             System.out.println("pregutna: " + pregunta);
             try {
-            ServiceFacadeLocator.getInstanceFlujos().registrarTareaATag(tagsHelper.getEtiqueta().getIdEtiqueta(), idAccionSelected, idTurnoSelected, pregunta);
+                ServiceFacadeLocator.getInstanceFlujos().registrarTareaATag(tagsHelper.getEtiqueta().getIdEtiqueta(), idAccionSelected, idTurnoSelected, pregunta);
                 System.out.println("aqqui metodo para almacenar");
             } catch (Exception ex) {
                 System.out.println("idAccion,idturno no valido ");

@@ -63,25 +63,25 @@ and open the template in the editor.
                                 <h:panelGrid columns="4" id="pgBotE">
 
                                     <p:commandButton value="Agregar" actionListener="#{etiquetasUI.registrar()}" ajax="true" update=":formtab:dca, pgD"
-                                                     binding="#{etiquetasUI.buttonRegistrar}"  disabled="false"
+                                                     disabled="#{etiquetasUI.btnRegistrar}"
                                                      >
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>  
                                     <p:commandButton value="Modificar" actionListener="#{etiquetasUI.modificarEtiqueta()}"  
-                                                     ajax="true" update="formtab:dca, pgD, pgBotE" binding="#{etiquetasUI.buttonModificar}" disabled="true">
+                                                     ajax="true" update="formtab:dca, pgD, pgBotE"
+                                                     disabled="#{etiquetasUI.btnModificar}">
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton> 
-                                    
+
                                     <p:commandButton value="Eliminar" action="#{etiquetasUI.eliminar()}"  
-                                                     ajax="true" update=":formtab:dca, pgD, pgBotE" binding="#{etiquetasUI.buttonEliminar}" disabled="true" immediate="true">
+                                                     ajax="true" update=":formtab:dca, pgD, pgBotE" 
+                                                     disabled="#{etiquetasUI.btnEliminar}" immediate="true">
                                         <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
                                     </p:commandButton>  
-                                    
-                           
+
+
                                     <p:commandButton  value="Cancelar" actionListener="#{etiquetasUI.cancelar()}" ajax="true" update="formtab:dca, pgD, pgBotE" 
-                                                      binding="#{etiquetasUI.buttonCancelar}" disabled="true" immediate="true">
-                                        
-                                        <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                                      disabled="#{etiquetasUI.btnCancelar}" immediate="true">
                                     </p:commandButton>
                                 </h:panelGrid>
 
@@ -93,6 +93,11 @@ and open the template in the editor.
                         </div>
                     </div>
                 </div>
+
+                <h:form enctype="multipart/form-data">
+                    <h:inputFile value="#{etiquetasUI.etiquetaHelper.image}"/><br/>
+                    <h:commandButton value="Upload File" action="#{etiquetasUI.etiquetaHelper.doUpload()}"/>
+                </h:form>
 
                 <h:form id="formtab">
                     <p:dataTable id="dca" var="etis" value="#{etiquetasUI.listEtiquetas}" selectionMode="single" selection="#{etiquetasUI.etiquetaHelper.currentEtiqueta}" rowKey="#{etis.idEtiqueta}" 
@@ -119,8 +124,8 @@ and open the template in the editor.
                         <p:column headerText="longitud" sortBy="#{etis.longitud}" footerText="longitud">
                             <h:outputText value="#{etis.longitud}" />
                         </p:column>
-                        <p:column headerText="servicio" sortBy="#{etis.fkServicio.servicio}" footerText="servicio">
-                            <h:outputText value="#{etis.fkServicio.servicio}" />
+                        <p:column headerText="servicio" sortBy="#{etis.fkCtoServicio.servicio}" footerText="servicio">
+                            <h:outputText value="#{etis.fkCtoServicio.servicio}" />
                         </p:column>
 
 

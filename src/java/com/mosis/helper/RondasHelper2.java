@@ -29,19 +29,19 @@ public class RondasHelper2 implements Serializable {
 
     public void insertarRonda() throws Exception {
 
-        ServiceFacadeLocator.getInstanceRonda().agregarRonda(
-                rondas.getRombre(), rondas.getTiempoEstimado(), rondas.getStatus(), fkIdHorarioSelected, fkIdServicioSelected);
+//        ServiceFacadeLocator.getInstanceRonda().agregarRonda(
+//                rondas.getRombre(), rondas.getTiempoEstimado(), rondas.getStatus(), fkIdHorarioSelected, fkIdServicioSelected);
     }
 
     public void editarRonda() throws Exception {
         System.out.println("rondaId: " + rondas.getIdRonda());
-        try {
-            ServiceFacadeLocator.getInstanceRonda().editarRonda(
-                    rondas.getIdRonda(), rondas.getRombre(), rondas.getTiempoEstimado(), rondas.getStatus(), fkIdHorarioSelected, fkIdServicioSelected);
-            System.out.println("Editado");
-        } catch (Exception ex) {
-            Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            ServiceFacadeLocator.getInstanceRonda().editarRonda(
+////                    rondas.getIdRonda(), rondas.getRombre(), rondas.getTiempoEstimado(), rondas.getStatus(), fkIdHorarioSelected, fkIdServicioSelected);
+////            System.out.println("Editado");
+//        } catch (Exception ex) {
+//            Logger.getLogger(RondasHelper2.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     public void eliminarRonda() {

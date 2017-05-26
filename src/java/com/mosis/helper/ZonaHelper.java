@@ -7,7 +7,9 @@ package com.mosis.helper;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
 import com.mosis.entity.CtoZona;
+import com.mosis.entity.Etiquetas;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -37,6 +39,13 @@ public class ZonaHelper implements Serializable {
 //            System.out.println("almacenado");
 //        } else {
 //            System.out.println("faltan campos.no lamacenadp");
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Etiquetas> d = ServiceFacadeLocator.getInstanceEtiquetas().getAllEtiquetas();
+        for (Etiquetas e : d) {
+            System.out.println("e: "+e.getNombre());            
         }
     }
 }

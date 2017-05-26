@@ -6,9 +6,11 @@
 package com.mosis.ui;
 
 import com.mosis.business.integration.ServiceFacadeLocator;
+import com.mosis.entity.CtoServicio;
 import com.mosis.entity.Empleado;
 import com.mosis.entity.TipoEmpleado;
 import com.mosis.helper.EmpleadoHelper;
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +24,7 @@ import javax.faces.component.behavior.AjaxBehavior;
  */
 @ManagedBean
 @ViewScoped
-public class EmpleadoUI {
+public class EmpleadoUI implements Serializable {
 
     private EmpleadoHelper empleadoHelper;
     private Empleado empleado;
@@ -76,6 +78,10 @@ public class EmpleadoUI {
 
     public List<TipoEmpleado> getListTipoEmpleado() {
         return ServiceFacadeLocator.getInstanceTipoEmpleado().getListTipoEmpleado();
+    }
+
+    public List<CtoServicio> getListCtoServicio() {
+        return ServiceFacadeLocator.getInstanceServicio().getListCtoServicios();
     }
 
     public void stateChange(AjaxBehavior behavior) {

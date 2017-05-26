@@ -24,30 +24,12 @@ import javax.faces.context.FacesContext;
 public class EmpleadoHelper2 implements Serializable {
 
     private Empleado empleado;
-    private Persona persona;
-    private int tipoEmpleadoInt;
-
-    public int getTipoEmpleadoInt() {
-        return tipoEmpleadoInt;
-    }
-
-    public void setTipoEmpleadoInt(int tipoEmpleadoInt) {
-        this.tipoEmpleadoInt = tipoEmpleadoInt;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
-    }
 
     public EmpleadoHelper2() {
         empleado = new Empleado();
-        persona = new Persona();
-//        empleado.setFkIdPersona(new Persona());
-//        empleado.setFkIdTipoEmpleado(new TipoEmpleado());
+//        persona = new Persona();
+        empleado.setFkIdPersona(new Persona());
+        empleado.setFkIdTipoEmpleado(new TipoEmpleado());
     }
 
     public Empleado getEmpleado() {
@@ -58,24 +40,27 @@ public class EmpleadoHelper2 implements Serializable {
         this.empleado = empleado;
     }
 
-//    public void registar() {
-//        ServiceFacadeLocator.getInstanceEmpleado().registrarEmpleado(empleado);
-//        this.empleado = new Empleado();
-//        this.empleado.setFkIdPersona(new Persona());
-//    }
     public void registar() throws MyException, MyException2 {
-//            ServiceFacadeLocator.getInstanceEmpleado().insertPersona(empleado.getNumeroEmpleado(), persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno(), "", tipoEmpleadoID);
-        ServiceFacadeLocator.getInstanceEmpleado().registrarEmpleado(getEmpleado(), getPersona(), getTipoEmpleadoInt());
-
+        //       ServiceFacadeLocator.getInstanceEmpleado().registrarEmpleado(empleado);
+        ServiceFacadeLocator.getInstanceEmpleado().addEmpleado(empleado.getNumeroEmpleado(), empleado.getFkIdPersona().getIdPersona(), empleado.getFkIdTipoEmpleado().getIdTipoEmpleado(), empleado.getFkIdCtoServicio().getIdCtoServicio());
+        this.empleado = new Empleado();
+        this.empleado.setFkIdPersona(new Persona());
     }
+//    public void registar() throws MyException, MyException2 {
+//            ServiceFacadeLocator.getInstanceEmpleado().insertPersona(empleado.getNumeroEmpleado(), persona.getNombre(), persona.getApellidoPaterno(), persona.getApellidoMaterno(), "", tipoEmpleadoID);
+//        ServiceFacadeLocator.getInstanceEmpleado().registrarEmpleado(getEmpleado(), getPersona(), getTipoEmpleadoInt());
+//
+//    }
 
     public void modificar() {
+        System.out.println("tipo emp: " + empleado.getFkIdTipoEmpleado().getTipoEmpleado());
         ServiceFacadeLocator.getInstanceEmpleado().modificar(empleado);
     }
 
     public void eliminar() {
         ServiceFacadeLocator.getInstanceEmpleado().eliminar(empleado);
     }
+
     public void cancelar() {
         empleado = new Empleado();
         empleado.setFkIdPersona(new Persona());
